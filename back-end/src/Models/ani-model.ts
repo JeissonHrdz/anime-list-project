@@ -1,3 +1,5 @@
+import { Character } from './character-model';
+
 export interface Anime {
     id: number;
     title: {
@@ -11,5 +13,8 @@ export interface Anime {
     averageScore: number;
     coverImage: {
         large: string;
+    };
+    characters: {
+        nodes: Character[];
     };
 }
