@@ -1,9 +1,10 @@
 export interface voiceActors {
-    id: number;
+   // id: number;
     name: {
-        full: string;
+        first: string;
+        last: string;
     };
-    image: {
+ /*   image: {
         large: string;
-    }; 
+    }; */
 }

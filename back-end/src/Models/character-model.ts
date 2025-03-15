@@ -14,6 +14,9 @@ export interface Character {
     media: {
         edges: {
             voiceActors: voiceActors[];
+            node:{
+                id: number;
+            }
         }[];
     };
 }

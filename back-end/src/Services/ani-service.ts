@@ -7,22 +7,33 @@ export const getAnimeByTitle = async (title: string, page: number = 1, perPage: 
     const query = `
         query ($title: String, $page: Int, $perPage: Int) {
             Page (page: $page, perPage: $perPage) {
-                media (search: $title, type: ANIME) {
-                    id
-                    title {
-                        romaji
-                        english
-                        native
-                    }
-                    description
-                    episodes
-                    status
-                    averageScore
-                    coverImage {
-                        large
-                    }
-                    characters (perPage: 10) {
-                        nodes {
+             media (search: $title, type: ANIME) {
+                id
+                title {
+                    romaji
+                    english
+                    native
+                }
+                description
+                episodes
+                status
+                averageScore
+                coverImage {
+                    large
+                }
+                characters (page: $page, perPage: $perPage) {
+                    edges {
+                     node {
+                            id
+                            name {
+                                full
+                            }
+                            description    
+                            image {
+                                large
+                            }
+                        }
+                        voiceActors (language: JAPANESE) {
                             id
                             name {
                                 full
@@ -30,24 +41,13 @@ export const getAnimeByTitle = async (title: string, page: number = 1, perPage: 
                             image {
                                 large
                             }
-                            media {
-                                edges {                                    
-                                     voiceActors (language: JAPANESE) {
-                                        id
-                                        name {
-                                            full
-                                        }
-                                        image {
-                                            large
-                                        }
-                                    }
-                                }
-                            }
                         }
-                    }                  
+                       
+                    }
+                    }
                 }
             }
-        }
+        }    
     `;// definimos la query que vamos a enviar a la API de AniList
     const variables = { // definimos las variables que vamos a enviar en la query
         title: title,
@@ -63,7 +63,9 @@ export const getAnimeByTitle = async (title: string, page: number = 1, perPage: 
             query: query, // pasamos la query
             variables: variables // pasamos las variables
         });
+        console.log(response.data.data.Page.media); 
         return response.data.data.Page.media as Anime[] // devolvemos los datos de la media (anime) que nos ha devuelto la API de AniList
+      
     } catch (error) {
         const err = error as any;
         console.error("Error en la solicitud de AniList:", err.response?.data || err.message); // si hay un error, lo mostramos por consola
