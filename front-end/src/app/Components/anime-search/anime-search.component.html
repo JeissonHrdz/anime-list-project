@@ -1,0 +1,23 @@
+<div>
+    <h1>Buscar Anime</h1>
+    <input [(ngModel)]="animeTitle" placeholder="Ingresa el título del anime" /> 
+    <button (click)="searchAnime()">Buscar</button>
+
+    @if ( errorMessage ){
+    <div class="error">
+        {{ errorMessage }}
+    </div>
+}
+
+    @if (animeData) {
+    @for (item of animeData; track $index){
+    <div>
+        <h2>{{ item.title.romaji }}</h2>
+        <img [src]="item.coverImage.large" alt="Cover Image" />
+        <p>{{ item.description }}</p>
+        <p>Episodios: {{ item.episodes }}</p>
+        <p>Puntuación: {{ item.averageScore }}</p>
+    </div>
+}
+}
+</div>

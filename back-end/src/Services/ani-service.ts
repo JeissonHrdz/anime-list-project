@@ -2,7 +2,7 @@ import axios from 'axios'; // importamos axios para hacer peticiones HTTP
 import { Anime } from '../Models/ani-model'; // importamos la interfaz Anime del archivo ani-model.ts
 import { ANILIST_API_URL } from '../Config/ani-config';
 
-export const getAnimeByTitle = async (title: string, page: number = 1, perPage: number = 10): Promise<Anime[]> => { // definimos una función asíncrona que recibe un título de anime y devuelve una promesa de Anime
+export const getAnimeByTitle = async (title: string, page: number = 1, perPage: number = 20): Promise<Anime[]> => { // definimos una función asíncrona que recibe un título de anime y devuelve una promesa de Anime
 
     const query = `
         query ($title: String, $page: Int, $perPage: Int) {
@@ -63,7 +63,7 @@ export const getAnimeByTitle = async (title: string, page: number = 1, perPage: 
             query: query, // pasamos la query
             variables: variables // pasamos las variables
         });
-        console.log(response.data.data.Page.media); 
+       
         return response.data.data.Page.media as Anime[] // devolvemos los datos de la media (anime) que nos ha devuelto la API de AniList
       
     } catch (error) {
