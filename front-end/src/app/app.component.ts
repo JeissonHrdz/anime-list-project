@@ -5,7 +5,7 @@ import { AnimeSearchComponent } from "./Components/anime-search/anime-search.com
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TopBarComponent, AnimeSearchComponent],
+  imports: [RouterOutlet, TopBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

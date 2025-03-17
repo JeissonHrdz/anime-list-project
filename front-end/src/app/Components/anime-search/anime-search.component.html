@@ -1,7 +1,6 @@
-<div>
-    <h1>Buscar Anime</h1>
-    <input [(ngModel)]="animeTitle" placeholder="Ingresa el título del anime" /> 
-    <button (click)="searchAnime()">Buscar</button>
+<div class="flex justify-center">  
+    <input class="border border-gray-300 rounded-lg shadow-md p-1 pl-3 mr-5 w-96 outline-blue-400" [(ngModel)]="animeTitle" placeholder="Ingresa el título del anime" /> 
+    <button (click)="searchAnime()" class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 pl-4">Buscar</button>
 
     @if ( errorMessage ){
     <div class="error">
