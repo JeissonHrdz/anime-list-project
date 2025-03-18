@@ -1,22 +1,13 @@
-<div class="flex justify-center">  
-    <input class="border border-gray-300 rounded-lg shadow-md p-1 pl-3 mr-5 w-96 outline-blue-400" [(ngModel)]="animeTitle" placeholder="Ingresa el título del anime" /> 
-    <button (click)="searchAnime()" class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 pl-4">Buscar</button>
+@if (dataFound) {    
 
-    @if ( errorMessage ){
-    <div class="error">
-        {{ errorMessage }}
-    </div>
-}
-
-    @if (animeData) {
-    @for (item of animeData; track $index){
-    <div>
-        <h2>{{ item.title.romaji }}</h2>
-        <img [src]="item.coverImage.large" alt="Cover Image" />
-        <p>{{ item.description }}</p>
-        <p>Episodios: {{ item.episodes }}</p>
-        <p>Puntuación: {{ item.averageScore }}</p>
-    </div>
-}
-}
+<div class="flex justify-center border-2">  
+    @if (anime) {       
+        <div *ngFor="let item of anime">           
+          
+            <img class="w-auto h-30 object-cover" [src]="item.coverImage.large" alt="Cover Image" />   
+            <h2>{{ item.title.romaji }}</h2>        
+           
+        </div>    
+    }
 </div>
+}

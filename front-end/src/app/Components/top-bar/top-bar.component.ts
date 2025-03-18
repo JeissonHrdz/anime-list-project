@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AnimeSearchComponent } from "../anime-search/anime-search.component";
+import { SearchBarComponent } from "./search-bar/search-bar.component";
 
 @Component({
   selector: 'app-top-bar',
-  imports: [AnimeSearchComponent],
+  imports: [ SearchBarComponent],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css'
 })

@@ -14,7 +14,7 @@ export interface Anime {
     coverImage: {
         large: string;
     };
-    characters: {
+  /*  characters: {
         nodes: Character[];
-    };
+    };*/
 }

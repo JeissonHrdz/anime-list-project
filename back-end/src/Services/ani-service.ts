@@ -21,31 +21,7 @@ export const getAnimeByTitle = async (title: string, page: number = 1, perPage: 
                 coverImage {
                     large
                 }
-                characters (page: $page, perPage: $perPage) {
-                    edges {
-                     node {
-                            id
-                            name {
-                                full
-                            }
-                            description    
-                            image {
-                                large
-                            }
-                        }
-                        voiceActors (language: JAPANESE) {
-                            id
-                            name {
-                                full
-                            }
-                            image {
-                                large
-                            }
-                        }
-                       
-                    }
-                    }
-                }
+            }                
             }
         }    
     `;// definimos la query que vamos a enviar a la API de AniList

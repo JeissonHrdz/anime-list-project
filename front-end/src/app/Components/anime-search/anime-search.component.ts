@@ -1,31 +1,27 @@
-import { Component, inject } from '@angular/core';
-import { AnimeService } from '../../Services/anime.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { Component, inject } from "@angular/core";
+import { AnimeService } from "../../Services/anime.service";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { Anime } from "../../Model/anime.model";
 
 @Component({
-  selector: 'app-anime-search',
+  selector: "app-anime-search",
   imports: [FormsModule, CommonModule, ReactiveFormsModule],
-  templateUrl: './anime-search.component.html',
-  styleUrl: './anime-search.component.css'
+  templateUrl: "./anime-search.component.html",
+  styleUrl: "./anime-search.component.css"
 })
 export class AnimeSearchComponent {
-    animeTitle: string = '';
-    animeData: any = null;
-    errorMessage: string = '';
+  private animeService = inject(AnimeService);
 
-    private animeService = inject(AnimeService);
-  
-    searchAnime() {
-      this.animeService.searchAnime(this.animeTitle).subscribe({
-        next: (data) => {
-          console.log(data);
-          this.animeData = data;
-        },
-        error: (error) => {
-          this.errorMessage = error.message;
-        }
-      });
-    }    
+  anime: Array<Anime> = [];
+  dataFound:boolean = false;
 
+  ngOnInit(): void {    
+    this.animeService.dataFoundEmitter.subscribe((data:Array<Anime>) => {          
+       if(data.length > 0){this.dataFound = true}
+       console.log(data);
+        this.anime = data        
+    }
+    );   
+  } 
 }
