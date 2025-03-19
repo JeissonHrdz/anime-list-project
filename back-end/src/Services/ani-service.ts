@@ -18,9 +18,11 @@ export const getAnimeByTitle = async (title: string, page: number = 1, perPage: 
                 episodes
                 status
                 averageScore
+                genres
                 coverImage {
                     large
                 }
+                format
             }                
             }
         }    

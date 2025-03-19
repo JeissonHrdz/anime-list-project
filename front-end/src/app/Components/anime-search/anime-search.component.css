@@ -1,0 +1,11 @@
+.ngx-scrollbar {
+    --scrollbar-size: 10px;
+    --scrollbar-thumb-color: #4a90e2;
+    --scrollbar-thumb-hover-color: #357abd;
+    --scrollbar-track-color: #f1f1f1;
+    --scrollbar-border-radius: 5px;
+  }
+  
+  .ngx-scrollbar:hover {
+    --scrollbar-thumb-color: #357abd;
+  }

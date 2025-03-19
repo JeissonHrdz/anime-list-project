@@ -9,7 +9,9 @@ export interface Anime {
     episodes: number;
     status: string;
     averageScore: number;
+    genres: string;
     coverImage: {
         large: string;
     };   
+    format: string;
 }

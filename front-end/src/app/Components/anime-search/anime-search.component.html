@@ -1,13 +1,26 @@
-@if (dataFound) {    
+@if (dataFound) {
+<ng-scrollbar>
+    <div class="grid grid-cols-2 gap-2 bg-gray-900 w-auto p-4 rounded-xl h-120 overflow-auto">
+        @if (anime) {
+        <div scrollViewport class="p-2 w-auto col-span-1  mb-2 
+     text-white flex justify-items-center hover:bg-gray-700 cursor-pointer rounded-lg" *ngFor="let item of anime">
+            <img class=" w-18 h-25 object-cover " [src]="item.coverImage.large" />
+            <div class="flex-col w-50">
+                <p class="pl-3 font-medium  text-[14px] subpixel-antialiased truncate tracking-tight">{{
+                    item.title.romaji
+                    }}</p>
+                <p class="pl-3 text-[12px] text-gray-300 subpixel-antialiased truncate tracking-normal">{{
+                    item.title.english }}</p>
+                <p class="pl-3 text-[12px] text-gray-300 subpixel-antialiased truncate tracking-normal">{{ item.status
+                    }}
+                </p>
+                <p class="pl-3 text-[12px] text-gray-300 subpixel-antialiased truncate tracking-normal">
+                    {{ item.genres[0] }} · <span class="font-medium text-white"> {{ item.format }} </span>
+                </p>
+            </div>
 
-<div class="flex justify-center border-2">  
-    @if (anime) {       
-        <div *ngFor="let item of anime">           
-          
-            <img class="w-auto h-30 object-cover" [src]="item.coverImage.large" alt="Cover Image" />   
-            <h2>{{ item.title.romaji }}</h2>        
-           
-        </div>    
-    }
-</div>
+        </div>
+        }
+    </div>
+</ng-scrollbar>
 }
