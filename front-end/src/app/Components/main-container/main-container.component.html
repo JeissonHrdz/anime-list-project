@@ -1,1 +1,22 @@
-<p>main-container works!</p>
+<section class="flex w-full">
+    <div class="relative w-full m-5 rounded-2xl overflow-hidden">
+      <!-- Div para la imagen de fondo con opacidad -->
+      <div class="absolute inset-0 bg-[url('https://images4.alphacoders.com/740/thumb-1920-740130.png')] bg-cover   z-0"></div>
+      <div class="absolute inset-0 bg-blue-950 opacity-75 z-1"></div>
+      <!-- Contenido del grid -->
+      <div class="grid grid-cols-4 p-7 gap-2 relative z-10">
+        <!-- Columna 1: Imagen -->
+        <div class="col-span-1 align-middle ml-6">
+          <img class="w-70 shadow-xl" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20766-9A9Z6hawqdLe.png" alt="">
+        </div>
+  
+        <!-- Columna 2: Texto -->
+        <div class="col-span-3 text-white">
+          <div class="flex-row">
+            <p class="text-3xl font-bold">Love Live: School Idol Project (2016)</p>
+            <p>Realse Date: 2025-5-3 · Music · 12 Episodes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
