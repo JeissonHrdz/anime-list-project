@@ -7,7 +7,7 @@ import { MainContainerComponent } from './Components/main-container/main-contain
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TopBarComponent, AnimeSearchComponent, MainContainerComponent],
+  imports: [RouterOutlet, TopBarComponent, AnimeSearchComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

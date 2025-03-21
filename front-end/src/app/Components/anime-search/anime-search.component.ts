@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { Anime } from "../../Model/anime.model";
 import { NgScrollbarModule } from "ngx-scrollbar";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-anime-search",
@@ -13,16 +14,23 @@ import { NgScrollbarModule } from "ngx-scrollbar";
 })
 export class AnimeSearchComponent {
   private animeService = inject(AnimeService);
+  private router = inject(Router); 
 
   anime: Array<Anime> = [];
   dataFound:boolean = false;
+  show:boolean = false;
 
   ngOnInit(): void {    
     this.animeService.dataFoundEmitter.subscribe((data:Array<Anime>) => {          
-       if(data.length > 0){this.dataFound = true}
+       if(data.length > 0){this.dataFound = true; this.show = true}
        console.log(data);
         this.anime = data        
     }
     );   
   } 
+  goToDetails(id: number) {
+    this.router.navigate(['/anime', id]);
+    this.show = false
+     
+  }
 }
