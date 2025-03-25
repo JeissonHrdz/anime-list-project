@@ -1,7 +1,7 @@
 <section class="flex w-full absolute z-0">
     <div class="relative w-full m-5 rounded-2xl overflow-hidden">
       <!-- Div para la imagen de fondo con opacidad -->
-      <div class="absolute inset-0 bg-[url('https://images4.alphacoders.com/740/thumb-1920-740130.png')] bg-cover   z-0">
+      <div class="absolute inset-0 bg-cover z-0" [style.background-image]="'url(' + animeData?.bannerImage + ')'">
       </div>
       <div class="absolute inset-0 bg-blue-950 opacity-75 z-1"></div>
       <!-- Contenido del grid -->
@@ -9,30 +9,25 @@
         <!-- Columna 1: Imagen -->
         <div class="col-span-1 align-middle ml-6">
           <img class="w-70 shadow-xl"
-            src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20766-9A9Z6hawqdLe.png" alt="">
+            src="{{animeData?.coverImage?.large}}" alt="">
         </div>
   
         <!-- Columna 2: Texto -->
         <div class="col-span-3 text-white">
           <div class="flex-row">
-            <p class="text-3xl font-bold">Love Live: School Idol Project (2016)</p>
-            <p>Realse Date: 2025-5-3 · Music · 12 Episodes</p>
-            <p>Season: Winter</p>
-            <p>Score: 89%</p>
+            <p class="text-3xl font-bold">{{animeData?.title?.romaji}}</p>
+            <p> <span class="font-medium">Realse Date: </span> 
+               {{animeData?.startDate?.day}}/{{animeData?.startDate?.month}}/{{animeData?.startDate?.year}} 
+               · {{animeData?.genres?.toString()?.replace(",",", ") }} 
+               · {{animeData?.episodes}} Episodes</p>
+            <p> <span class="font-medium">Season: </span>  {{animeData?.season}}</p>
+            <p> <span class="font-medium">Score: </span>  {{animeData?.averageScore}}</p>
             <div class="pt-2 pb-2 ">
               <button class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 mr-4 pl-4">Add</button>
               <button class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 pl-4">Play Trailer</button>
             </div>
-            <br><br>
-            <p>Description: After failing in the preliminary tournament of the previous Love Live,
-              the members of Aqours have rededicated themselves to succeeding both as
-              idols and as saviors of their school, making sure their home will never
-              be taken away. But Mari learns some terrible news about their upcoming school
-              open house event and it seems like all of their efforts will be for naught.
-              Chika and her friends must find some way to preserve their school and carry
-              on as idols. Either way, it looks like they'll need a miracle to get through
-              this, fortunately, from µ's to Aqours, miracles a
-              re what idols do best.<br><br>(Source: Anime News Network)</p>
+            <br>
+            <p [innerHTML]="animeData?.description"></p>          
           </div>
         </div>
       </div>

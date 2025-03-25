@@ -29,8 +29,12 @@ export class AnimeSearchComponent {
     );   
   } 
   goToDetails(id: number) {
-    this.router.navigate(['/anime', id]);
-    this.show = false
-     
+   
+    this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/anime', id]);         
+    });
+    this.router.navigate(['/anime', id]); 
+    this.show = false;
+  
   }
 }

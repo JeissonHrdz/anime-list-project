@@ -49,5 +49,87 @@ export const getAnimeByTitle = async (title: string, page: number = 1, perPage: 
         console.error("Error en la solicitud de AniList:", err.response?.data || err.message); // si hay un error, lo mostramos por consola
         throw error; // lanzamos el error para que lo maneje el controlador
     }
+};
+
+export const getAnimeById = async (id: string, page: number = 1, perPage: number = 20): Promise<Anime> => { // definimos una función asíncrona que recibe un título de anime y devuelve una promesa de Anime
+
+    const query = `
+        query ($id: Int, $page: Int, $perPage: Int) {           
+             Media (id: $id, type: ANIME) {
+                id
+                title {
+                    romaji
+                    english
+                    native
+                }
+                description
+                episodes
+                status
+                averageScore
+                genres
+                season
+                bannerImage
+                startDate {
+                    day
+                    month
+                    year 
+                }
+                endDate {
+                    day
+                    month
+                    year
+                }
+                coverImage {
+                    large
+                }
+                format
+                characters (page: $page, perPage: $perPage) {
+                    edges {
+                     node {
+                            id
+                            name {
+                                full
+                            }
+                            description    
+                            image {
+                                large
+                            }
+                        }
+                        voiceActors (language: JAPANESE) {
+                            id
+                            name {
+                                full
+                            }
+                            image {
+                                large
+                            }
+                        }                       
+                    }                    
+                }
+            }          
+        }    
+    `;// definimos la query que vamos a enviar a la API de AniList
+    const variables = { // definimos las variables que vamos a enviar en la query
+        id: id,
+        page: page,
+        perPage: perPage
+    };
+
+    console.log('variables', variables);
+    console.log('query', query);
+    try {
+
+        const response = await axios.post(ANILIST_API_URL, { // hacemos una petición POST a la API de AniList
+            query: query, // pasamos la query
+            variables: variables // pasamos las variables
+        });
+       
+        return response.data.data.Media as Anime // devolvemos los datos de la media (anime) que nos ha devuelto la API de AniList
+      
+    } catch (error) {
+        const err = error as any;
+        console.error("Error en la solicitud de AniList:", err.response?.data || err.message); // si hay un error, lo mostramos por consola
+        throw error; // lanzamos el error para que lo maneje el controlador
+    }
 
 };

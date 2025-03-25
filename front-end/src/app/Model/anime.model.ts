@@ -10,6 +10,18 @@ export interface Anime {
     status: string;
     averageScore: number;
     genres: string;
+    season:string
+    bannerImage: string;
+    startDate: {
+        day: number;
+        month: number;
+        year : number;
+    }
+    endtDate: {
+        day: number;
+        month: number;
+        year : number;
+    }
     coverImage: {
         large: string;
     };   

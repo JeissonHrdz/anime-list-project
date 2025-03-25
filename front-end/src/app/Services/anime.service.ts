@@ -20,6 +20,13 @@ export class AnimeService {
     )
   }
 
+  searchAnimeById(id: string): Observable<Anime>{
+  
+    return this.http.get<Anime>(`${this.apiUrl}/anime-details`,{params:{id}}).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   dataFoundEmitter  = new EventEmitter<any>();
   dataFound(data: any){
     this.dataFoundEmitter.emit(data);
