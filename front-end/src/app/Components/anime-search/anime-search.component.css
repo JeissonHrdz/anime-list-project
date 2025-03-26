@@ -1,14 +1,15 @@
  /* Chrome, Edge, and Safari */
  *::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
 
 *::-webkit-scrollbar-track {
-  background: #101828;
+  background: #ffffff;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #666666;
+  background-color: #dbdbdb;
   border-radius: 10px;
   border: 1px none #ffffff;
+ 
 }

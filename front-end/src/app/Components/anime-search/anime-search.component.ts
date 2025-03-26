@@ -5,6 +5,8 @@ import { CommonModule } from "@angular/common";
 import { Anime } from "../../Model/anime.model";
 import { NgScrollbarModule } from "ngx-scrollbar";
 import { Router } from "@angular/router";
+import { AnimeDetailsComponent } from "../main-container/anime-details/anime-details.component";
+import { AnimeSearchService } from "../../Services/anime-search.service";
 
 @Component({
   selector: "app-anime-search",
@@ -14,6 +16,8 @@ import { Router } from "@angular/router";
 })
 export class AnimeSearchComponent {
   private animeService = inject(AnimeService);
+  private animeSearchService = inject(AnimeSearchService );
+  animeDetails?:AnimeDetailsComponent;
   private router = inject(Router); 
 
   anime: Array<Anime> = [];
@@ -28,13 +32,11 @@ export class AnimeSearchComponent {
     }
     );   
   } 
-  goToDetails(id: number) {
-   
-    this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/anime', id]);         
-    });
+  goToDetails(id: number) {       
+    this.animeDetails?.ngOnDestroy()
     this.router.navigate(['/anime', id]); 
-    this.show = false;
-  
+    this.show = false;  
+    
+    
   }
 }
