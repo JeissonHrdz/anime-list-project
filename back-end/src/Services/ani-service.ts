@@ -98,7 +98,8 @@ export const getAnimeById = async (id: string, page: number = 1, perPage: number
                         voiceActors (language: JAPANESE) {
                             id
                             name {
-                                full
+                                first
+                                last
                             }
                             image {
                                 large

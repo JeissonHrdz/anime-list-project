@@ -1,3 +1,5 @@
+import { Character } from "./character.model";
+
 export interface Anime {
     id: number;
     title: {
@@ -26,4 +28,7 @@ export interface Anime {
         large: string;
     };   
     format: string;
+    characters: {
+        nodes: Character[]
+    };
 }

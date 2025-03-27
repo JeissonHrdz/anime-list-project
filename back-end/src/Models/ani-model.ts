@@ -28,7 +28,7 @@ export interface Anime {
         large: string;
     };
     format: string;
-  /*  characters: {
+    characters: {
         nodes: Character[];
-    };*/
+    };
 }

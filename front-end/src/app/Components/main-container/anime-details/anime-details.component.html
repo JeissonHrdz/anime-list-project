@@ -1,39 +1,42 @@
-<section class="flex w-full absolute top-0 z-0">
-    <div class="relative w-full  overflow-hidden">
-      <!-- Div para la imagen de fondo con opacidad -->
-      <div class="absolute inset-0 bg-cover z-0"  
-       [style.background-image]="'linear-gradient(to bottom, rgba(30, 41, 57, 1) 0px, rgba(30, 41, 57, 0.3) 30%), 
+<section class="flex w-full flex-col absolute top-0 z-0">
+  <div class="relative w-full overflow-hidden">
+    <!-- Div para la imagen de fondo con opacidad -->
+    <div class="absolute inset-0 bg-cover z-0" [style.background-image]="'linear-gradient(to bottom, rgba(30, 41, 57, 1) 0px, rgba(30, 41, 57, 0.3) 30%), 
               url(' + animeData?.bannerImage + ')'">
+    </div>
+    <div class="absolute inset-0 bg-gray-800 opacity-50 z-1"></div>
+    <!-- Contenido del grid -->
+    <div class="grid grid-cols-4 p-7 gap-2 relative z-10 mt-15">
+      <!-- Columna 1: Imagen -->
+      <div class="col-span-1 align-middle ml-6 ">
+        <img class="w-70 shadow-xl" src="{{animeData?.coverImage?.large}}" alt="">
       </div>
-      <div class="absolute inset-0 bg-gray-800 opacity-50 z-1"></div>
-      <!-- Contenido del grid -->
-      <div class="grid grid-cols-4 p-7 gap-2 relative z-10 mt-15">
-        <!-- Columna 1: Imagen -->
-        <div class="col-span-1 align-middle ml-6 ">
-          <img class="w-70 shadow-xl"
-            src="{{animeData?.coverImage?.large}}" alt="">
-        </div>
-  
-        <!-- Columna 2: Texto -->
-        <div class="col-span-3 text-white ">
-          <div class="flex-row">
-            <p class="text-3xl font-bold">{{animeData?.title?.romaji}}</p>
-            <p> <span class="font-medium">Realse Date: </span> 
-               {{animeData?.startDate?.day}}/{{animeData?.startDate?.month}}/{{animeData?.startDate?.year}} 
-               · {{animeData?.genres?.toString()?.replace(",",", ") }} 
-               · {{animeData?.episodes}} Episodes</p>
-            <p> <span class="font-medium">Season: </span>  {{animeData?.season}}</p>
-            <p> <span class="font-medium">Score: </span>  {{animeData?.averageScore}}</p>
-            <div class="pt-2 pb-2 ">
-              <button class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 mr-4 pl-4">Add</button>
-              <button class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 pl-4">Play Trailer</button>
-            </div>
-            <br>
-            <p [innerHTML]="animeData?.description"></p>          
+
+      <!-- Columna 2: Texto -->
+      <div class="col-span-3 text-white ">
+        <div class="flex-row">
+          <p class="text-3xl font-bold">{{animeData?.title?.romaji}}</p>
+          <p> <span class="font-medium">Realse Date: </span>
+            {{animeData?.startDate?.day}}/{{animeData?.startDate?.month}}/{{animeData?.startDate?.year}}
+            · {{animeData?.genres?.toString()?.replace(",",", ") }}
+            · {{animeData?.episodes}} Episodes</p>
+          <p> <span class="font-medium">Season: </span> {{animeData?.season}}</p>
+          <p> <span class="font-medium">Score: </span> {{animeData?.averageScore}}</p>
+          <div class="pt-2 pb-2 ">
+            <button class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 mr-4 pl-4">Add</button>
+            <button class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 pl-4">Play
+              Trailer</button>
           </div>
+          <br>
+          <p [innerHTML]="animeData?.description"></p>
         </div>
-    
-      
       </div>
     </div>
-  </section>
+  </div>
+  <br>
+  <!---- Div para la sección de personajes -->
+  <div class="relative w-full">
+    <app-anime-characters />
+  </div>
+
+</section>
