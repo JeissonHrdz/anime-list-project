@@ -7,6 +7,7 @@ import { AnimeSearchService } from '../../../Services/anime-search.service';
 import { AnimeCharactersComponent } from '../anime-characters/anime-characters.component';
 import { AnimeDetailsService } from '../../../Services/anime-details.service';
 import { Character } from '../../../Model/character.model';
+import  $ from 'jquery';
 
 @Component({
   selector: 'app-anime-details',
@@ -24,23 +25,21 @@ export class AnimeDetailsComponent {
   animeId: number = 0;
   animeCharacters?: Character[];
 
-  ngOnInit(): void {
+  ngOnInit() {   
     this.route.paramMap.subscribe((params) => {
       this.animeId = Number(params.get('id'));
       this.animeService
         .searchAnimeById(this.animeId.toString())
-        .subscribe((data: Anime) => {
-          this.animeData = data;
-          this.characters();
-          this.animeDetailsService.animeCharacters(data.characters);
+        .subscribe((data: Anime) => {         
+          this.animeData = data;     
+          this.animeDetailsService.animeCharacters(this.animeData?.characters.edges);        
         });
+       
     });
-  }
+  }  
 
-  characters(){
-    this.animeData?.characters.edges.node.map((item: any) => {
-      console.log(item);
-    })
+  openModal(){
+    $('#modal-trailer').removeClass('hidden');
   }
 
   ngOnDestroy(): void {}

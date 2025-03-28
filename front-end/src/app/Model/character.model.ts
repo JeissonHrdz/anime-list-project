@@ -1,7 +1,28 @@
-import { voiceActors } from "./voice-actor.model";
+import { voiceActors } from './voice-actor.model';
 
 export interface Character {
+  role: string;
+  node: {
     id: number;
+    name: CharacterName;
+    description?: string;
+    image: Image;
+  };
+  voiceActors: voiceActors[];
+}
+interface CharacterName {
+  full: string;
+}
+
+interface Image {
+  large: string;
+}
+
+
+
+
+
+/* id: number;
     name: {
         full: string;
     };
@@ -11,7 +32,7 @@ export interface Character {
    /*description: string;
     gender: string; 
     age: string; */
-    media: {
+/* media: {
         edges: {
             voiceActors: voiceActors[];
             node:{
@@ -19,4 +40,4 @@ export interface Character {
             }
         }[];
     };
-}
+*/

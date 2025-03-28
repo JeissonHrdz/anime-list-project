@@ -69,6 +69,11 @@ export const getAnimeById = async (id: string, page: number = 1, perPage: number
                 genres
                 season
                 bannerImage
+                trailer{
+                    id
+                    site
+                    thumbnail
+                }
                 startDate {
                     day
                     month

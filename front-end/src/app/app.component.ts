@@ -4,10 +4,12 @@ import { TopBarComponent } from "./Components/top-bar/top-bar.component";
 import { AnimeSearchComponent } from "./Components/anime-search/anime-search.component";
 import { AnimeService } from './Services/anime.service';
 import { MainContainerComponent } from './Components/main-container/main-container.component';
+import { AnimeSearchService } from './Services/anime-search.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TopBarComponent, AnimeSearchComponent],
+  imports: [RouterOutlet, TopBarComponent, AnimeSearchComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -15,10 +17,13 @@ export class AppComponent {
   title = 'front-end';
 
   animeService = inject(AnimeService)
+  animeSearchService = inject(AnimeSearchService)
   animeData: any = null;
+  closeComponent:Boolean = false;
 
-  ngOnInit(): void{
-    this.animeService.dataFoundEmitter.subscribe(data => this.animeData = data);
+  ngOnInit(){    
+    this.animeService.dataFoundEmitter.subscribe(data => this.animeData = data);   
+    this.animeSearchService.status.subscribe(data => this.closeComponent = data);
   }
 
 }

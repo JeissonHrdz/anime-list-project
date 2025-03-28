@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AnimeSearchComponent } from '../../anime-search/anime-search.component';
 import { Router } from '@angular/router';
 import { Anime } from '../../../Model/anime.model';
+import { AnimeSearchService } from '../../../Services/anime-search.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -19,18 +20,19 @@ export class SearchBarComponent {
   anime: Array<Anime> = [];
 
   private animeService = inject(AnimeService);
+  private animeSearchService = inject(AnimeSearchService );
   private router = inject(Router)
   animeSearch: any = null;
 
-  searchAnime() {
-    this.animeService.searchAnime(this.animeTitle).subscribe((data:Array<Anime>) => {
-      this.anime = data;
-      this.sendData();
+  searchAnime() {    
+    this.animeService.searchAnime(this.animeTitle).subscribe((data:Array<Anime>) => {    
+      this.anime = data;      
+      this.sendData();      
     });
-
+    this.animeSearchService.statusCloseComponent(true);
   }  
 
-  sendData(){
+  sendData(){    
     this.animeService.dataFound(this.anime);
   }
 

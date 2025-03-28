@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Character } from '../Model/character.model';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -7,9 +8,10 @@ import { Character } from '../Model/character.model';
 })
 export class AnimeDetailsService {
 
-  animeCharactersEmit = new EventEmitter<any>();
+  private animeCharactersEmit = new BehaviorSubject<Character[]>([]);
+  characters = this.animeCharactersEmit.asObservable();
 
-  animeCharacters(data: any) { 
-      this.animeCharactersEmit.emit(data);
+  animeCharacters(data: Character[]) {       
+      this.animeCharactersEmit.next(data);
   }
 }

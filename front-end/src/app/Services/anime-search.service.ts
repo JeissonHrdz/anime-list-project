@@ -1,14 +1,16 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnimeSearchService {
 
-  animeDataStatus = signal<Object>({});
+  private closeComponent = new BehaviorSubject <Boolean>(false);
+  status = this.closeComponent.asObservable();
 
-signalAnimeData(data: any){
-  this.animeDataStatus.set(data);
+statusCloseComponent(data: boolean){
+  this.closeComponent.next(data);
 }
   
 

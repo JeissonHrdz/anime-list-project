@@ -2,8 +2,8 @@
     <h2 class="text-2xl font-bold text-white">Characters</h2>
 </div>
 <section class="flex flex-col p-4 w-120 ml-5 overflow-x-auto ">
-    @for (item of animeCharacters; track $index) {
-    <div class="text-gray-600 font-medium  m-2 flex flex-row  bg-white rounded-lg shadow-lg">
+    @for (item of animeCharacters ; track $index) {
+    <div  class="text-gray-600 font-medium  m-2 flex flex-row  bg-white rounded-lg shadow-lg">
         <div class="float-left">
             <div class="rounded-sm w-20 h-20 float-left">
                 <img class="object-cover h-full w-full" [src]="item.node.image.large" />

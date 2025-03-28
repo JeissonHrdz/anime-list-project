@@ -12,16 +12,13 @@ import { Character } from '../../../Model/character.model';
 export class AnimeCharactersComponent {
 
    private animeDetailsService = inject(AnimeDetailsService)
-   animeCharacters?:any;
+   animeCharacters?:Character[];
 
-  ngOnInit(): void {
-    this.animeDetailsService.animeCharactersEmit.subscribe((data:any) => {      
-      this.animeCharacters = data.edges
+  ngOnInit() {       
+    this.animeDetailsService.characters.subscribe((data:Character[]) => {           
+      this.animeCharacters = data;
     }) 
-
   }
-
- 
  
 
 }
