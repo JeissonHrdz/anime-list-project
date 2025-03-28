@@ -15,8 +15,7 @@ export class AnimeCharactersComponent {
    animeCharacters?:any;
 
   ngOnInit(): void {
-    this.animeDetailsService.animeCharactersEmit.subscribe((data:any) => {
-      console.log(data.edges);
+    this.animeDetailsService.animeCharactersEmit.subscribe((data:any) => {      
       this.animeCharacters = data.edges
     }) 
 

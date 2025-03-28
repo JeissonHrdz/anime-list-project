@@ -54,7 +54,7 @@ export const getAnimeByTitle = async (title: string, page: number = 1, perPage: 
 export const getAnimeById = async (id: string, page: number = 1, perPage: number = 20): Promise<Anime> => { // definimos una función asíncrona que recibe un título de anime y devuelve una promesa de Anime
 
     const query = `
-        query ($id: Int, $page: Int, $perPage: Int) {           
+        query ($id: Int) {           
              Media (id: $id, type: ANIME) {
                 id
                 title {
@@ -83,14 +83,15 @@ export const getAnimeById = async (id: string, page: number = 1, perPage: number
                     large
                 }
                 format
-                characters (page: $page, perPage: $perPage) {
+                characters (page: 1, perPage: 6) {
                     edges {
+                        role
                      node {
-                            id
+                            id                            
                             name {
                                 full
                             }
-                            description    
+                            description                               
                             image {
                                 large
                             }

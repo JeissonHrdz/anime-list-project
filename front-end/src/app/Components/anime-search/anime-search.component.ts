@@ -26,8 +26,7 @@ export class AnimeSearchComponent {
 
   ngOnInit(): void {    
     this.animeService.dataFoundEmitter.subscribe((data:Array<Anime>) => {          
-       if(data.length > 0){this.dataFound = true; this.show = true}
-       console.log(data);
+       if(data.length > 0){this.dataFound = true; this.show = true}      
         this.anime = data        
     }
     );   

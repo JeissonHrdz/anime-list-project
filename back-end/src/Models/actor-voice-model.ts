@@ -4,7 +4,7 @@ export interface voiceActors {
         first: string;
         last: string;
     };
- /*   image: {
+   image: {
         large: string;
-    }; */
+    }; 
 }
