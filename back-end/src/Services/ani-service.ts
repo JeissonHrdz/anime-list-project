@@ -160,7 +160,7 @@ export const getAllCharacters = async (id: string): Promise<Character[]> => {
                                 large
                             }
                         }
-                        voiceActors (language: JAPANESE) {
+                        voiceActors (language: JAPANESE, sort: ID) {
                             id
                             name {
                                 first
@@ -187,7 +187,7 @@ export const getAllCharacters = async (id: string): Promise<Character[]> => {
             variables: variables // pasamos las variables
         });
        
-        return response.data.data.Media as Character[] // devolvemos los datos de la media (anime) que nos ha devuelto la API de AniList
+        return response.data.data.Media.characters.edges as Character[] // devolvemos los datos de la media (anime) que nos ha devuelto la API de AniList
       
     } catch (error) {
         const err = error as any;

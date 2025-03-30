@@ -8,9 +8,7 @@ export interface Character {
     image: {
         large: string;
     };
-   /*description: string;
-    gender: string; 
-    age: string; */
+   description: string;  
     media: {
         edges: {
             voiceActors: voiceActors[];

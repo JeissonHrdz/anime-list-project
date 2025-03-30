@@ -28,7 +28,7 @@ export class AnimeService {
     )
   }
 
-  getAllCharacterByAnime(id: string): Observable<Array<Character>>{
+  getAllCharacterByAnime(id: number): Observable<Array<Character>>{
     return this.http.get<Array<Character>>(`${this.apiUrl}/anime/characters`,{params:{id}}).pipe(
       catchError(this.handleError)      
     )     
