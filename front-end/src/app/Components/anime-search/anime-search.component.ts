@@ -34,9 +34,10 @@ export class AnimeSearchComponent {
   } 
   goToDetails(id: number) {       
     this.animeDetails?.ngOnDestroy()
+    this.animeSearchService.getAnimeId(id);
     this.router.navigate(['/anime', id]); 
     this.show = false;   
-    this.animeSearchService.statusCloseComponent(false); 
+    this.animeSearchService.statusCloseComponent(false);     
   }
 
   

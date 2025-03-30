@@ -12,7 +12,12 @@ export class AnimeSearchService {
 statusCloseComponent(data: boolean){
   this.closeComponent.next(data);
 }
-  
 
-  constructor() { }
+private animeId = new BehaviorSubject<number>(0)
+id = this.animeId.asObservable();
+  
+getAnimeId(data: number){ 
+  this.animeId.next(data);
+}
+ 
 }

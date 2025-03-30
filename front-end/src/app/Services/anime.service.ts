@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable,EventEmitter } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Anime } from '../Model/anime.model';
+import { Character } from '../Model/character.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,12 @@ export class AnimeService {
     return this.http.get<Anime>(`${this.apiUrl}/anime-details`,{params:{id}}).pipe(
       catchError(this.handleError)
     )
+  }
+
+  getAllCharacterByAnime(id: string): Observable<Array<Character>>{
+    return this.http.get<Array<Character>>(`${this.apiUrl}/anime/characters`,{params:{id}}).pipe(
+      catchError(this.handleError)      
+    )     
   }
 
   dataFoundEmitter  = new EventEmitter<any>();

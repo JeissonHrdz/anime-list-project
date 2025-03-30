@@ -7,11 +7,14 @@ import { AnimeSearchService } from '../../../Services/anime-search.service';
 import { AnimeCharactersComponent } from '../anime-characters/anime-characters.component';
 import { AnimeDetailsService } from '../../../Services/anime-details.service';
 import { Character } from '../../../Model/character.model';
-import  $ from 'jquery';
+import $ from 'jquery';
+import { SafePipe } from '../../../Services/safe-pipe';
+
+declare var YT: any;
 
 @Component({
   selector: 'app-anime-details',
-  imports: [AnimeCharactersComponent],
+  imports: [AnimeCharactersComponent, SafePipe],
   templateUrl: './anime-details.component.html',
   styleUrl: './anime-details.component.css',
 })
@@ -24,23 +27,30 @@ export class AnimeDetailsComponent {
   animeData?: Anime;
   animeId: number = 0;
   animeCharacters?: Character[];
-
-  ngOnInit() {   
+  trailerId?: any
+  ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       this.animeId = Number(params.get('id'));
       this.animeService
         .searchAnimeById(this.animeId.toString())
-        .subscribe((data: Anime) => {         
-          this.animeData = data;     
-          this.animeDetailsService.animeCharacters(this.animeData?.characters.edges);        
+        .subscribe((data: Anime) => {
+          this.animeData = data;
+          this.animeDetailsService.animeCharacters(this.animeData?.characters.edges);
         });
-       
-    });
-  }  
 
-  openModal(){
-    $('#modal-trailer').removeClass('hidden');
+    });
   }
 
-  ngOnDestroy(): void {}
+  openModal() {
+    $('#modal-trailer').show("fast");
+    this.trailerId = this.animeData?.trailer?.id;  
+  }
+
+  closeModal() {
+    $('#modal-trailer').hide("fast");
+    this.trailerId = '';
+  }
+
+
+  ngOnDestroy(): void { }
 }
