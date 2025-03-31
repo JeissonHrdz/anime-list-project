@@ -40,9 +40,9 @@ interface Title {
   }
 
   interface Trailer{
-    id: String
-    site: String
-    thumbnail: String 
+    id: string
+    site: string
+    thumbnail: string 
   }
   
  

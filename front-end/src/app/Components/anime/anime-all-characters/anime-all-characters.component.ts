@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { AnimeService } from '../../../Services/anime.service';
-import { Character } from '../../../Model/character.model';
+import { AnimeService } from '../../../Core/Services/anime.service';
+import { Character } from '../../../Core/Model/character.model';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 

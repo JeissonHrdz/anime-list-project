@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TopBarComponent } from "./Components/top-bar/top-bar.component";
-import { AnimeSearchComponent } from "./Components/anime-search/anime-search.component";
-import { AnimeService } from './Services/anime.service';
-import { MainContainerComponent } from './Components/main-container/main-container.component';
-import { AnimeSearchService } from './Services/anime-search.service';
+import { TopBarComponent } from "./Components/shared/top-bar/top-bar.component";
+import { AnimeSearchComponent } from "./Components/anime/anime-search/anime-search.component";
+import { AnimeService } from './Core/Services/anime.service';
+import { AnimeSearchService } from './Core/Services/anime-search.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

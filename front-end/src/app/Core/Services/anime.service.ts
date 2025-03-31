@@ -21,8 +21,7 @@ export class AnimeService {
     )
   }
 
-  searchAnimeById(id: string): Observable<Anime>{
-  
+  searchAnimeById(id: string): Observable<Anime>{  
     return this.http.get<Anime>(`${this.apiUrl}/anime-details`,{params:{id}}).pipe(
       catchError(this.handleError)
     )

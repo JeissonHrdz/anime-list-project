@@ -1,10 +1,10 @@
 <section class="flex w-full flex-col absolute top-0 z-0">
   <div class="relative w-full overflow-hidden">
     <!-- Div para la imagen de fondo con opacidad -->
-    <div class="absolute inset-0 bg-cover z-0" [style.background-image]="'linear-gradient(to bottom, rgba(30, 41, 57, 1) 0px, rgba(30, 41, 57, 0.3) 30%), 
+    <div class="absolute inset-0 bg-cover z-0" [style.background-image]="'linear-gradient(to bottom, rgba(38, 38, 38, 1) 0px, rgba(38, 38, 38, 0.3) 30%), 
               url(' + animeData?.bannerImage + ')'">
     </div>
-    <div class="absolute inset-0 bg-gray-800 opacity-50 z-1"></div>
+    <div class="absolute inset-0 bg-neutral-800 opacity-50 z-1"></div>
     <!-- Contenido del grid -->
     <div class="grid grid-cols-4 p-7 gap-2 relative z-10 mt-15">
       <!-- Columna 1: Imagen -->
@@ -24,7 +24,7 @@
           <p> <span class="font-medium">Score: </span> {{animeData?.averageScore}}</p>
           <div class="pt-2 pb-2 ">
             <button class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 mr-4 pl-4">Add</button>
-            <button id="button-trailer" (click)="openModal()" type="button"
+            <button id="button-trailer" (click)="modalTrailer()" type="button"
               class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 pl-4">
               Trailer</button>
           </div>
@@ -43,7 +43,7 @@
 </section>
 
 
-<div class="relative z-10 hidden" id="modal-trailer" (click)="closeModal()" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div class="relative z-10 hidden" id="modal-trailer" (click)="modalTrailer()" aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <!--
     Background backdrop, show/hide based on modal state.
 
