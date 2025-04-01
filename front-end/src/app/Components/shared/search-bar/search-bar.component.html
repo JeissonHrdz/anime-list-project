@@ -1,6 +1,9 @@
 <div class="flex justify-center">  
-    <input  class="border-0 rounded-lg text-gray-50 bg-neutral-600 p-1 pl-3 mr-5 w-96 outline-0" [(ngModel)]="animeTitle" placeholder="Ingresa el título del anime" /> 
-    <button (click)="searchAnime()" class="text-neutral-300 cursor-pointer bg-neutral-700 rounded-lg shadow-lg p-1 pr-4 pl-4">Buscar</button>
+    <div class="w-auto border-1 border-neutral-800 rounded-md mr-5">
+        <input  class="border-1 border-neutral-600 rounded-md text-neutral-300 bg-neutral-700 p-1 pl-3  w-96 outline-0" [(ngModel)]="animeTitle" placeholder="Search Anime" /> 
+    </div>
+    
+    <button (click)="searchAnime()" class="text-white font-medium cursor-pointer bg-blue-500 rounded-md shadow-lg p-1 pr-4 pl-4">Buscar</button>
 
     @if ( errorMessage ){
     <div class="error">
