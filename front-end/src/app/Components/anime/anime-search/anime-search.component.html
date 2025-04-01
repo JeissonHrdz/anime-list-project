@@ -2,7 +2,7 @@
 <div class="absolute h-full w-full top-0  bg-neutral-600/80 z-1">
     <div class=" border-1 border-neutral-950 w-200 mt-15 m-0 m-auto rounded-xl shadow-2xl">
         <div class=" bg-neutral-800 w-200   border-1 border-neutral-700 p-4 rounded-xl h-120 z-10 ">
-            <div class="overflow-auto overflow-x-hidden w-auto h-110 grid grid-cols-2 gap-2 mr-2">
+            <div class="overflow-auto overflow-x-hidden w-auto h-110 grid grid-cols-2 gap-2 mr-2">               
                 @if (anime) {
                 <div (click)="goToDetails(item.id)" class="p-2 w-auto col-span-1 mb-2 mr-6 
      text-white flex justify-items-center hover:bg-neutral-700 cursor-pointer rounded-lg" *ngFor="let item of anime">
@@ -15,7 +15,7 @@
                             item.title.romaji
                             }}</p>
                         <p class=" pl-3 text-[12px] text-zinc-400 subpixel-antialiased truncate tracking-normal">{{
-                            item.title.english }}</p>                      
+                            item.title.english }}  </p>                      
                         <p class="mt-2 pl-3 text-[12px] subpixel-antialiased">
                            <span class="p-1 rounded-md font-medium bg-neutral-500/20 text-neutral-400">
                             @if (item.genres[0] != null) {

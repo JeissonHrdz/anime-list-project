@@ -8,11 +8,14 @@ import { Character } from '../../../Core/Model/character.model';
 import $ from 'jquery';
 import { SafePipe } from '../../shared/pipes/safe-pipe';
 import { catchError, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { NgIcon,   provideIcons } from '@ng-icons/core';
+import { heroCalendarSolid } from '@ng-icons/heroicons/solid';
 
 
 @Component({
   selector: 'app-anime-details',
-  imports: [AnimeCharactersComponent, SafePipe],
+  imports: [AnimeCharactersComponent, SafePipe, NgIcon],  
+  providers: [provideIcons({ heroCalendarSolid })],  
   templateUrl: './anime-details.component.html',
   styleUrl: './anime-details.component.css',
 })

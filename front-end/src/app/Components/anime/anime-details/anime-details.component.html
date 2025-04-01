@@ -1,26 +1,31 @@
 <section class="flex w-full flex-col absolute top-0 z-0">
-  <div class="relative w-full overflow-hidden">
+  <div class="relative w-full h-120 overflow-hidden">
     <!-- Div para la imagen de fondo con opacidad -->
-    <div class="absolute inset-0 bg-cover z-0" [style.background-image]="'linear-gradient(to bottom, rgba(38, 38, 38, 1) 0px, rgba(38, 38, 38, 0.3) 30%), 
+    <div class="absolute inset-0 bg-cover z-0 bg-no-repeat bg-center" [style.background-image]="'linear-gradient(to bottom, rgba(38, 38, 38, 1) 0px, rgba(38, 38, 38, 0.3) 50%), 
               url(' + animeData?.bannerImage + ')'">
     </div>
     <div class="absolute inset-0 bg-neutral-800 opacity-50 z-1"></div>
     <!-- Contenido del grid -->
-    <div class="grid grid-cols-4 p-7 gap-2 relative z-10 mt-15">
+    <div class="grid grid-cols-4 p-7 gap-2 relative z-10 mt-15" style="grid-template-columns: 320px auto 0px 0px;" >
       <!-- Columna 1: Imagen -->
-      <div class="col-span-1 align-middle ml-6 ">
-        <img class="w-70 shadow-xl" src="{{animeData?.coverImage?.large}}" alt="">
+      <div class="h-[367px] w-[260px] col-span-1 align-middle ml-10 ">
+        <img class="h-[367px] w-[260px]  shadow-2xl rounded-md" src="{{animeData?.coverImage?.large}}" alt="">
       </div>
 
       <!-- Columna 2: Texto -->
       <div class="col-span-3 text-white ">
         <div class="flex-row">
           <p class="text-3xl font-bold">{{animeData?.title?.romaji}}</p>
-          <p> <span class="font-medium">Realse Date: </span>
-            {{animeData?.startDate?.day}}/{{animeData?.startDate?.month}}/{{animeData?.startDate?.year}}
-            · {{animeData?.genres?.toString()?.replace(",",", ") }}
+          <p> <span class="font-medium">
+              <ng-icon class="relative top-1" name="heroCalendarSolid" size="20" > </ng-icon> {{animeData?.startDate?.day}}/{{animeData?.startDate?.month}}/{{animeData?.startDate?.year}} </span>
             · {{animeData?.episodes}} Episodes</p>
-          <p> <span class="font-medium">Season: </span> {{animeData?.season}}</p>
+          <p class="mt-2">
+            @for (item of animeData?.genres; track item) {
+            <span class="bg-purple-800 p-1 rounded-md text-neutral-100 pl-3 pr-3  mr-2"> {{item}} </span>
+
+            }
+          </p>
+          <p class="mt-2"> <span class="font-medium">Season: </span> {{animeData?.season}}</p>
           <p> <span class="font-medium">Score: </span> {{animeData?.averageScore}}</p>
           <div class="pt-2 pb-2 ">
             <button class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 mr-4 pl-4">Add</button>
@@ -28,8 +33,8 @@
               class="text-white cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 pl-4">
               Trailer</button>
           </div>
-          <br>
-          <p [innerHTML]="animeData?.description"></p>
+         
+          <p class="h-[150px] overflow-auto"  [innerHTML]="animeData?.description"></p>
         </div>
       </div>
     </div>
@@ -43,7 +48,8 @@
 </section>
 
 
-<div class="relative z-10 hidden" id="modal-trailer" (click)="modalTrailer()" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div class="relative z-10 hidden" id="modal-trailer" (click)="modalTrailer()" aria-labelledby="modal-title"
+  role="dialog" aria-modal="true">
   <!--
     Background backdrop, show/hide based on modal state.
 
@@ -54,7 +60,7 @@
       From: "opacity-100"
       To: "opacity-0"
   -->
-  <div class="fixed inset-0 bg-gray-500/75 transition-opacity"  aria-hidden="true"></div>
+  <div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
 
   <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -72,12 +78,13 @@
         class="relative transform overflow-hidden h-auto w-auto rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 l ">
         <div class="bg-white  sm:p-1 sm:pb-1">
           <div class="sm:flex sm:items-start">
-            <div class="text-center sm:text-left">            
-              <iframe id="anime-trailer" width="750" height="459" [src]="'https://www.youtube.com/embed/'+trailerId | safe ">
-              </iframe>              
+            <div class="text-center sm:text-left">
+              <iframe id="anime-trailer" width="750" height="459"
+                [src]="'https://www.youtube.com/embed/'+trailerId | safe ">
+              </iframe>
             </div>
           </div>
-        </div>        
+        </div>
       </div>
     </div>
   </div>

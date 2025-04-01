@@ -9,10 +9,14 @@ import { AnimeDetailsComponent } from "../../anime/anime-details/anime-details.c
 import { AnimeSearchService } from "../../../Core/Services/anime-search.service";
 import { on } from "events";
 import { Subject, takeUntil } from "rxjs";
+import { NgIcon,  provideIcons } from '@ng-icons/core';
+import { heroUsers } from '@ng-icons/heroicons/outline';
+
 
 @Component({
   selector: "app-anime-search",
   imports: [FormsModule, CommonModule, ReactiveFormsModule, NgScrollbarModule],
+  providers: [provideIcons({heroUsers})],
   templateUrl: "./anime-search.component.html",
   styleUrl: "./anime-search.component.css"
 })

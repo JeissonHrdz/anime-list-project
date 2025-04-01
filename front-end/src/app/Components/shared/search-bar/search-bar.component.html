@@ -1,9 +1,8 @@
 <div class="flex justify-center">  
-    <div class="w-auto border-1 border-neutral-800 rounded-md mr-5">
-        <input  class="border-1 border-neutral-600 rounded-md text-neutral-300 bg-neutral-700 p-1 pl-3  w-96 outline-0" [(ngModel)]="animeTitle" placeholder="Search Anime" /> 
+    <div class="w-auto border-1 border-neutral-800 rounded-md mr-5 ml-6 relative">        
+        <input  (keyup.enter)="searchAnime()" class="border-1 border-neutral-600 rounded-md text-neutral-300 bg-neutral-700 p-1 pl-3  w-96 outline-0" [(ngModel)]="animeTitle" placeholder="Search Anime" /> 
+        <ng-icon (click)="searchAnime()" class="search-icon cursor-pointer" size="20" name="heroMagnifyingGlassSolid" color="#8a8a8a" ></ng-icon>
     </div>
-    
-    <button (click)="searchAnime()" class="text-white font-medium cursor-pointer bg-blue-500 rounded-md shadow-lg p-1 pr-4 pl-4">Buscar</button>
 
     @if ( errorMessage ){
     <div class="error">
