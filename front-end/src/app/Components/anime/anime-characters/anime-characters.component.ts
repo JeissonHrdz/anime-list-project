@@ -35,6 +35,7 @@ export class AnimeCharactersComponent {
     this.animeSearchService.id
       .pipe(takeUntil(this.destroy$)).subscribe((data: number) => {
         this.animeId = data;
+        alert(this.animeId);
       });  
   }
 

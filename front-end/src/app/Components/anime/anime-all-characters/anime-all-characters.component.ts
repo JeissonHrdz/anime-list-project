@@ -4,6 +4,7 @@ import { Character } from '../../../Core/Model/character.model';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { catchError, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { AnimeDetailsService } from '../../../Core/Services/anime-details.service';
 
 @Component({
   selector: 'app-anime-all-characters',
@@ -16,9 +17,13 @@ export class AnimeAllCharactersComponent {
   private destroy$ = new Subject<void>()
   private animeService = inject(AnimeService)
   private route = inject(ActivatedRoute)
+  private animeDetailsService = inject(AnimeDetailsService )
 
   characters?: Array<Character> = []
   animeId: number = 0
+  animeTitle: string = ''
+  animeImage: string = ''
+  animeYear: string = ''
 
 
   ngOnInit() {
@@ -37,5 +42,18 @@ export class AnimeAllCharactersComponent {
       this.characters = data;
       console.log(this.characters)
     })
+
+   this.animeDetailsService.nameAndImage.pipe(takeUntil(this.destroy$)).subscribe((data: any) => {    
+      this.animeTitle = data.title;
+      this.animeImage = data.image;
+      this.animeYear = data.year;
+    });
   }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+  
+
 }

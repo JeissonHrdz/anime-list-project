@@ -10,6 +10,7 @@ import { SafePipe } from '../../shared/pipes/safe-pipe';
 import { catchError, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { NgIcon,   provideIcons } from '@ng-icons/core';
 import { heroCalendarSolid } from '@ng-icons/heroicons/solid';
+import { AnimeSearchService } from '../../../Core/Services/anime-search.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class AnimeDetailsComponent {
 
   private destroy$ = new Subject<void>();
   private animeService = inject(AnimeService);
+  private animeSearchService = inject(AnimeSearchService );
   private animeDetailsService = inject(AnimeDetailsService);
   private route = inject(ActivatedRoute);
 
@@ -32,7 +34,7 @@ export class AnimeDetailsComponent {
   animeCharacters?: Character[];
   trailerId?: string;
   statusModal: boolean = false;
-  ngOnInit() {
+  ngOnInit() {  
     this.route.paramMap.pipe(
       switchMap(params => {
         this.animeId = Number(params.get('id'));
@@ -47,7 +49,16 @@ export class AnimeDetailsComponent {
     ).subscribe(data => {
       if (data) {
         this.animeData = data;
-        this.animeDetailsService.animeCharacters(this.animeData?.characters.edges);
+        this.animeDetailsService.animeCharacters(this.animeData?.characters.edges);   
+        this.animeSearchService.getAnimeId(this.animeData.id);    
+        const animeInfo = {
+          title: this.animeData.title.romaji,
+          image: this.animeData.coverImage.large,
+          year: this.animeData.startDate.year
+        }
+
+        this.animeDetailsService.animeNameAndImage(animeInfo);
+      
       }
     });
   }
