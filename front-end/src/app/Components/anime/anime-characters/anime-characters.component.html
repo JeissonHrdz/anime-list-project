@@ -1,25 +1,28 @@
 <div class="p-4">
-    <h2 class="text-2xl font-bold text-white cursor-pointer" (click)="showAllCharacters()" >Characters</h2>
+    <h2 class="text-2xl font-bold text-neutral-200 cursor-pointer" (click)="showAllCharacters()" >Characters</h2>
 </div>
-<section *ngIf="(animeCharacters$ |async) as characters" class="flex flex-col p-4 w-120 ml-5 overflow-x-auto ">  
-    <div *ngFor="let item of characters"  class="text-gray-600 font-medium  m-2 flex flex-row  bg-white rounded-lg shadow-lg">
-        <div class="float-left">
-            <div class="rounded-sm w-20 h-20 float-left">
-                <img class="object-cover h-full w-full" [src]="item.node.image.large" />
+<section *ngIf="(animeCharacters$ |async) as characters" class="flex flex-row p-4 w-300 overflow-x-auto ml-5  ">  
+    <div *ngFor="let item of characters" class="mb-2 mr-2 relative w-auto border-1 border-neutral-950 rounded-md shadow-2xl">
+        <div   class=" border-1 w-[250px] border-neutral-600 text-neutral-100 font-medium  flex flex-row  bg-neutral-700 rounded-md ">
+            <div class="float-left z-10">
+                <div class="rounded-sm w-20  float-left m-1 ">
+                    <img class="object-cover h-[120px] w-full shadow-2xl  rounded-md" [src]="item.node.image.large" />
+                </div>
+                <div class="p-2 w-auto float-left absolute bottom-0 ml-21">
+                    <p class="text-[12px]"> {{item.node.name.full}} </p>
+                    <p class="font-normal text-[10px]">{{item.role}}</p>
+                    <p class="text-[12px]">VO: {{item.voiceActors[0].name.first }} {{item.voiceActors[0].name.last }}</p>
+                </div>
             </div>
-            <div class="p-2 w-auto float-left">
-                <p class="text-[12px]"> {{item.node.name.full}} </p>
-                <p class="font-normal text-[10px]">{{item.role}}</p>
+          <div class="absolute right-0 overflow-hidden w-[125px] h-[128px] ">
+                <div class=" w-[125px] h-[128px] rounded-md bg-cover bg-no-repeat bg-center" 
+                [style.background-image]="'linear-gradient(to right, rgba(63, 63, 63, 1) 0px, rgba(63, 63, 63, 0.7) 30%), 
+                    url(' + item.voiceActors[0].image.large + ')'">
+                    </div>                                                             
             </div>
         </div>
-        <div class="ml-auto">
-            <div class="rounded-sm w-20 h-20 float-right">
-                <img class="object-cover h-full w-full" [src]="item.voiceActors[0].image.large" />
-            </div>
-            <div class="p-2 w-auto float-right">
-                <p class="text-[12px]"> {{item.voiceActors[0].name.first }} {{item.voiceActors[0].name.last }}</p>
-            </div>          
-        </div>
-    </div>
+    </div> 
     
 </section>
+<br>
+<br>

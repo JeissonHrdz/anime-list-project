@@ -89,7 +89,7 @@ export const getAnimeById = async (id: string, page: number = 1, perPage: number
                     large
                 }
                 format
-                characters (page: 1, perPage: 6) {
+                characters (page: 1, perPage: 6, sort: ID) {
                     edges {
                         role
                      node {
@@ -147,7 +147,7 @@ export const getAllCharacters = async (id: string): Promise<Character[]> => {
     const query = `
         query ($id: Int) {           
              Media (id: $id, type: ANIME) {               
-                characters {
+                characters  {
                     edges {
                         role
                      node {
