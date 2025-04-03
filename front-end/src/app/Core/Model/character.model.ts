@@ -7,6 +7,9 @@ export interface Character {
     name: CharacterName;
     description?: string;
     image: Image;
+    dateOfBirth?: DateOfBirth;  
+    gender?: string;
+    age?: string;  
   };
   voiceActors: voiceActors[];
 }
@@ -16,6 +19,12 @@ interface CharacterName {
 
 interface Image {
   large: string;
+}
+
+interface DateOfBirth {
+  year: number;
+  month: number;
+  day: number;
 }
 
 

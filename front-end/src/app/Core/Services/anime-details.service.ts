@@ -21,4 +21,10 @@ export class AnimeDetailsService {
   animeNameAndImage(data: any){    
     this.animeNameAndImageEmit.next(data);    
   }
+
+  private animeCharacterEmit = new BehaviorSubject<Character>({} as Character); 
+  character = this.animeCharacterEmit.asObservable();
+  setCharacter(character: Character) {    
+    this.animeCharacterEmit.next(character);
+  }
 }

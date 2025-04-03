@@ -155,12 +155,19 @@ export const getAllCharacters = async (id: string): Promise<Character[]> => {
                             name {
                                 full
                             }
-                            description                               
+                            description  
+                            gender
+                            dateOfBirth {
+                                year
+                                month
+                                day
+                            }
+                            age                                                                                
                             image {
                                 large
                             }
                         }
-                        voiceActors (language: JAPANESE, sort: ID) {
+                        voiceActors (language: JAPANESE, sort: ROLE) {
                             id
                             name {
                                 first

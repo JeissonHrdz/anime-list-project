@@ -13,7 +13,7 @@
                     <img class="object-cover h-[120px] w-full shadow-2xl  rounded-md" [src]="item.node.image.large" />
                 </div>
                 <div class="p-2 w-auto float-left absolute bottom-0 ml-21">
-                    <p class="text-[12px]  cursor-pointer hover:text-blue-400"> {{item.node.name.full}} </p>
+                    <p class="text-[12px]  cursor-pointer hover:text-blue-400" (click)="showCharacterDetails(item.node.id)"> {{item.node.name.full}} </p>
                     <p class="font-normal text-[10px]">{{item.role}}</p>
                     @if (item.voiceActors.length > 0) {
                     <p class="text-[12px] cursor-pointer hover:text-blue-400">VO: {{item.voiceActors[0].name.first }} {{item.voiceActors[0].name.last }}</p>
@@ -32,9 +32,26 @@
                 <div class="absolute right-0 overflow-hidden w-[125px] h-[128px] ">
                     <div class=" w-[125px] h-[128px] rounded-md bg-cover bg-no-repeat bg-center" ></div>                                                                                   
                 </div>
-
-            }
-          
+            }          
         </div>
     </div> 
 </section>
+
+<!--MODAL CHARACTERS DETAILS-->
+
+<div class="relative z-10 hidden" id="characterDetailsModal" (click)="closeCharacterDetailsModal()" aria-labelledby="modal-title" role="dialog" aria-modal="true">  
+  <div class="fixed inset-0 bg-neutral-700/85 transition-opacity"  aria-hidden="true"></div>
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">    
+      <div class="relative transform overflow-hidden h-auto w-auto rounded-lg text-left shadow-xl transition-all sm:my-8 l ">
+        <div  >
+          <div class="sm:flex sm:items-start">
+            <div class="text-center sm:text-left">
+                <app-character-details/>          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

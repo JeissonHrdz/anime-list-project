@@ -3,7 +3,7 @@
 </div>
 <section *ngIf="(animeCharacters$ |async) as characters" class="flex flex-row p-4 w-300 overflow-x-auto ml-5  ">  
     <div *ngFor="let item of characters" class="mb-2 mr-2 relative w-auto border-1 border-neutral-950 rounded-md shadow-2xl">
-        <div   class=" border-1 w-[250px] border-neutral-600 text-neutral-100 font-medium  flex flex-row  bg-neutral-700 rounded-md ">
+        <div  *ngIf="item.role == 'MAIN'" class=" border-1 w-[250px] border-neutral-600 text-neutral-100 font-medium  flex flex-row  bg-neutral-700 rounded-md ">
             <div class="float-left z-10">
                 <div class="rounded-sm w-20  float-left m-1 ">
                     <img class="object-cover h-[120px] w-full shadow-2xl  rounded-md" [src]="item.node.image.large" />

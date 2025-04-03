@@ -5,10 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { catchError, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { AnimeDetailsService } from '../../../Core/Services/anime-details.service';
+import { CharacterDetailsComponent } from "../../characters/character-details/character-details.component";
+import $ from 'jquery';
 
 @Component({
   selector: 'app-anime-all-characters',
-  imports: [CommonModule],
+  imports: [CommonModule, CharacterDetailsComponent, CharacterDetailsComponent],
   templateUrl: './anime-all-characters.component.html',
   styleUrl: './anime-all-characters.component.css'
 })
@@ -24,6 +26,8 @@ export class AnimeAllCharactersComponent {
   animeTitle: string = ''
   animeImage: string = ''
   animeYear: string = ''
+  modalStatus: boolean = false;
+  character?: Character;
 
 
   ngOnInit() {
@@ -39,8 +43,7 @@ export class AnimeAllCharactersComponent {
       }),
       takeUntil(this.destroy$)
     ).subscribe((data: Array<Character>) => {
-      this.characters = data;
-      console.log(this.characters)
+      this.characters = data;    
     })
 
    this.animeDetailsService.nameAndImage.pipe(takeUntil(this.destroy$)).subscribe((data: any) => {    
@@ -49,6 +52,19 @@ export class AnimeAllCharactersComponent {
       this.animeYear = data.year;
     });
   }
+
+  showCharacterDetails(characterId: number) {
+      this.character = this.characters?.find((character: Character) => character.node.id === characterId);          
+      this.animeDetailsService.setCharacter(this.character!);
+      $('#characterDetailsModal').show("fast"); 
+  }
+
+  closeCharacterDetailsModal(){       
+      $('#characterDetailsModal').hide("fast"); 
+    }
+  
+    
+  
 
   ngOnDestroy() {
     this.destroy$.next();

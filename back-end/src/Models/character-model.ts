@@ -9,6 +9,13 @@ export interface Character {
         large: string;
     };
    description: string;  
+    gender: string;
+    dateOfBirth: {
+        year: number;
+        month: number;
+        day: number;
+    };
+    age: number;   
     media: {
         edges: {
             voiceActors: voiceActors[];
