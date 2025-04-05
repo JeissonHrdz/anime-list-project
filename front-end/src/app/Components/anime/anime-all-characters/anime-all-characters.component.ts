@@ -7,6 +7,7 @@ import { catchError, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { AnimeDetailsService } from '../../../Core/Services/anime-details.service';
 import { CharacterDetailsComponent } from "../../characters/character-details/character-details.component";
 import $ from 'jquery';
+import { Anime } from '../../../Core/Model/anime.model';
 
 @Component({
   selector: 'app-anime-all-characters',
@@ -28,6 +29,7 @@ export class AnimeAllCharactersComponent {
   animeYear: string = ''
   modalStatus: boolean = false;
   character?: Character;
+  animeConnection?: Array<Anime> = [];
 
 
   ngOnInit() {
@@ -43,14 +45,18 @@ export class AnimeAllCharactersComponent {
       }),
       takeUntil(this.destroy$)
     ).subscribe((data: Array<Character>) => {
-      this.characters = data;    
+      this.characters = data;        
     })
 
    this.animeDetailsService.nameAndImage.pipe(takeUntil(this.destroy$)).subscribe((data: any) => {    
       this.animeTitle = data.title;
       this.animeImage = data.image;
       this.animeYear = data.year;
+      this.animeConnection = data.media.nodes;
+
     });
+
+  
   }
 
   showCharacterDetails(characterId: number) {

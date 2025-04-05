@@ -166,6 +166,18 @@ export const getAllCharacters = async (id: string): Promise<Character[]> => {
                             image {
                                 large
                             }
+                            media {
+                                nodes {
+                                   id
+                                   title {
+                                        romaji
+                                    }
+                                    coverImage {
+                                        large
+                                    }
+                                     
+                                }
+                            }
                         }
                         voiceActors (language: JAPANESE, sort: ROLE) {
                             id
@@ -188,7 +200,6 @@ export const getAllCharacters = async (id: string): Promise<Character[]> => {
     console.log('variables', variables);
     console.log('query', query);
     try {
-
         const response = await axios.post(ANILIST_API_URL, { // hacemos una petición POST a la API de AniList
             query: query, // pasamos la query
             variables: variables // pasamos las variables

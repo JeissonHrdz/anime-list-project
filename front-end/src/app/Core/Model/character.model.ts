@@ -1,3 +1,4 @@
+import { Anime } from './anime.model';
 import { voiceActors } from './voice-actor.model';
 
 export interface Character {
@@ -10,6 +11,7 @@ export interface Character {
     dateOfBirth?: DateOfBirth;  
     gender?: string;
     age?: string;  
+    media: AnimeConnection;
   };
   voiceActors: voiceActors[];
 }
@@ -25,6 +27,10 @@ interface DateOfBirth {
   year: number;
   month: number;
   day: number;
+}
+
+interface AnimeConnection {   
+      nodes: Anime[];    
 }
 
 

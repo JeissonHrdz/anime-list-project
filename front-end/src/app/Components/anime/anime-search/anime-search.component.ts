@@ -42,6 +42,7 @@ export class AnimeSearchComponent {
       this.anime = data
     }
     );
+    $("body").addClass("overflow-hidden"); // Add class to body
   }
   goToDetails(id: number) {
     this.animeSearchService.getAnimeId(id);
