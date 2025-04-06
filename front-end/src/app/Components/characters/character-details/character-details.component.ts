@@ -19,11 +19,14 @@ export class CharacterDetailsComponent {
   private animeDetailsService = inject(AnimeDetailsService);
   private animeSearchService = inject(AnimeSearchService);
   private router = inject(Router);
+
   character?: Character;
+  descriptionFixed?: String[] = [];
 
   ngOnInit() {
     this.animeDetailsService.character.pipe( takeUntil(this.destroy$)).subscribe((data: Character) => { 
-      this.character = data;    
+      this.character = data;  
+      this.descriptionFixed = this.destructuringDescription(this.character);       
     });
   }
 
@@ -32,6 +35,23 @@ export class CharacterDetailsComponent {
     this.router.navigate(['/anime', id]);    
     this.animeSearchService.statusCloseComponent(false);
   }
+
+  destructuringDescription(data: Character): string[] {
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const descriptionArray = data.node.description?.split("\n") ?? [];
+    const descriptionFixed: string[] = [];
+    for (let i = 0; i < descriptionArray.length; i++) {
+      descriptionFixed.push(
+        descriptionArray[i].replace("__","<b>").replace("__","</b>")
+        .replace(linkRegex, '<a class="text-blue-500" href="$2" target="_blank">$1</a>')+"<br>"      
+      );
+      
+    }
+
+    return  descriptionFixed;
+  }
+
+    
 
 
   ngOnDestroy() {

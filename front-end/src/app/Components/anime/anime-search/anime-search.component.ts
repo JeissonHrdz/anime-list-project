@@ -42,7 +42,7 @@ export class AnimeSearchComponent {
       this.anime = data
     }
     );
-    $("body").addClass("overflow-hidden"); // Add class to body
+    
   }
   goToDetails(id: number) {
     this.animeSearchService.getAnimeId(id);
@@ -53,6 +53,7 @@ export class AnimeSearchComponent {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+    
   }
 
 
