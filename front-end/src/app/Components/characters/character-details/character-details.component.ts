@@ -4,8 +4,9 @@ import { Character } from '../../../Core/Model/character.model';
 import { Subject, takeUntil } from 'rxjs';
 import { Anime } from '../../../Core/Model/anime.model';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnimeSearchService } from '../../../Core/Services/anime-search.service';
+import { CharacterService } from '../../../Core/Services/character.service';
 
 @Component({
   selector: 'app-character-details',
@@ -18,16 +19,24 @@ export class CharacterDetailsComponent {
   private destroy$ = new Subject<void>();
   private animeDetailsService = inject(AnimeDetailsService);
   private animeSearchService = inject(AnimeSearchService);
+  private characterService = inject(CharacterService);
+  private route = inject(ActivatedRoute);
   private router = inject(Router);
 
   character?: Character;
   descriptionFixed?: String[] = [];
 
   ngOnInit() {
-    this.animeDetailsService.character.pipe( takeUntil(this.destroy$)).subscribe((data: Character) => { 
-      this.character = data;  
-      this.descriptionFixed = this.destructuringDescription(this.character);       
-    });
+    this.route.paramMap.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(params => {
+      const characterId = Number(params.get('id'));
+      this.characterService.searchCharacterById(characterId).subscribe((data: Character) => {
+        this.character = data;    
+        console.log(data);
+        this.descriptionFixed = this.destructuringDescription(this.character);     
+      });
+    })   
   }
 
   goToDetails(id: number) {

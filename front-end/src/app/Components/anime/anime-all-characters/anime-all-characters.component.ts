@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AnimeService } from '../../../Core/Services/anime.service';
 import { Character } from '../../../Core/Model/character.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { catchError, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { AnimeDetailsService } from '../../../Core/Services/anime-details.service';
@@ -11,7 +11,7 @@ import { Anime } from '../../../Core/Model/anime.model';
 
 @Component({
   selector: 'app-anime-all-characters',
-  imports: [CommonModule, CharacterDetailsComponent, CharacterDetailsComponent],
+  imports: [CommonModule],
   templateUrl: './anime-all-characters.component.html',
   styleUrl: './anime-all-characters.component.css'
 })
@@ -21,6 +21,7 @@ export class AnimeAllCharactersComponent {
   private animeService = inject(AnimeService)
   private route = inject(ActivatedRoute)
   private animeDetailsService = inject(AnimeDetailsService )
+  private router = inject(Router)
 
   characters?: Array<Character> = []
   animeId: number = 0
@@ -59,15 +60,11 @@ export class AnimeAllCharactersComponent {
   
   }
 
-  showCharacterDetails(characterId: number) {
-      this.character = this.characters?.find((character: Character) => character.node.id === characterId);          
-      this.animeDetailsService.setCharacter(this.character!);
-      $('#characterDetailsModal').show("fast"); 
+  showCharacterDetails(characterId: number) {         
+          this.router.navigate(['/character', characterId]);  
+      
   }
-
-  closeCharacterDetailsModal(){       
-      $('#characterDetailsModal').hide("fast"); 
-    }
+ 
   
     
   

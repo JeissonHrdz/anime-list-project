@@ -9,5 +9,6 @@ export const routes: Routes = [
     {path: 'anime/:id', loadComponent: () => import('./Components/anime/anime-details/anime-details.component').then(m => m.AnimeDetailsComponent)}, 
     {path: 'home', component: HomeComponent },  
     {path: 'anime/:id/characters', loadComponent: () => import('./Components/anime/anime-all-characters/anime-all-characters.component').then(m => m.AnimeAllCharactersComponent)},
+    {path: 'character/:id', loadComponent: () => import('./Components/characters/character-details/character-details.component').then(m => m.CharacterDetailsComponent)},
     {path: '', redirectTo: '/home', pathMatch: 'full'},
 ];

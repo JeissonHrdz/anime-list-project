@@ -1,0 +1,31 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
+import { Character } from '../Model/character.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CharacterService {
+
+  
+  private apiUrl = 'http://localhost:3000/api';
+  private http = inject(HttpClient)
+
+  searchCharacterById(id: number): Observable<Character>{
+    return this.http.get<Character>(`${this.apiUrl}/character`,{params:{id}}).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  private handleError(error: HttpErrorResponse){
+    if(error.status === 0){
+      console.error('An error occurred:', error.error);
+    }else{
+      console.error(`Backend returned code ${error.status}, body was: `, error.error);
+    }
+    return throwError(() => new Error('Something happened with request, please try again later.'));
+  }
+
+  constructor() { }
+}
