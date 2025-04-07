@@ -1,37 +1,37 @@
 <section class="w-full h-auto  rounded-md l">
     <div class="bg-neutral-50 h-auto p-4 flex flex-col">
-        <div class="grid grid-cols-2 p-4"  style="grid-template-columns: 300px auto ;">
+        <div class="grid grid-cols-2 p-4" style="grid-template-columns: 300px auto ;">
             <div class="w-[400px]">
-                <img class="shadow-2xl w-[270px] object-cover" src="{{character?.node?.image?.large}}" alt="">
+                <img class="shadow-2xl w-[270px] object-cover" src="{{character?.image?.large}}" alt="">
             </div>
             <div>
-                <p class="text-3xl  font-semibold ml-5 text-neutral-700">{{character?.node?.name?.full}}</p>
+                <p class="text-3xl  font-semibold ml-5 text-neutral-700">{{character?.name?.full}}</p>
                 <br>
-                <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Gender:</b> {{character?.node?.gender}}</p>
+                <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Gender:</b> {{character?.gender}}</p>
                 <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Birth Date:</b>
-                    {{character?.node?.dateOfBirth?.day}}/{{character?.node?.dateOfBirth?.month}}
+                    {{character?.dateOfBirth?.day}}/{{character?.dateOfBirth?.month}}
                 </p>
-                @if (character?.node?.age != null) {
-                <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Age:</b> {{character?.node?.age}} </p>
+                @if (character?.age != null) {
+                <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Age:</b> {{character?.age}} </p>
                 }
-                <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Role:</b> {{character?.role}} </p>
-                <div class="ml-5 text-neutral-700 font-medium text-[14px] pr-2 h-100 overflow-y-auto">
-                    @for (item of descriptionFixed; track item) {
-                        @if (item.length > 0) {
-                        <div [innerHTML]="item">
-                           <br>         
-                        </div> 
-                     }
-                    }
-            </div>               
+                <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Role:</b> </p>
+                <div *ngFor="let item of descriptionFixed"
+                    class="ml-5 text-neutral-700 h-auto font-medium text-[14px] pr-2 overflow-y-auto">
+                    <div [innerHTML]="item"  ngSkipHydration>
+                        <br>
+                    </div>
+
+                </div>
             </div>
-        </div>     
-        
+        </div>
+<br>
         <div class="grid grid-cols-6 h-auto m-auto w-340 overflow-y-auto z-10">
-            <div class="ml-6 h-[320px] w-[200px] flex flex-col cursor-pointer z-10"  (click)="goToDetails(item.id)"
-                *ngFor="let item of character?.node?.media?.nodes">
-                <img class="h-[257px] w-[180px] object-cover shadow-lg rounded-md z-20" alt="{{item?.title?.romaji}}" src="{{item?.coverImage?.large}}">
-                <p class="mt-1 w-45 truncate tracking-tight text-neutral-700 font-medium text-[14px]">{{item?.title?.romaji}}</p>
+            <div class="ml-6 h-[320px] w-[200px] flex flex-col cursor-pointer z-10" (click)="goToDetails(item.id)"
+                *ngFor="let item of character?.media?.nodes">
+                <img class="h-[257px] w-[180px] object-cover shadow-lg rounded-md z-20" alt="{{item?.title?.romaji}}"
+                    src="{{item?.coverImage?.large}}">
+                <p class="mt-1 w-45 truncate tracking-tight text-neutral-700 font-medium text-[14px]">
+                    {{item?.title?.romaji}}</p>
             </div>
         </div>
     </div>

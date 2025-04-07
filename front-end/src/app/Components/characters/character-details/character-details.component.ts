@@ -1,12 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { AnimeDetailsService } from '../../../Core/Services/anime-details.service';
-import { Character } from '../../../Core/Model/character.model';
+import { Character, CharacterDetail } from '../../../Core/Model/character.model';
 import { Subject, takeUntil } from 'rxjs';
 import { Anime } from '../../../Core/Model/anime.model';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnimeSearchService } from '../../../Core/Services/anime-search.service';
 import { CharacterService } from '../../../Core/Services/character.service';
+import { SafePipe } from '../../shared/pipes/safe-pipe';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-character-details',
@@ -21,9 +23,9 @@ export class CharacterDetailsComponent {
   private animeSearchService = inject(AnimeSearchService);
   private characterService = inject(CharacterService);
   private route = inject(ActivatedRoute);
-  private router = inject(Router);
+  private router = inject(Router); 
 
-  character?: Character;
+  character?: CharacterDetail;
   descriptionFixed?: String[] = [];
 
   ngOnInit() {
@@ -31,13 +33,16 @@ export class CharacterDetailsComponent {
       takeUntil(this.destroy$)
     ).subscribe(params => {
       const characterId = Number(params.get('id'));
-      this.characterService.searchCharacterById(characterId).subscribe((data: Character) => {
-        this.character = data;    
-        console.log(data);
-        this.descriptionFixed = this.destructuringDescription(this.character);     
+      this.characterService.searchCharacterById(characterId).subscribe((data: CharacterDetail) => {
+        this.character = data    
+        console.log(this.character);        
+        this.descriptionFixed = this.destructuringDescription(this.character); 
+        console.log(this.descriptionFixed);   
       });
     })   
   }
+
+
 
   goToDetails(id: number) {
     this.animeSearchService.getAnimeId(id);
@@ -45,9 +50,9 @@ export class CharacterDetailsComponent {
     this.animeSearchService.statusCloseComponent(false);
   }
 
-  destructuringDescription(data: Character): string[] {
+  destructuringDescription(data: CharacterDetail): string[] {
     const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-    const descriptionArray = data.node.description?.split("\n") ?? [];
+    const descriptionArray = data.description?.split("\n") ?? [];
     const descriptionFixed: string[] = [];
     for (let i = 0; i < descriptionArray.length; i++) {
       descriptionFixed.push(

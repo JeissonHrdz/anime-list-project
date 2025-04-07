@@ -179,19 +179,7 @@ export const getAllCharacters = async (id: string): Promise<Character[]> => {
                             age                                                                                
                             image {
                                 large
-                            }
-                            media (sort: ID) {
-                                nodes {
-                                   id
-                                   title {
-                                        romaji
-                                    }
-                                    coverImage {
-                                        large
-                                    }
-                                     
-                                }
-                            }
+                            }                        
                         }
                         voiceActors (language: JAPANESE, sort: ROLE) {
                             id
@@ -278,7 +266,7 @@ export const getCharacterById = async (characterId: string): Promise<Character> 
       variables: variables // pasamos las variables
     });
 
-    return response.data.data.Character as Character; // devolvemos los datos de la media (anime) que nos ha devuelto la API de AniList
+    return response.data.data.Character; // devolvemos los datos de la media (anime) que nos ha devuelto la API de AniList
   } catch (error) {
     const err = error as any;
     console.error(

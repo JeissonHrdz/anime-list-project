@@ -52,12 +52,10 @@ export class AnimeAllCharactersComponent {
    this.animeDetailsService.nameAndImage.pipe(takeUntil(this.destroy$)).subscribe((data: any) => {    
       this.animeTitle = data.title;
       this.animeImage = data.image;
-      this.animeYear = data.year;
-      this.animeConnection = data.media.nodes;
-
+      this.animeYear = data.year;   
     });
 
-  
+    $("#topBar").addClass("bg-neutral-800");
   }
 
   showCharacterDetails(characterId: number) {         

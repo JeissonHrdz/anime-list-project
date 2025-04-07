@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Character } from '../Model/character.model';
+import { Character, CharacterDetail } from '../Model/character.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class CharacterService {
   private apiUrl = 'http://localhost:3000/api';
   private http = inject(HttpClient)
 
-  searchCharacterById(id: number): Observable<Character>{
-    return this.http.get<Character>(`${this.apiUrl}/character`,{params:{id}}).pipe(
+  searchCharacterById(id: number): Observable<CharacterDetail>{
+    return this.http.get<CharacterDetail>(`${this.apiUrl}/character`,{params:{id}}).pipe(
       catchError(this.handleError)
     )
   }

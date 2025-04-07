@@ -1,23 +1,23 @@
 @if (hasResults) {
-<div class="absolute h-full w-full top-0  bg-neutral-600/80 z-30">
-    <div class=" border-1 border-neutral-950 w-200 mt-15  m-auto rounded-xl shadow-2xl " >
-        <div class=" bg-neutral-800 w-200   border-1 border-neutral-700 p-4 rounded-xl h-120 z-40 ">
+<div class="absolute h-full w-full top-0 bg-neutral-600/80 z-30">
+    <div class="  w-200 mt-15  m-auto rounded-lg shadow-2xl " >
+        <div class=" bg-neutral-50 w-200    p-4 rounded-lg h-120 z-40 ">
             <div class="overflow-auto overflow-x-hidden w-auto h-110 grid grid-cols-2 gap-2 mr-2">               
                 @if (anime) {
                 <div (click)="goToDetails(item.id)" class="p-2 w-auto col-span-1 mb-2 mr-6 
-     text-white flex justify-items-center hover:bg-neutral-700 cursor-pointer rounded-lg" *ngFor="let item of anime">
-                    <div class="w-18 h-25 border-1 border-neutral-950 rounded-lg">
-                        <img class=" w-18 h-25 object-cover border-1 rounded-lg border-neutral-700"
+     text-neutral-800 flex justify-items-center hover:bg-neutral-200 cursor-pointer rounded-lg" *ngFor="let item of anime">
+                    <div class="w-18 h-25 border-1 border-neutral-100 rounded-lg">
+                        <img class=" w-18 h-25 object-cover border-1 rounded-lg border-neutral-200"
                             [src]="item.coverImage.large" />
                     </div>
                     <div class="flex-col w-60">
                         <p class="pl-3 font-medium  text-[14px] subpixel-antialiased truncate tracking-tight">{{
                             item.title.romaji
                             }}</p>
-                        <p class=" pl-3 text-[12px] text-zinc-400 subpixel-antialiased truncate tracking-normal">{{
+                        <p class=" pl-3 text-[12px] text-neutral-600 subpixel-antialiased truncate tracking-normal">{{
                             item.title.english }}  </p>                      
                         <p class="mt-2 pl-3 text-[12px] subpixel-antialiased">
-                           <span class="p-1 rounded-md font-medium bg-neutral-500/20 text-neutral-400">
+                           <span class="p-1 rounded-md font-medium bg-neutral-500/20 text-neutral-500">
                             @if (item.genres[0] != null) {
                                 {{ item.genres[0] }}
                             } @else {
