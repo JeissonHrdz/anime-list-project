@@ -1,0 +1,7 @@
+.grid-characters{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(max-content, max-content));
+    gap: 1rem;
+    overflow: auto;
+    
+}

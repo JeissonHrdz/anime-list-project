@@ -11,6 +11,7 @@ import { catchError, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { NgIcon,   provideIcons } from '@ng-icons/core';
 import { heroCalendarSolid } from '@ng-icons/heroicons/solid';
 import { AnimeSearchService } from '../../../Core/Services/anime-search.service';
+;
 
 
 @Component({

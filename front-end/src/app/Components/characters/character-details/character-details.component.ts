@@ -40,6 +40,7 @@ export class CharacterDetailsComponent {
         console.log(this.descriptionFixed);   
       });
     })   
+    $("#topBar").addClass("bg-neutral-800");
   }
 
 
