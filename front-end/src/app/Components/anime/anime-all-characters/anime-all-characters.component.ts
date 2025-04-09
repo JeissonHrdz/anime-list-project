@@ -30,7 +30,7 @@ export class AnimeAllCharactersComponent {
   animeYear: string = ''
   modalStatus: boolean = false;
   character?: Character;
-  animeConnection?: Array<Anime> = [];
+  animeConnection?: Array<Anime> = []; 
 
 
   ngOnInit() {
@@ -46,14 +46,30 @@ export class AnimeAllCharactersComponent {
       }),
       takeUntil(this.destroy$)
     ).subscribe((data: Array<Character>) => {
-      this.characters = data;        
-    })
+      this.characters = data;    
+      console.log(this.characters);
+    
+    }) 
 
-   this.animeDetailsService.nameAndImage.pipe(takeUntil(this.destroy$)).subscribe((data: any) => {    
-      this.animeTitle = data.title;
-      this.animeImage = data.image;
-      this.animeYear = data.year;   
-    });
+    
+    this.animeDetailsService.nameAndImage.pipe(takeUntil(this.destroy$)).subscribe((data: any) => {   
+      
+      const animeInfo = {
+        title: data.title,
+        image: data.image,
+        year: data.year
+      }
+
+      if(localStorage.getItem('animeInfo') === null) {
+      localStorage.setItem('animeInfo', JSON.stringify(animeInfo));    
+      }
+      
+      this.animeTitle = localStorage.getItem('animeInfo') ? JSON.parse(localStorage.getItem('animeInfo')!).title : animeInfo.title;
+      this.animeImage = localStorage.getItem('animeInfo') ? JSON.parse(localStorage.getItem('animeInfo')!).image : animeInfo.image;
+      this.animeYear = localStorage.getItem('animeInfo') ? JSON.parse(localStorage.getItem('animeInfo')!).year : animeInfo.year;
+    });  
+
+ 
 
     $("#topBar").addClass("bg-neutral-800");
   }

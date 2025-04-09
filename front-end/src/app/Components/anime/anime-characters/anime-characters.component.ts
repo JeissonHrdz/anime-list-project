@@ -47,8 +47,8 @@ export class AnimeCharactersComponent {
   showAllCharacters() {
     $("#topBar").addClass("bg-neutral-800");
     this.router.navigate(['/anime', this.animeId, 'characters']);
+  
   }
-
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

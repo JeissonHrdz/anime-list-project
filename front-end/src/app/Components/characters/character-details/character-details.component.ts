@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Directive, inject } from '@angular/core';
 import { AnimeDetailsService } from '../../../Core/Services/anime-details.service';
 import { Character, CharacterDetail } from '../../../Core/Model/character.model';
 import { Subject, takeUntil } from 'rxjs';
@@ -7,12 +7,20 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnimeSearchService } from '../../../Core/Services/anime-search.service';
 import { CharacterService } from '../../../Core/Services/character.service';
-import { SafePipe } from '../../shared/pipes/safe-pipe';
-import { DomSanitizer } from '@angular/platform-browser';
+import { SafeHtmlPipe } from '../../shared/pipes/safe-html-pipe';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
-@Component({
+
+@Directive({
+  selector: '[dir]',
+  host: {ngSkipHydration: 'true'},
+})
+class Dir {
+}
+
+@Component({ 
   selector: 'app-character-details',
-  imports: [ CommonModule],
+  imports: [ CommonModule, SafeHtmlPipe],
   templateUrl: './character-details.component.html',
   styleUrl: './character-details.component.css'
 })
@@ -26,14 +34,14 @@ export class CharacterDetailsComponent {
   private router = inject(Router); 
 
   character?: CharacterDetail;
-  descriptionFixed?: String[] = [];
+  descriptionFixed?: string[] = [];
 
   ngOnInit() {
     this.route.paramMap.pipe(
       takeUntil(this.destroy$)
     ).subscribe(params => {
       const characterId = Number(params.get('id'));
-      this.characterService.searchCharacterById(characterId).subscribe((data: CharacterDetail) => {
+      this.characterService.searchCharacterById(characterId).pipe(takeUntil(this.destroy$)).subscribe((data: CharacterDetail) => {
         this.character = data    
         console.log(this.character);        
         this.descriptionFixed = this.destructuringDescription(this.character); 
@@ -42,6 +50,8 @@ export class CharacterDetailsComponent {
     })   
     $("#topBar").addClass("bg-neutral-800");
   }
+
+ 
 
 
 

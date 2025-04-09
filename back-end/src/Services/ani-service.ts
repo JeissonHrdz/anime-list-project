@@ -160,7 +160,13 @@ export const getAnimeById = async (
 export const getAllCharacters = async (id: string): Promise<Character[]> => {
   const query = `
         query ($id: Int) {           
-             Media (id: $id, type: ANIME) {               
+             Media (id: $id, type: ANIME) {    
+              title {
+                  romaji
+              } 
+              coverImage {
+                  large
+              }          
                 characters  {
                     edges {
                         role

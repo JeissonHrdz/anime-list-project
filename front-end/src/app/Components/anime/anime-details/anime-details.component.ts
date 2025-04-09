@@ -63,6 +63,7 @@ export class AnimeDetailsComponent {
       }
     });
     $("#topBar").removeClass("bg-neutral-800");
+    localStorage.removeItem('animeInfo'); 
   }
   modalTrailer() {    
     if (!this.statusModal) { 
