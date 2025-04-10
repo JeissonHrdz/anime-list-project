@@ -2,6 +2,7 @@ import axios from "axios"; // importamos axios para hacer peticiones HTTP
 import { Anime } from "../Models/ani-model"; // importamos la interfaz Anime del archivo ani-model.ts
 import { ANILIST_API_URL } from "../Config/ani-config";
 import { Character } from "../Models/character-model";
+import { voiceActors } from "../Models/actor-voice-model";
 
 export const getAnimeByTitle = async (
   title: string,
@@ -280,5 +281,79 @@ export const getCharacterById = async (characterId: string): Promise<Character> 
       err.response?.data || err.message
     ); // si hay un error, lo mostramos por consola
     throw error; // lanzamos el error para que lo maneje el controlador
+  }
+};
+
+export const getVoiceActorById = async (voiceActorId: string): Promise<voiceActors> => {
+  const query = `
+          query Staff($voiceActorId: Int) {
+          Staff(id: $voiceActorId) {
+            id
+            name {
+              full
+              native
+              alternative
+            }
+            image {
+              large
+            }
+            description
+            gender
+            dateOfBirth {
+              day
+              month
+              year
+            }
+            dateOfDeath {
+              day
+              month
+              year
+            }
+            age
+            homeTown
+            siteUrl
+            characters {
+              edges {
+                role
+                node {
+                  name {
+                    full
+                  }
+                  media {
+                    nodes {
+                      id
+                      title {
+                        romaji
+                      }
+                      coverImage {
+                        large
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+    `;
+  const variables = {
+
+    voiceActorId: voiceActorId
+  };
+  console.log("variables", variables);
+  console.log("query", query);
+  try {
+    const response = await axios.post(ANILIST_API_URL, {
+      query: query,
+      variables: variables
+    });
+    return response.data.data.Staff
+  } catch (error) {
+    const err = error as any;
+    console.error(
+      "Error en la solicitud de AniList:",
+      err.response?.data || err.message
+    );
+    throw error;
   }
 };

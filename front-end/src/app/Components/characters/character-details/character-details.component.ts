@@ -11,12 +11,6 @@ import { SafeHtmlPipe } from '../../shared/pipes/safe-html-pipe';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 
-@Directive({
-  selector: '[dir]',
-  host: {ngSkipHydration: 'true'},
-})
-class Dir {
-}
 
 @Component({ 
   selector: 'app-character-details',
@@ -48,7 +42,7 @@ export class CharacterDetailsComponent {
         console.log(this.descriptionFixed);   
       });
     })   
-    $("#topBar").addClass("bg-neutral-800");
+   $("#topBar").addClass("bg-neutral-800");
   }
 
  
