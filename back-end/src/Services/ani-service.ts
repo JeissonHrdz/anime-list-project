@@ -290,7 +290,8 @@ export const getVoiceActorById = async (voiceActorId: string): Promise<voiceActo
           Staff(id: $voiceActorId) {
             id
             name {
-              full
+              first
+              last
               native
               alternative
             }
@@ -317,7 +318,7 @@ export const getVoiceActorById = async (voiceActorId: string): Promise<voiceActo
                 role
                 node {
                   name {
-                    full
+                   full
                   }
                   media {
                     nodes {

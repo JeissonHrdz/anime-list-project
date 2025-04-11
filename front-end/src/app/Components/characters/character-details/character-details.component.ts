@@ -1,9 +1,9 @@
-import { Component, Directive, inject } from '@angular/core';
+import { Component, Directive, Inject, inject, PLATFORM_ID } from '@angular/core';
 import { AnimeDetailsService } from '../../../Core/Services/anime-details.service';
 import { Character, CharacterDetail } from '../../../Core/Model/character.model';
 import { Subject, takeUntil } from 'rxjs';
 import { Anime } from '../../../Core/Model/anime.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnimeSearchService } from '../../../Core/Services/anime-search.service';
 import { CharacterService } from '../../../Core/Services/character.service';
@@ -19,6 +19,11 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrl: './character-details.component.css'
 })
 export class CharacterDetailsComponent {
+
+  isBrowser: boolean = false;
+  constructor(@Inject(PLATFORM_ID) private platformId: any){
+     this.isBrowser = isPlatformBrowser(this.platformId);
+   }
 
   private destroy$ = new Subject<void>();
   private animeDetailsService = inject(AnimeDetailsService);
@@ -44,9 +49,6 @@ export class CharacterDetailsComponent {
     })   
    $("#topBar").addClass("bg-neutral-800");
   }
-
- 
-
 
 
   goToDetails(id: number) {

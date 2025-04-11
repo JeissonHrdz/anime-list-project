@@ -78,6 +78,10 @@ export class AnimeAllCharactersComponent {
           this.router.navigate(['/character', characterId]);  
       
   }
+  showVoiceActorDetails(voiceActorId: number) {         
+    this.router.navigate(['/voice-actor', voiceActorId]);  
+
+}
  
   
     
