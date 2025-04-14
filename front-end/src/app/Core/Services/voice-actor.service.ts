@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { voiceActors } from '../Model/voice-actor.model';
+import { voiceActors, voiceActorsDetails } from '../Model/voice-actor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,8 @@ export class VoiceActorService {
   private apiUrl = 'http://localhost:3000/api';
   private http = inject(HttpClient)
 
-  voiceActorById(id: number): Observable<voiceActors>{
-    return this.http.get<voiceActors>(`${this.apiUrl}/voice-actor`, { params: { id } }).pipe(
+  voiceActorById(id: number): Observable<voiceActorsDetails>{
+    return this.http.get<voiceActorsDetails>(`${this.apiUrl}/voice-actor`, { params: { id } }).pipe(
       catchError(this.handleError)
     )
   }

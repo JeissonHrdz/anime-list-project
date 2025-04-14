@@ -4,7 +4,7 @@ export interface voiceActors {
     id: number;
     name: VoiceActorName;
     image: Image; 
-    decription: string;
+    description: string;
     gender: string;
     dateOfBirth: DateOfBirth
     dateOfDeath: DateOfDeath
@@ -13,6 +13,24 @@ export interface voiceActors {
     siteUrl: string;
     characters: Character[]
  }
+
+ export interface voiceActorsDetails {
+  id: number;
+  name: VoiceActorName;
+  image: Image; 
+  description: string;
+  gender: string;
+  dateOfBirth: DateOfBirth
+  dateOfDeath: DateOfDeath
+  age: number;
+  homeTown: string;
+  siteUrl: string;
+  characters: CharacterConection;
+}
+
+interface CharacterConection {
+  edges: Character[];
+}
 
  interface VoiceActorName {
     first: string;

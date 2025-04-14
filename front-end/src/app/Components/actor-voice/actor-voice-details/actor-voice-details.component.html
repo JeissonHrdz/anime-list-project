@@ -1,11 +1,14 @@
 <section class="w-full h-auto  rounded-md l">
     <div class="bg-neutral-50 h-auto p-4 flex flex-col">
         <div class="grid grid-cols-2 p-4" style="grid-template-columns: 300px auto ;">
-            <div class="poster-image w-[270px] h-[396px] bg-cover bg-center relative" [style]="{'background-image': 'url(' +actorVoiceData?.image?.large + ')'}">
-                <img class="w-[270px] h-[396px] object-cover shadow-lg rounded-md relative z-10 "src="{{actorVoiceData?.image?.large}}">
+            <div class="poster-image w-[270px] h-[396px] bg-cover bg-center relative"
+                [style]="{'background-image': 'url(' +actorVoiceData?.image?.large + ')'}">
+                <img class="w-[270px] h-[396px] object-cover shadow-lg rounded-md relative z-10 "
+                    src="{{actorVoiceData?.image?.large}}">
             </div>
             <div>
-                <p class="text-3xl  font-semibold ml-5 text-neutral-700">{{actorVoiceData?.name?.first}} {{actorVoiceData?.name?.last}}</p>
+                <p class="text-3xl  font-semibold ml-5 text-neutral-700">{{actorVoiceData?.name?.first}}
+                    {{actorVoiceData?.name?.last}}</p>
                 <br>
                 <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Gender:</b> {{actorVoiceData?.gender}}</p>
                 <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Birth Date:</b>
@@ -14,24 +17,36 @@
                 @if (actorVoiceData?.age != null) {
                 <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Age:</b> {{actorVoiceData?.age}} </p>
                 }
-                <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Home Town:</b> {{actorVoiceData?.homeTown}} </p>              
-               
-                @if (isBrowser) {
-                <div *ngFor="let item of destructuringDescription(actorVoiceData?.description)"  [innerHTML]="item | safeHtml" 
-                    class="ml-5 text-neutral-700 h-auto font-medium text-[14px] pr-2 overflow-y-auto" dir>
-                    <br>                 
+                <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Home Town:</b> {{actorVoiceData?.homeTown}}
+                </p>
 
-                </div> 
-            }
+                @if (isBrowser) {
+                <div *ngFor="let item of descriptionFixed" [innerHTML]="item | safeHtml"
+                    class="ml-5 text-neutral-700 h-auto font-medium text-[14px] pr-2 overflow-y-auto" dir>
+                    <br>
+
+                </div>
+                }
             </div>
         </div>
-<br>
-        <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6  h-auto m-auto w-auto overflow-y-auto z-10">
-            <div class="ml-6 h-[320px] w-[200px] flex flex-col cursor-pointer z-10"                >
-                <img class="h-[257px] w-[180px] object-cover shadow-lg rounded-md z-20" 
-                    src="">
-                <p class="mt-1 w-45 truncate tracking-tight text-neutral-700 font-medium text-[14px]">
-                 </p>
+        <br>
+
+        <div
+            class="m-auto overflow-y-auto z-10">
+            <div class="flex flex-row flex-wrap  " *ngFor="let item of actorVoiceData?.characters?.edges">            
+            <div class="ml-6 h-[320px] w-[200px] flex flex-col cursor-pointer z-10"
+            *ngFor="let anime of item.node.media.nodes">               
+                
+                    <img class="h-[257px] w-[180px] object-cover shadow-lg rounded-md z-20"
+                        src="{{anime.coverImage.large}}">
+                    <p class="mt-1 w-45 truncate tracking-tight text-neutral-700 font-medium text-[14px]">
+                        {{anime.title.romaji}}</p> 
+                        <p class="mt-1 w-45 truncate tracking-tight text-neutral-700 font-medium text-[14px]">
+                            {{item.node.name.full}}</p> 
+                                          
+                </div>
+              
+          
             </div>
         </div>
     </div>

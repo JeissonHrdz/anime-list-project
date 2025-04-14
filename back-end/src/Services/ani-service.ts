@@ -323,6 +323,9 @@ export const getVoiceActorById = async (voiceActorId: string): Promise<voiceActo
                   media {
                     nodes {
                       id
+                      startDate {              
+                        year 
+                      }
                       title {
                         romaji
                       }
