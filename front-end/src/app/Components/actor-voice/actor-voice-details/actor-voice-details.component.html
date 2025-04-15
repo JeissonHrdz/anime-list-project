@@ -31,22 +31,23 @@
         </div>
         <br>
 
-        <div
-            class="m-auto overflow-y-auto z-10">
-            <div class="flex flex-row flex-wrap  " *ngFor="let item of actorVoiceData?.characters?.edges">            
-            <div class="ml-6 h-[320px] w-[200px] flex flex-col cursor-pointer z-10"
-            *ngFor="let anime of item.node.media.nodes">               
-                
-                    <img class="h-[257px] w-[180px] object-cover shadow-lg rounded-md z-20"
-                        src="{{anime.coverImage.large}}">
-                    <p class="mt-1 w-45 truncate tracking-tight text-neutral-700 font-medium text-[14px]">
-                        {{anime.title.romaji}}</p> 
-                        <p class="mt-1 w-45 truncate tracking-tight text-neutral-700 font-medium text-[14px]">
-                            {{item.node.name.full}}</p> 
-                                          
+        <div class=" m-auto w-full overflow-y-auto  z-10">
+            <div class="flex flex-row flex-wrap justify-center p-2 ">
+                <div *ngFor="let item of animeMedia" class="bg-white rounded-lg w-[230px] shadow-md overflow-hidden m-4">
+                    <div class=" h-[320px] ">
+                        <img (click)="goToDetails(item.anime.id)" class="w-[230px] h-[320px]  object-cover cursor-pointer" src="{{item.anime.coverImage.large}}"  alt="{{item.anime.title.romaji}}">
+                    </div>
+                    <div class="p-4">
+                        <h3 class=" w-45 truncate tracking-tight text-neutral-700 font-medium text-[14px]">{{item.anime.title.romaji}}</h3>
+                        <div class="flex items-center space-x-2 mt-2 cursor-pointer" (click)="showCharacterDetails(item.character.id)">
+                            <img class="w-12 h-12 rounded-full object-cover" src="{{item.character.image.large}}" alt="{{item.character.name.full}}">
+                            <div>
+                                <p class="text-sm w-[150px] truncate tracking-tight font-medium text-neutral-600">{{item.character.name.full}}</p>
+                                <p class="text-xs text-neutral-500">{{item.anime.startDate.year}}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              
-          
             </div>
         </div>
     </div>

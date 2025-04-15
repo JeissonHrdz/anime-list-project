@@ -317,9 +317,13 @@ export const getVoiceActorById = async (voiceActorId: string): Promise<voiceActo
               edges {
                 role
                 node {
+                  id
                   name {
                    full
                   }
+                   image {
+                    large
+                   }
                   media {
                     nodes {
                       id
