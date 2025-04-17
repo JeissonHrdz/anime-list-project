@@ -284,11 +284,11 @@ export const getCharacterById = async (characterId: string): Promise<Character> 
   }
 };
 
-export const getVoiceActorById = async (voiceActorId: string): Promise<voiceActors> => {
+export const getVoiceActorById = async (voiceActorId: string, page: number): Promise<voiceActors> => {
   const query = `
-          query Staff($voiceActorId: Int) {
-          Staff(id: $voiceActorId) {
-            id
+          query Staff($voiceActorId: Int, $page: Int) {
+           Staff(id: $voiceActorId) {
+         id
             name {
               first
               last
@@ -313,40 +313,39 @@ export const getVoiceActorById = async (voiceActorId: string): Promise<voiceActo
             age
             homeTown
             siteUrl
-            characters {
-              edges {
-                role
-                node {
-                  id
-                  name {
-                   full
-                  }
-                   image {
-                    large
-                   }
-                  media {
-                    nodes {
-                      id
-                      startDate {              
-                        year 
-                      }
-                      title {
-                        romaji
-                      }
-                      coverImage {
-                        large
-                      }
-                    }
-                  }
-                }
-              }
-            }
+    characterMedia(sort: START_DATE_DESC,page: $page) {     
+      edges {
+        characters {
+          id
+          name {
+            full
+          }
+          image {
+            large
           }
         }
+        node {
+          id
+          title {
+            romaji
+          }
+          startDate {
+            year
+          }
+          coverImage {
+            large
+          }
+        }
+      }   
+ 
+     }
+    }
+  }
     `;
   const variables = {
 
-    voiceActorId: voiceActorId
+    voiceActorId: voiceActorId,
+    page: page
   };
   console.log("variables", variables);
   console.log("query", query);

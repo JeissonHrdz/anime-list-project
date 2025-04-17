@@ -1,7 +1,7 @@
 import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
 import { VoiceActorService } from '../../../Core/Services/voice-actor.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { catchError, of, Subject, switchMap, takeUntil, BehaviorSubject } from 'rxjs';
 import { voiceActors, voiceActorsDetails } from '../../../Core/Model/voice-actor.model';
 import { SafeHtmlPipe } from '../../shared/pipes/safe-html-pipe';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -20,14 +20,10 @@ interface AnimeWithCharacter {
   styleUrl: './actor-voice-details.component.css'
 })
 export class ActorVoiceDetailsComponent {
-
   isBrowser: boolean = false;
-  constructor(@Inject(PLATFORM_ID) private platformId: any) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-  }
-
-
-
+  currentPage = 1;
+  hasNextPage = true;
+  isLoading = false;
   private destroy$ = new Subject<void>();
   private voiceActorService = inject(VoiceActorService);
   private route = inject(ActivatedRoute);
@@ -37,18 +33,21 @@ export class ActorVoiceDetailsComponent {
   descriptionFixed?: string[] = [];
   animeMedia: AnimeWithCharacter[] = [];
   characters: Character[] = [];
+  anime: Anime[] = [];
 
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
+    this.loadInitialData();
+  }
+
+  private loadInitialData(): void {
     this.route.paramMap.pipe(
       switchMap(params => {
         this.actorVoiceId = Number(params.get('id'));
-        return this.voiceActorService.voiceActorById(this.actorVoiceId).pipe(
-          catchError(error => {
-            console.error('Error loading data:', error);
-            return of(undefined);
-          })
-        );
+        return this.loadActorData(1);
       }),
       takeUntil(this.destroy$)
     ).subscribe((data?: voiceActorsDetails) => {
@@ -56,30 +55,60 @@ export class ActorVoiceDetailsComponent {
         this.actorVoiceData = data;
         this.descriptionFixed = this.destructuringDescription(this.actorVoiceData);
         this.processAnimeMedia(data);
+
+        this.hasNextPage = true
       } else {
         console.warn('No data received for actor voice details.');
       }
-    })
+    });
+  }
+
+  private loadActorData(page: number) {
+    if (!this.actorVoiceId) return of(undefined);
+    this.isLoading = true;
+    return this.voiceActorService.voiceActorById(this.actorVoiceId, page).pipe(
+      catchError(error => {
+        console.error('Error loading data:', error);
+        this.isLoading = false;
+        return of(undefined);
+      })
+    );
+  }
+
+  loadMore(): void {
+    // if (this.isLoading || !this.hasNextPage) return;
+
+    this.currentPage++;
+    this.loadActorData(this.currentPage).subscribe((data?: voiceActorsDetails) => {
+      if (data) {
+        this.processAnimeMedia(data);
+        this.hasNextPage = true
+      }
+      this.isLoading = false;
+    });
   }
 
   private processAnimeMedia(data: voiceActorsDetails): void {
-    const uniqueAnimes = new Map<number, AnimeWithCharacter>();
-
-    data.characters.edges.forEach(character => {
-      character.node.media.nodes.forEach(anime => {      
-          uniqueAnimes.set(anime.id, {
-            anime: anime,
-            character: character.node
-          });        
-        
+    const uniqueAnimes = new Map<"", AnimeWithCharacter>();
+  
+    data.characterMedia.edges.forEach(data => {
+      data.characters.forEach(character => {
+        this.characters.push(character)
       });
+      data.node.forEach(anime => {
+        this.anime.push(anime)
+      });
+
     });
 
-    this.animeMedia = Array.from(uniqueAnimes.values()).sort((a, b) => {
+
+    const newAnimeMedia = Array.from(uniqueAnimes.values()).sort((a, b) => {
       const dateA = new Date(a.anime.startDate.year || 0);
       const dateB = new Date(b.anime.startDate.year || 0);
       return dateB.getTime() - dateA.getTime();
     });
+
+    this.animeMedia = [...this.animeMedia, ...newAnimeMedia];
   }
 
   goToDetails(id: number) {

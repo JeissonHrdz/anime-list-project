@@ -1,3 +1,4 @@
+import { Anime } from "./anime.model";
 import { Character } from "./character.model";
 
 export interface voiceActors {
@@ -25,11 +26,15 @@ export interface voiceActors {
   age: number;
   homeTown: string;
   siteUrl: string;
-  characters: CharacterConection;
+  characterMedia: {
+    edges: CharacterMediaEdge[];
+  }
+ 
 }
 
-interface CharacterConection {
-  edges: Character[];
+interface CharacterMediaEdge {      
+      characters: Character[]
+      node: Anime[]     
 }
 
  interface VoiceActorName {

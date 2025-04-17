@@ -84,6 +84,7 @@ export const getCharacter = async (req: Request, res: Response): Promise<void> =
 
 export const getVoiceActor = async (req: Request, res: Response): Promise<void> => { 
     const id = req.query.id as string; 
+    const page = parseInt(req.query.page as string) || 1; 
 
     if (!id) { // si no se ha proporcionado un título
         res.status(400).json({ error: 'Invalid voice actor id' }); // devolvemos un error 400
@@ -91,7 +92,7 @@ export const getVoiceActor = async (req: Request, res: Response): Promise<void> 
     }
 
     try {
-        const voiceActor = await getVoiceActorById(id,); 
+        const voiceActor = await getVoiceActorById(id,page); 
         res.json(voiceActor); // devolvemos los datos del anime    
         console.log(voiceActor);
     } catch (error) {

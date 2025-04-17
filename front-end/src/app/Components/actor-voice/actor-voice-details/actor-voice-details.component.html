@@ -34,6 +34,7 @@
         <div class=" m-auto w-full overflow-y-auto  z-10">
             <div class="flex flex-row flex-wrap justify-center p-2 ">
                 <div *ngFor="let item of animeMedia" class="bg-white rounded-lg w-[230px] shadow-md overflow-hidden m-4">
+                   
                     <div class=" h-[320px] ">
                         <img (click)="goToDetails(item.anime.id)" class="w-[230px] h-[320px]  object-cover cursor-pointer" src="{{item.anime.coverImage.large}}"  alt="{{item.anime.title.romaji}}">
                     </div>
@@ -49,6 +50,14 @@
                     </div>
                 </div>
             </div>
+            @if (hasNextPage) {
+                <div class="flex justify-center mt-4">
+                    <button (click)="loadMore()" 
+                        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400">
+                        {{ isLoading ? 'Cargando...' : 'Cargar más' }}
+                    </button>
+                </div>
+            }
         </div>
     </div>
 

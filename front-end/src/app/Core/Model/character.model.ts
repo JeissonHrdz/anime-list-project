@@ -42,6 +42,9 @@ interface DateOfBirth {
 
 interface AnimeConnection {   
       nodes: Anime[];    
+      pageInfo: {
+        hasNextPage: boolean;
+      };
 }
 
 

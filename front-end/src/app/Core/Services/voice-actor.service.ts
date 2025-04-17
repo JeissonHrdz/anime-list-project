@@ -11,8 +11,8 @@ export class VoiceActorService {
   private apiUrl = 'http://localhost:3000/api';
   private http = inject(HttpClient)
 
-  voiceActorById(id: number): Observable<voiceActorsDetails>{
-    return this.http.get<voiceActorsDetails>(`${this.apiUrl}/voice-actor`, { params: { id } }).pipe(
+  voiceActorById(id: number, page: number): Observable<voiceActorsDetails>{
+    return this.http.get<voiceActorsDetails>(`${this.apiUrl}/voice-actor`, { params: { id, page } }).pipe(
       catchError(this.handleError)
     )
   }
