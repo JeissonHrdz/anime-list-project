@@ -3,7 +3,11 @@ import { Character } from './character.model';
 export interface Anime {
  
   id: number;
-  title: Title;
+  title: {
+    romaji: string;
+    english?: string;
+    native: string;
+  }
   description?: string;
   episodes?: number;
   status: string;
@@ -11,40 +15,30 @@ export interface Anime {
   genres: string[];
   season?: string;
   bannerImage?: string;
-  trailer?: Trailer;
-  startDate: Date;
-  endDate: Date;
-  coverImage: Image;
-  format?: string;
-  characters: CharacterConnection;
-}
-
-interface Title {
-    romaji: string;
-    english?: string;
-    native: string;
+  trailer?: {
+    id: string;
+    site: string;
+    thumbnail: string;
   }
-  
-  interface Date {
-    day?: number;
-    month?: number;
-    year?: number;
+  startDate: {
+    day: number;
+    month: number;
+    year: number;
   }
-  
-  interface Image {
+  endDate: {
+    day: number;
+    month: number;
+    year: number;
+  }
+  coverImage: {
     large: string;
   }
-
-  interface CharacterConnection {
+  format?: string;
+  characters: {
     edges: Character[];
   }
+}
 
-  interface Trailer{
-    id: string
-    site: string
-    thumbnail: string 
-  }
-  
  
  
  

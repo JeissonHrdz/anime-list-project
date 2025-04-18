@@ -5,47 +5,55 @@ export interface Character {
   role: string;
   node: {
     id: number;
-    name: CharacterName;
+    name: {
+      full: string;
+    }
     description?: string;
-    image: Image;
-    dateOfBirth?: DateOfBirth;  
+    image: {
+      large: string;
+    }
+    dateOfBirth?: {
+      year: number;
+      month: number;
+      day: number;
+    } 
     gender?: string;
     age?: string;  
-    media: AnimeConnection;
-  };
-  voiceActors: voiceActors[];
-}
-export interface CharacterDetail {
-    id: number;
-    name: CharacterName;
-    description?: string;
-    image: Image;
-    dateOfBirth?: DateOfBirth;  
-    gender?: string;
-    age?: string;  
-    media: AnimeConnection; 
-}
-
-interface CharacterName {
-  full: string;
-}
-
-interface Image {
-  large: string;
-}
-
-interface DateOfBirth {
-  year: number;
-  month: number;
-  day: number;
-}
-
-interface AnimeConnection {   
+    media: {
       nodes: Anime[];    
       pageInfo: {
         hasNextPage: boolean;
       };
+    }
+  };
+  voiceActors: voiceActors[];
 }
+
+
+export interface CharacterDetail {
+    id: number;
+    name: {
+      full: string;
+    }
+    description?: string;
+    image: {
+      large: string;
+    }
+    dateOfBirth?: {
+      year: number;
+      month: number;
+      day: number;
+    }
+    gender?: string;
+    age?: string;  
+    media: {
+      nodes: Anime[];    
+      pageInfo: {
+        hasNextPage: boolean;
+      };
+    }
+}
+
 
 
 

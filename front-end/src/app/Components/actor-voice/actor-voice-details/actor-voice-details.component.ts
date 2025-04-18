@@ -7,10 +7,11 @@ import { SafeHtmlPipe } from '../../shared/pipes/safe-html-pipe';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Character, CharacterDetail } from '../../../Core/Model/character.model';
 import { Anime } from '../../../Core/Model/anime.model';
+import { ScrollEndDirective } from '../../shared/directives/scroll-end-directive';
 
 interface AnimeWithCharacter {
   anime: Anime;
-  character: CharacterDetail;
+  character: CharacterDetail
 }
 
 @Component({
@@ -89,15 +90,18 @@ export class ActorVoiceDetailsComponent {
   }
 
   private processAnimeMedia(data: voiceActorsDetails): void {
-    const uniqueAnimes = new Map<"", AnimeWithCharacter>();
-  
+    const uniqueAnimes = new Map<number, AnimeWithCharacter>();
+
+ 
     data.characterMedia.edges.forEach(data => {
       data.characters.forEach(character => {
-        this.characters.push(character)
+        uniqueAnimes.set(data.node.id, {
+          anime: data.node,
+          character: character
+        });
       });
-      data.node.forEach(anime => {
-        this.anime.push(anime)
-      });
+
+  
 
     });
 
