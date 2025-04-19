@@ -9,7 +9,7 @@ import { Character } from '../Model/character.model';
 })
 export class AnimeService {
 
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'http://anime-list-project-production.up.railway.app/api';
   private http = inject(HttpClient)
 
   constructor() { }
