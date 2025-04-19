@@ -8,7 +8,7 @@ import { voiceActors, voiceActorsDetails } from '../Model/voice-actor.model';
 })
 export class VoiceActorService {
 
-  private apiUrl = 'http://anime-list-project-production.up.railway.app/api';
+  private apiUrl = 'https://anime-list-project-production.up.railway.app/api';
   private http = inject(HttpClient)
 
   voiceActorById(id: number, page: number): Observable<voiceActorsDetails>{

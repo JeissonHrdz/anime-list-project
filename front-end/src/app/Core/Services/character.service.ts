@@ -9,7 +9,7 @@ import { Character, CharacterDetail } from '../Model/character.model';
 export class CharacterService {
 
   
-  private apiUrl = 'http://anime-list-project-production.up.railway.app/api';
+  private apiUrl = 'https://anime-list-project-production.up.railway.app/api';
   private http = inject(HttpClient)
 
   searchCharacterById(id: number): Observable<CharacterDetail>{
