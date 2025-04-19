@@ -4,11 +4,7 @@ import aniRoutes from './Routes/ani-rotues'; // importamos el router de anime de
 
 const app = express(); // creamos una instancia de express
 
-app.use(cors({
-    origin: 'http://localhost:4200',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-}))
+app.use(cors())
 
 app.use(express.json()); // le decimos a express que vamos a usar JSON en las peticiones
 app.use('/api', aniRoutes); // definimos la ruta base de la API y le pasamos el router de anime
