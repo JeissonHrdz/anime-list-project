@@ -1,8 +1,8 @@
 @if (hasResults) {
-<div class="absolute h-full w-full top-0 bg-neutral-600/80 z-30">
-    <div class="  w-200 mt-15  m-auto rounded-lg shadow-2xl " >
-        <div class=" bg-neutral-50 w-200    p-4 rounded-lg h-120 z-40 ">
-            <div class="overflow-auto overflow-x-hidden w-auto h-110 grid grid-cols-2 gap-2 mr-2">               
+<div class="absolute h-full mt-14 w-full top-0 bg-neutral-600/80 z-30">
+    <div class="  md:w-200 sm:w-5 mt-2  m-auto rounded-lg shadow-2xl " >
+        <div class=" bg-neutral-50 md:w-200 sm:w-5   p-4 rounded-lg h-120 z-40 ">
+            <div class="overflow-auto overflow-x-hidden w-auto h-110 grid md:grid-cols-2 sm:grid-cols-1 gap-2 mr-2">               
                 @if (anime) {
                 <div (click)="goToDetails(item.id)" class="p-2 w-auto col-span-1 mb-2 mr-6 
      text-neutral-800 flex justify-items-center hover:bg-neutral-200 cursor-pointer rounded-lg" *ngFor="let item of anime">
