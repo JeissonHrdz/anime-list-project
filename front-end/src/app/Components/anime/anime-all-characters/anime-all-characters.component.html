@@ -1,14 +1,14 @@
-<section class="flex flex-row ">
+<section class="flex flex-col sm:flex-row ">
 
-<section class="w-80 flex flex-col  m-6 bg-white rounded-md  float-left h-100 p-4 shadow-lg">
+<section class="w-80 flex flex-col m-auto mt-6 sm:m-6 bg-white rounded-md  float-left h-100 p-4 shadow-lg">
     <div class="w-[220px] m-auto">
         <img class="shadow-xl rounded-md" [src]="animeImage" alt="">
     </div>
     <div class="mt-5 text-lg font-semibold text-center">{{animeTitle}} ({{animeYear}})</div>
 </section>
 
-<section  class="grid  mt-2 gap-4 px-4  grid-characters ">    
-    <div *ngFor="let item of characters; let i = index"  class="m-4  w-[250px] relative rounded-md shadow-md">
+<section  class="grid  mt-2 gap-4 px-4 m-auto grid-characters w-100  ">    
+    <div *ngFor="let item of characters; let i = index"  class="m-1 sm:m-4  w-full sm:w-[250px] relative rounded-md shadow-md">
   
         <div  class=" border-1 w-auto border-neutral-50 text-neutral-800  font-medium  flex flex-row  bg-white rounded-md ">
             

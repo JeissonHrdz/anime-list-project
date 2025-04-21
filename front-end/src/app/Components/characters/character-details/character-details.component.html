@@ -1,10 +1,10 @@
 <section class="w-full h-auto  rounded-md l">
     <div class="bg-neutral-50 h-auto p-4 flex flex-col">
-        <div class="grid grid-cols-2 p-4" style="grid-template-columns: 300px auto ;">
-            <div class="poster-image w-[270px] h-[396px] bg-cover bg-center relative" [style]="{'background-image': 'url(' + character?.image?.large + ')'}">
+        <div class="grid grid-cols-1  p-4 sm:grid-cols-[320px_auto]" >
+            <div class="poster-image w-[270px] m-auto items-center h-[396px] bg-cover bg-center relative" [style]="{'background-image': 'url(' + character?.image?.large + ')'}">
                 <img class="w-[270px] h-[396px] object-cover shadow-lg rounded-md relative z-10 "src="{{character?.image?.large}}">
             </div>
-            <div>
+            <div class="relative flex flex-col sm:block mt-5 sm:mt-0  w-full m-0 items-center">
                 <p class="text-3xl  font-semibold ml-5 text-neutral-700">{{character?.name?.full}}</p>
                 <br>
                 <p class="ml-5 text-neutral-700 font-medium text-[14px]"><b>Gender:</b> {{character?.gender}}</p>
@@ -26,8 +26,8 @@
             </div>
         </div>
 <br>
-        <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6  h-auto m-auto w-auto overflow-y-auto z-10">
-            <div class="ml-6 h-[320px] w-[200px] flex flex-col cursor-pointer z-10" (click)="goToDetails(item.id)"
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6  h-auto m-auto w-auto overflow-y-auto z-10">
+            <div class=" h-[320px] w-[200px] flex flex-col cursor-pointer z-10" (click)="goToDetails(item.id)"
                 *ngFor="let item of character?.media?.nodes">
                 <img class="h-[257px] w-[180px] object-cover shadow-lg rounded-md z-20" alt="{{item?.title?.romaji}}"
                     src="{{item?.coverImage?.large}}">
