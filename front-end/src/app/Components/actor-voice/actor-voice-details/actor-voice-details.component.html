@@ -31,15 +31,15 @@
 
         <div class=" m-auto w-full overflow-y-auto  z-10">
             <div class="flex flex-row flex-wrap justify-center p-2 ">
-                <div *ngFor="let item of animeMedia" class="bg-white rounded-lg w-[160px] sm:w-[230px] shadow-md overflow-hidden m-4">
+                <div *ngFor="let item of animeMedia" class="bg-white rounded-lg w-[140px] sm:w-[230px] shadow-md overflow-hidden m-4">
                     
-                    <div class=" h-[230px] sm:h-[320px] ">
-                        <img (click)="goToDetails(item.anime.id)" class="w-[160px] sm:w-[230px] h-[230px] sm:h-[320px]  object-cover cursor-pointer" src="{{item.anime.coverImage.large}}"  alt="{{item.anime.title.romaji}}">
+                    <div class=" h-[210px] sm:h-[320px] ">
+                        <img (click)="goToDetails(item.anime.id)" class="w-[140px] sm:w-[230px] h-[210px] sm:h-[320px]  object-cover cursor-pointer" src="{{item.anime.coverImage.large}}"  alt="{{item.anime.title.romaji}}">
                     </div>
-                    <div class="p-4">
-                        <h3 class=" w-35 sm:w-45 truncate tracking-tight text-neutral-700 font-medium text-[12px] sm:text-[14px]">{{item.anime.title.romaji}}</h3>
+                    <div class="p-2 sm:p-4">
+                        <h3  class=" w-30 sm:w-45 truncate tracking-tight text-neutral-700 font-medium text-[12px] sm:text-[14px]">{{item.anime.title.romaji}}</h3>
                         <div class="flex items-center space-x-2 mt-2 cursor-pointer" (click)="showCharacterDetails(item.character.id)">
-                            <img class="w-12 h-12 rounded-full object-cover " src="{{item.character.image.large}}" alt="{{item.character.name.full}}">
+                            <img class="w-10 sm:w-12 h-10 sm:h-12 rounded-full object-cover " src="{{item.character.image.large}}" alt="{{item.character.name.full}}">
                             <div>
                                 <p class="text-[12px] sm:text-[14px] w-[100px] sm:w-[150px] truncate tracking-tight font-medium text-neutral-600">{{item.character.name.full}}</p>
                                 <p class="text-xs text-neutral-500">{{item.anime.startDate.year}}</p>
