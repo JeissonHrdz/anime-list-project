@@ -6,7 +6,7 @@
     </div>
     <div class="absolute inset-0 bg-neutral-800 opacity-50 z-1"></div>
     <!-- Contenido del grid -->
-    <div class="md:grid sm:block md:grid-cols-4 sm:grid-cols-1  p-7 gap-2 relative z-10 mt-15 md:grid-cols-[320px_auto_0px_0px] sm:grid-cols-[320px_0px_0px_0px]"
+    <div class="md:grid sm:block p-7 gap-2 relative z-10 mt-15 md:grid-cols-[320px_auto_0px_0px] sm:grid-cols-[320px_0px_0px_0px]"
        >
       <!-- Columna 1: Imagen -->
       <div class="md:h-[367px] md:w-[270px] sm:h-[100px] sm:w-[153px] sm:m-auto sm:ml-0 sm:mr-0   col-span-1 align-middle md:ml-10
@@ -17,13 +17,13 @@
       <!-- Columna 2: Texto -->
       <div class="col-span-3 text-white ">
         <div class="flex flex-col items-center sm:items-baseline">
-          <p class="text-3xl font-bold">{{animeData?.title?.romaji}}</p>
+          <p class="text-3xl mt-2 sm:mt-0 font-bold  tracking-tight text-center sm:text-left">{{animeData?.title?.romaji}}</p>
           <p> <span class="font-medium">
               <ng-icon class="relative top-1" name="heroCalendarSolid" size="20" > </ng-icon> {{animeData?.startDate?.day}}/{{animeData?.startDate?.month}}/{{animeData?.startDate?.year}} </span>
             · {{animeData?.episodes}} Episodes</p>
-          <p class="mt-2">
+          <p class="mt-2 flex flex-wrap justify-center sm:justify-start">
             @for (item of animeData?.genres; track item) {
-            <span class="bg-purple-800 p-1 rounded-md text-neutral-100 pl-3 pr-3  mr-2"> {{item}} </span>
+            <span class="bg-purple-800 p-1 rounded-md text-neutral-100 pl-3 pr-3 mb-2 sm:mb-0 mr-2"> {{item}} </span>
 
             }
           </p>
@@ -60,7 +60,7 @@
         <div class="bg-white  sm:p-1 sm:pb-1">
           <div class="sm:flex sm:items-start">
             <div class="w-full h-full  text-center sm:text-left">
-              <iframe id="anime-trailer" class="w-105 h-60 sm:w-[750px] sm:h-[459px]"
+              <iframe id="anime-trailer" class="w-100 h-60 sm:w-[750px] sm:h-[459px]"
                 [src]="'https://www.youtube.com/embed/'+trailerId | safe ">
               </iframe>
             </div>
