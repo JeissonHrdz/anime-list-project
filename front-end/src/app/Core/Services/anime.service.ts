@@ -3,13 +3,14 @@ import { inject, Injectable,EventEmitter } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Anime } from '../Model/anime.model';
 import { Character } from '../Model/character.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnimeService {
 
-  private apiUrl = 'https://anime-list-project-production.up.railway.app/api';
+  private apiUrl = environment.apiUrl
   private http = inject(HttpClient)
 
   constructor() { }
@@ -23,6 +24,12 @@ export class AnimeService {
 
   searchAnimeById(id: string): Observable<Anime>{  
     return this.http.get<Anime>(`${this.apiUrl}/anime-details`,{params:{id}}).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getAnimeTrending(): Observable<Array<Anime>>{
+    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/trending`).pipe(
       catchError(this.handleError)
     )
   }
@@ -42,7 +49,7 @@ export class AnimeService {
     if(error.status === 0){
       console.error('An error occurred:', error.error);
     }else{
-      console.error(`Backend returned code ${error.status}, body was: `, error.error);
+      console.error(`Backend returned code ${error.status}, body was: `, error.error); 
     }
     return throwError(() => new Error('Something happened with request, please try again later.'));
   }

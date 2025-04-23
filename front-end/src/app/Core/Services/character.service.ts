@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Character, CharacterDetail } from '../Model/character.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Character, CharacterDetail } from '../Model/character.model';
 export class CharacterService {
 
   
-  private apiUrl = 'https://anime-list-project-production.up.railway.app/api';
+  private apiUrl = environment.apiUrl
   private http = inject(HttpClient)
 
   searchCharacterById(id: number): Observable<CharacterDetail>{

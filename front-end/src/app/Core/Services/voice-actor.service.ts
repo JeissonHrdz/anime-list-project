@@ -2,13 +2,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { voiceActors, voiceActorsDetails } from '../Model/voice-actor.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VoiceActorService {
 
-  private apiUrl = 'https://anime-list-project-production.up.railway.app/api';
+  private apiUrl = environment.apiUrl
   private http = inject(HttpClient)
 
   voiceActorById(id: number, page: number): Observable<voiceActorsDetails>{
