@@ -131,10 +131,12 @@ export class AnimeService extends AniListService {
           }
           description
           episodes
-          status
+          status 
           averageScore
           genres
-          bannerImage
+          coverImage{
+            extraLarge
+          }
           format
         }
       }

@@ -32,6 +32,7 @@ export interface Anime {
   }
   coverImage: {
     large: string;
+    extraLarge: string;
   }
   format?: string;
   characters: {
