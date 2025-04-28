@@ -1,3 +1,8 @@
-#slider{
-    transition: transform 0.5s ease-in-out;
+.highlighted {
+  opacity: 100%;
+  transform: scale(108%);
+  z-index: 20;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  
 }

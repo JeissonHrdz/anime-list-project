@@ -1,16 +1,17 @@
 <section class="w-full flex  h-[70px]  absolute bg-neutral-800 n z-0">
     <h1 class="text-white text-2xl font-bold m-2">Popular Anime This Season</h1>
 </section>
-<section class="w-full grid grid-cols-[repeat(10,minmax(20%,1fr))] grid-flow-col h-auto relative overflow-x-hidden z-30  " [style.transform]="transformStyle()" id="slider">  
-<div *ngFor="let anime of trendingAnime()" class="w-full  mt-15 relative mb-5 bg-neutral-800  slider-item grow-3 slide-item">
-    <div class="trending-slider relative w-full   bg-cover bg-no-repeat bg-center">
-        <img [src]="anime.coverImage.extraLarge" alt="anime" 
-        class="w-full h-full object-cover opacity-50 z-10 relative hover:opacity-100 transition-opacity duration-300
-         hover:scale-108 cursor-pointer hover:z-30 hover:shadow-sm hover:shadow-neutral-500 hover:rounded-md
-        ">
-    </div>    
-</div>
-
+<section class="w-full grid grid-cols-[repeat(5,minmax(20%,1fr))]  grid-flow-col justify-items-center h-auto relative overflow-x-hidden z-30  "  id="slider">  
+@for(anime of trendingAnime(); track $index) {
+  
+        <div   (click)="rotate('next')" class="w-full  mt-15 relative mb-5  bg-neutral-800   slider-item grow-3 slide-item"  >
+            <div class="trending-slider relative w-full h-full opacity-50  bg-cover bg-no-repeat bg-center">
+                <img [src]="anime.coverImage.extraLarge" alt="anime" 
+                class="w-full h-full object-cover  relative  transition-opacity duration-300                
+                ">
+            </div>    
+        </div>
+}
 </section>
 <button (click)="rotate('prev')" class="prev-button absolute h-10 w-20 top-1/2 left-4 -translate-y-1/2 bg-neutral-800 text-white p-2 rounded-md z-40">
     ATRAS

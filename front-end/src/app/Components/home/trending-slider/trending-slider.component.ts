@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, AfterViewInit } from '@angular/core';
 import { Anime } from '../../../Core/Model/anime.model';
 import { AnimeService } from '../../../Core/Services/anime.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -11,17 +11,12 @@ import $ from 'jquery';
   templateUrl: './trending-slider.component.html',
   styleUrl: './trending-slider.component.css'
 })
-export class TrendingSliderComponent {
+export class TrendingSliderComponent implements AfterViewInit {
 
   private destroy$ = new Subject<void>()
-  trendingAnime = signal<Array<Anime>>([])
-  transformStyle = signal('translateX(0)')
-  slideWidth: number | any = 0
   private animeService = inject(AnimeService)
-  slider: any;
-  currentIndex: number = 0;
-
-
+  trendingAnime = signal<Array<Anime>>([])
+  slideWidth: number | any = 0
 
   ngOnInit(): void {
     this.slideWidth = $('.slide-item').width();
@@ -30,80 +25,48 @@ export class TrendingSliderComponent {
     ).subscribe((anime) => {
       this.trendingAnime.set(anime)
     })
-
   }
 
-  rotate(direction: 'next' | 'prev') {
-    // 1. Animar el desplazamiento
-    
-    this.currentIndex += direction === 'next' ? 1 : -1;
-    this.transformStyle.set(`translateX(-${this.currentIndex * this.slideWidth}%)`);
-    
-    // 2. Esperar a que termine la animación
+  ngAfterViewInit(): void {   
     setTimeout(() => {
-      // Rotar el array según la dirección
-      this.trendingAnime.update(current => {
-        if (direction === 'next') {
-          return [...current.slice(1), current[0]];
-        } else {
-          return [current[current.length - 1], ...current.slice(0, -1)];
-        }
-      });
-      
-      // Resetear posición
-      this.currentIndex = 0;
-      this.transformStyle.set('translateX(0)');
-    }, 500);
+      this.highlightThirdElement();
+    }, 400);
   }
 
+  private highlightThirdElement() {
+    const grid = document.querySelector('#slider');
+    if (grid) {
+      const slides = grid.children;
+      Array.from(slides).forEach(slide => {
+        slide.children[0].classList.remove('highlighted');    
+      });
+      if (slides.length >= 3) {
+        slides[2].children[0].classList.add('highlighted');
+      }
+     
+    }
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // goToSlide(direction: string) {
-  //   this.slideItemWidth = $('.slide-item').width();
-
-
-  //   if (direction === this.slidePrev) {
-
-  //     this.slideIndex = this.slideIndex - this.slideItemWidth;
-  //   } else if (direction === this.slideNext) {
- 
-  //     this.slideIndex = this.slideIndex + this.slideItemWidth
-  //     $("#slider").animate({
-  //       scrollLeft: this.slideIndex
-  //     }, 150);
-
-  //     this.trendingAnime.update(anime => {
-  //       if (anime.length <= 1) return anime
-  //       return [...anime.slice(1), anime[0]]
-
-  //     })
-  //     console.log(this.slideIndex)
-  //   }
-
-  // }
+  rotate(direction: string) {
+    const grid = document.querySelector('#slider');
+    if (grid) {
+      const firstColumn = grid.firstElementChild;
+      const lastColumn = grid.lastElementChild; 
+      if (firstColumn && lastColumn) {
+        if(direction === 'next'){
+          grid.removeChild(firstColumn);
+          grid.appendChild(firstColumn);
+        }else if(direction === 'prev'){
+          grid.removeChild(lastColumn);
+          grid.insertBefore(lastColumn, firstColumn);
+        }
+        this.highlightThirdElement();
+      }
+    }
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next()
     this.destroy$.complete()
   }
-
-
-
 }
