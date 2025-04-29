@@ -17,6 +17,8 @@ export class TrendingSliderComponent implements AfterViewInit {
   private animeService = inject(AnimeService)
   trendingAnime = signal<Array<Anime>>([])
   slideWidth: number | any = 0
+  directionSlide = signal<string>('')
+
 
   ngOnInit(): void {
     this.slideWidth = $('.slide-item').width();
@@ -27,36 +29,52 @@ export class TrendingSliderComponent implements AfterViewInit {
     })
   }
 
-  ngAfterViewInit(): void {   
+  ngAfterViewInit(): void {
     setTimeout(() => {
       this.highlightThirdElement();
-    }, 400);
+    }, 700);
   }
 
   private highlightThirdElement() {
     const grid = document.querySelector('#slider');
+    let count = 0;
     if (grid) {
       const slides = grid.children;
       Array.from(slides).forEach(slide => {
-        slide.children[0].classList.remove('highlighted');    
+        count++;
+        slide.children[0].classList.remove('highlighted');
+        if (count > 3) {
+          slide.classList.remove('prev');
+          slide.classList.add('next');
+        } else if (count < 3) {
+          slide.classList.remove('next');
+          slide.classList.add('prev');
+        }
       });
       if (slides.length >= 3) {
         slides[2].children[0].classList.add('highlighted');
+        slides[2].classList.remove('prev');
+        slides[2].classList.remove('next');
       }
-     
+
+
+
     }
   }
 
-  rotate(direction: string) {
+  rotate(direction: string, elementId: number) {
     const grid = document.querySelector('#slider');
+    const element = document.getElementById("" + elementId);   
+
     if (grid) {
-      const firstColumn = grid.firstElementChild;
-      const lastColumn = grid.lastElementChild; 
+      let firstColumn = grid.firstElementChild;
+      let lastColumn = grid.lastElementChild;
       if (firstColumn && lastColumn) {
-        if(direction === 'next'){
-          grid.removeChild(firstColumn);
-          grid.appendChild(firstColumn);
-        }else if(direction === 'prev'){
+        if (element?.classList.contains('next')) {      
+            grid.removeChild(firstColumn);
+            grid.appendChild(firstColumn);        
+
+        } else if (element?.classList.contains('prev')) {
           grid.removeChild(lastColumn);
           grid.insertBefore(lastColumn, firstColumn);
         }
