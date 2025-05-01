@@ -1,24 +1,35 @@
-<section class="w-full flex  h-[70px]  absolute bg-neutral-800 n z-0">
-    <h1 class="text-white text-2xl font-bold m-2">Popular Anime This Season</h1>
+<section class="w-full flex   h-[50px]  absolute bg-neutral-800  z-0">    
 </section>
-<section class="w-full  grid grid-cols-[repeat(10,minmax(20%,1fr))]  grid-flow-col justify-items-center h-auto relative overflow-x-hidden z-30  "  id="slider">  
-@for(anime of trendingAnime(); track $index) {
-  
-        <div  (click)="rotate(directionSlide(), $index)"  id="{{$index}}" class="w-full h-[450px] cursor-pointer  mt-15 relative mb-5  bg-neutral-800   slider-item grow-3 slide-item"  >
-           
-            <div class="trending-slider flex relative w-full h-full opacity-50  transition-opacity duration-300 justify-center  bg-cover bg-no-repeat bg-center"
-            [style.background-image]="'linear-gradient(to top, rgba(38, 38, 38, 1) 0px, rgba(38, 38, 38, 0.3) 50%), 
+<section
+    class="w-full max-w-[100vw]   grid grid-cols-[repeat(10,minmax(20%,1fr))]  justify-items-center relative overflow-x-hidden z-30  "
+    id="slider">
+    @for(anime of trendingAnime(); track $index) {
+    <div (click)="rotate(directionSlide(), $index)" id="{{$index}}"
+        class="w-auto h-auto  cursor-pointer  mt-8 relative mb-5  bg-neutral-800   slider-item grow-3 slide-item">
+
+        <div class="trending-slider flex relative h-full opacity-40  transition-opacity duration-300 justify-center  bg-cover bg-no-repeat bg-center"
+            [style.background-image]="'linear-gradient(to top, rgba(38, 38, 38, 1) 0px, rgba(38, 38, 38, 0.3) 40%),             
               url(' + anime.coverImage.extraLarge + ')'">
-               
-               
-                <p class="absolute text-white font-medium bottom-10">{{anime.title.romaji}}</p>
-            </div>    
+
+            <div class="w-[310px] h-[450px] ">
+                <span class="bg-amber-600  absolute rounded-md p-2 m-2 text-white font-semibold">{{anime.format}}</span>
+                <span class=" text-white   font-semibold absolute  right-1 m-2 p-2 rounded-md ">Trending  #@if($index > 1){{{($index-1)}}} @else {{{($index+9)}}}                     
+                </span>
+
+                <div
+                    class="absolute w-full justify-center items-center flex flex-col text-center font-medium bottom-4">
+                    <p class=" w-full p-4 text-center text-white text-[16px] font-semibold ">{{anime.title.romaji}}</p>
+                    <div class="w-full flex justify-center items-center flex-wrap">
+                        @for(genres of anime.genres; track $index){
+                        <span class="bg-neutral-100/70 text-neutral-900 text-[12px] m-1 p-1 pl-2 pr-2 rounded-md "> {{genres}}</span>
+                        }
+                    </div>
+                  
+                </div>
+
+            </div>
+
         </div>
-}
+    </div>
+    }
 </section>
-<button class="prev-button absolute h-10 w-20 top-1/2 left-4 -translate-y-1/2 bg-neutral-800 text-white p-2 rounded-md z-40">
-    ATRAS
-</button>
-<button  class="next-button absolute h-10 w-20 top-1/2 right-4 -translate-y-1/2 bg-neutral-800 text-white p-2 rounded-md z-40">
-    ADELANTE
-</button>

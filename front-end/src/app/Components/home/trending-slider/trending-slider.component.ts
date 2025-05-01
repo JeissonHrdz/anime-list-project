@@ -25,8 +25,21 @@ export class TrendingSliderComponent implements AfterViewInit {
     this.animeService.getAnimeTrending().pipe(
       takeUntil(this.destroy$)
     ).subscribe((anime) => {
-      this.trendingAnime.set(anime)
+      this.trendingAnime.set(this.rotatePositionArray(anime))    
     })
+  }
+
+
+  rotatePositionArray(anime: Array<Anime>){
+    for (let i = 0; i < 2; i++) {
+    if (anime.length > 1) {
+      const primerElemento = anime.pop();
+      if (primerElemento) {
+        anime.unshift(primerElemento);
+      }
+    }
+  }
+    return anime;
   }
 
   ngAfterViewInit(): void {
