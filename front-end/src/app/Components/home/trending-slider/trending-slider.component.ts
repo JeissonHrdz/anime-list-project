@@ -4,6 +4,7 @@ import { AnimeService } from '../../../Core/Services/anime.service';
 import { Subject, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trending-slider',
@@ -15,6 +16,7 @@ export class TrendingSliderComponent implements AfterViewInit {
 
   private destroy$ = new Subject<void>()
   private animeService = inject(AnimeService)
+  private router = inject(Router)
   trendingAnime = signal<Array<Anime>>([])
   slideWidth: number | any = 0
   directionSlide = signal<string>('')
@@ -47,6 +49,15 @@ export class TrendingSliderComponent implements AfterViewInit {
       this.highlightThirdElement();
     }, 700);
   }
+
+  goToAnime(animeId: number, index: number) {  
+    const element = document.getElementById("" + index);  
+   if(element?.children[0].classList.contains('highlighted')) { 
+    this.router.navigate(['/anime', animeId]);  
+   } 
+   
+  }
+
 
   private highlightThirdElement() {
     const grid = document.querySelector('#slider');
