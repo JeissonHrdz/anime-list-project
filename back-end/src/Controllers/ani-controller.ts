@@ -27,7 +27,19 @@ export const searchAnimeById = async (req: Request, res: Response, next: NextFun
     }
 };
 
-export const getAnimeTrending = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getAnimeTrending = async (req: Request, res: Response, next: NextFunction): Promise<void> => { 
+        
+    const seasonYear = new Date().getFullYear();
+
+    try {
+        const anime = await animeService.getAnimeTrending( seasonYear);
+        res.json(anime);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getAnimeSeason = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
     let season = "";
     const month = new Date().getMonth()+1;
@@ -41,11 +53,10 @@ export const getAnimeTrending = async (req: Request, res: Response, next: NextFu
     } else if(month >= 10 && month <= 12) {
         season = "FALL";
     }
-
     const seasonYear = new Date().getFullYear();
 
     try {
-        const anime = await animeService.getAnimeTrending(season, seasonYear);
+        const anime = await animeService.getAnimeSeason(season, seasonYear);
         res.json(anime);
     } catch (error) {
         next(error);

@@ -40,6 +40,12 @@ export class AnimeService {
     )     
   }
 
+  getAnimesActualSeason(): Observable<Array<Anime>>{
+    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/season`).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   dataFoundEmitter  = new EventEmitter<any>();
   dataFound(data: any){
     this.dataFoundEmitter.emit(data);

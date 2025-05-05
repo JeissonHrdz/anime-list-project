@@ -120,9 +120,9 @@ export class AnimeService extends AniListService {
   `;
 
    private readonly ANIME_TRENDING_QUERY = ` 
-    query ($season: MediaSeason, $seasonYear: Int) {
+    query ( $seasonYear: Int) {
       Page (page: 1, perPage: 10) {
-        media (type: ANIME, season: $season, seasonYear: $seasonYear, sort: [TRENDING_DESC, FORMAT_DESC]) {
+        media (type: ANIME,  seasonYear: $seasonYear, sort: [TRENDING_DESC, FORMAT_DESC]) {
           id
           title {
             romaji
@@ -142,6 +142,31 @@ export class AnimeService extends AniListService {
       }
     }
   `; 
+
+  private readonly ANIME_SEASON = ` 
+  query ($season: MediaSeason, $seasonYear: Int) {
+    Page (page: 1, perPage: 10) {
+      media (type: ANIME, season: $season,  seasonYear: $seasonYear) {
+        id
+        title {
+          romaji
+          english
+          native
+        }
+        description
+        episodes
+        status 
+        averageScore
+        genres
+        format
+        coverImage{
+          large
+        }
+        format
+      }
+    }
+  }
+`; 
    
    
 
@@ -165,15 +190,19 @@ export class AnimeService extends AniListService {
     return data.Media as Anime;
   }
 
-  async getAnimeTrending(season: string, seasonYear: number): Promise<Anime[]> {
-  const variables = { season, seasonYear };
+  async getAnimeTrending( seasonYear: number): Promise<Anime[]> {
+  const variables = {  seasonYear };
   const data = await this.makeRequest(this.ANIME_TRENDING_QUERY, variables);
   return data.Page.media as Anime[];
   }
 
+  async getAnimeSeason(season: string, seasonYear: number): Promise<Anime[]> {
+    const variables = { season, seasonYear };
+    const data = await this.makeRequest(this.ANIME_SEASON, variables);
+    return data.Page.media as Anime[];
+  }
+
 }
-
-
 // Clase para manejar personajes
 export class CharacterService extends AniListService {
   private readonly ALL_CHARACTERS_QUERY = `
