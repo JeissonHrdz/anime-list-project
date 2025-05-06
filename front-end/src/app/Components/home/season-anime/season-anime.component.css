@@ -1,0 +1,23 @@
+@media (width >=1024px) {
+    #season-anime-slider {
+      grid-template-columns: repeat(10, minmax(20%, 1fr));
+    }
+  }
+  
+  @media(width >=1368px) {
+    #season-anime-slider {
+      grid-template-columns: repeat(10, minmax(13.8%, 1fr));
+    }
+  }
+  
+  @media(width <=1110px) {
+    #season-anime-slider {
+      grid-template-columns: repeat(10, minmax(20%, 1fr));
+    }
+  }
+  
+  @media(width <=860px) {
+    #season-anime-slider {
+      grid-template-columns: repeat(10, minmax(25%, 1fr));
+    }
+  }
