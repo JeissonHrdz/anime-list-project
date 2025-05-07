@@ -21,3 +21,9 @@
       grid-template-columns: repeat(10, minmax(25%, 1fr));
     }
   }
+
+  @media(width <=600px) {
+    #season-anime-slider {
+      grid-template-columns: repeat(10, minmax(32%, 1fr));
+    }
+  }

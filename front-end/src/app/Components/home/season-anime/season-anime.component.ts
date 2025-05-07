@@ -4,6 +4,7 @@ import { Anime } from '../../../Core/Model/anime.model';
 import { Subject, takeUntil } from 'rxjs';
 import {NgIcon, provideIcons } from '@ng-icons/core';
 import { heroChevronLeftSolid, heroChevronRightSolid } from '@ng-icons/heroicons/solid';
+import {autoPlacement, hide, offset, shift} from '@floating-ui/dom';
 import  $ from 'jquery';
 
 @Component({
@@ -32,13 +33,14 @@ export class SeasonAnimeComponent {
     const left = $('#season-anime-slider').scrollLeft() ?? 0
   
     if  (direction === 'next'){
-      $('#season-anime-slider').animate({scrollLeft: "+="+(itemwidth+7)}, "slow");
+      $('#season-anime-slider').animate({scrollLeft: "+="+(itemwidth+25)}, "fast");
     } else{
-      $('#season-anime-slider').animate({scrollLeft: "-="+(itemwidth+7)}, "slow");
+      $('#season-anime-slider').animate({scrollLeft: "-="+(itemwidth+25)}, "fast");
     }
-    console.log(left)
- 
+    console.log(left) 
   }
+
+  
 
   ngOnDestroy(): void {
     this.destroy$.next()
