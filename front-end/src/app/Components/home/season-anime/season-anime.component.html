@@ -7,36 +7,55 @@
 <section class=" h-full flex flex-row  justify-center items-center  p-4 mb-4">
   <div class=" overflow-hidden relative" style="width: 95%;" id="season-anime-slider-container">
     <div class="grid  gap-2  overflow-x-hidden overflow-hidden anime-season" id="season-anime-slider">
-      @for(anime of seasonAnime(); track anime) {     
+      @for(anime of seasonAnime(); track anime) {
 
-      <div class=" h-full m-2  flex flex-col  item-slide z-10 relative "  (mouseover)="showDialogAnimeInfo(anime.id)" >    
-        <img src="{{anime.coverImage.large}}" class="object-cover w-full    relative" style="height: 75%;"
+      <div class=" h-full m-2  flex flex-col  item-slide z-10 relative cursor-pointer" [tp]="tpl" [tpPlacement]="'top'">
+        <img src="{{anime.coverImage.large}}" class="object-cover w-full   relative" style="height: 75%;"
           alt="Anime Cover Image" />
-          <p class="w-full truncate tracking-tight mt-2 text-neutral-200 font-semibold text-[12px] sm:text-[14px]">
-            {{anime.title.romaji}}
-          </p>   
-                         
+        <p class="w-full truncate tracking-tight mt-2 text-neutral-200 font-semibold text-[12px] sm:text-[14px]">
+          {{anime.title.romaji}}
+        </p>
       </div>
-      <div class="h-[280px] w-[270px] bg-amber-500 p-3 z-20 absolute hidden"  id="toltip-{{anime.id}}" >
-        <p>{{anime.title.romaji}}</p>
-      </div> 
+      <ng-template #tpl let-hide >
+        <div [tp]="tpl" class=" relative top-44 left-28  w-[290px] h-[310px]  bg-neutral-700/50 backdrop-blur-lg rounded-2xl">
+          <div class=" w-full h-full  p-4">
+            <p class="w-full relative text-neutral-100 font-semibold text-[12px] sm:text-[15px]">
+              {{anime.title.romaji}}</p>
+            <div class="flex flex-row  items-center justify-baseline mt-2">
+              <p
+                class=" w-min   relative  bg-orange-300 rounded-md p-1 pl-2 pr-2  text-neutral-800 font-bold text-[12px]">
+                {{anime.format}}</p>
+              <ng-icon name="heroStarSolid" size="20"  class="ml-2" color="#FFD700"></ng-icon>
+              <p class=" text-white font-semibold ">  {{anime.averageScore}}
+              </p>
+            </div>
 
-    
-  
+            <div [innerHTML]="anime.description+'...'"
+              class="w-full h-[110px] mt-2 overflow-hidden   relative text-neutral-100 font-normal text-[12px] sm:text-[12px]">
+            </div>
+            <div>
+
+            </div>
+          </div>
+
+
+        </div>
+      </ng-template>
+
       }
-   
-    </div> 
+
+    </div>
+
 
   </div>
-  <div class="relative flex-col m-2 h-full mb-12 w-full  justify-center flex z-10" style="width: 3%;">
+  <div class="relative flex-col m-2 h-full mb-12 w-full  justify-center flex z-10 btn-slides" style="width: 3%;">
     <button class="pt-10 pb-10 m-1 h-full w-[40px] cursor-pointer bg-amber-500 text-white rounded-md hover:bg-amber-600"
       (click)="rotateAnimes('next')">
-    <ng-icon name="heroChevronRightSolid" size="28" class="text-white"></ng-icon>
+      <ng-icon name="heroChevronRightSolid" size="28" class="text-white"></ng-icon>
     </button>
     <button class="pt-10 pb-10 m-1 h-full w-[40px] cursor-pointer bg-amber-500 text-white rounded-md hover:bg-amber-600"
       (click)="rotateAnimes('prev')">
-    <ng-icon name="heroChevronLeftSolid" size="28" class="text-white "></ng-icon>
+      <ng-icon name="heroChevronLeftSolid" size="28" class="text-white "></ng-icon>
     </button>
   </div>
 </section>
-

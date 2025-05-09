@@ -24,6 +24,11 @@
 
   @media(width <=600px) {
     #season-anime-slider {
-      grid-template-columns: repeat(10, minmax(32%, 1fr));
+      grid-template-columns: repeat(10, minmax(48%, 1fr));
+      overflow-x: scroll;
+    }
+
+    .btn-slides {
+      display: none;
     }
   }

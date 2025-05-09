@@ -23,6 +23,7 @@
     "@angular/ssr": "^19.2.3",
     "@ng-icons/core": "^31.2.0",
     "@ng-icons/heroicons": "^31.2.0",
+    "@ngneat/helipopper": "^10.2.0-alpha.2",
     "@tailwindcss/postcss": "^4.0.14",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",

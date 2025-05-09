@@ -3,15 +3,17 @@ import { AnimeService } from '../../../Core/Services/anime.service';
 import { Anime } from '../../../Core/Model/anime.model';
 import { Subject, takeUntil } from 'rxjs';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroChevronLeftSolid, heroChevronRightSolid } from '@ng-icons/heroicons/solid';
+import { heroChevronLeftSolid, heroChevronRightSolid, heroStarSolid } from '@ng-icons/heroicons/solid';
+import { SafePipe } from '../../shared/pipes/safe-pipe';
+import { TippyDirective } from '@ngneat/helipopper';
 import $ from 'jquery';
 
 
 
 @Component({
   selector: 'app-season-anime',
-  imports: [NgIcon],
-  providers: [provideIcons({ heroChevronLeftSolid, heroChevronRightSolid })],
+  imports: [NgIcon , TippyDirective], 
+  providers: [provideIcons({ heroChevronLeftSolid, heroChevronRightSolid, heroStarSolid })],
   templateUrl: './season-anime.component.html',
   styleUrl: './season-anime.component.css'
 })
@@ -22,6 +24,8 @@ export class SeasonAnimeComponent {
   private destroy$ = new Subject<void>()
   private animeService = inject(AnimeService)
   seasonAnime = signal<Array<Anime>>([])
+
+
 
   ngOnInit(): void {
     this.animeService.getAnimesActualSeason().pipe(
@@ -44,7 +48,7 @@ export class SeasonAnimeComponent {
   }
 
   showDialogAnimeInfo(id: number) {
-  
+    $(`#${id}`).show('fast')
   }
     
   
