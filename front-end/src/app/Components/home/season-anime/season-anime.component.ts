@@ -24,6 +24,7 @@ export class SeasonAnimeComponent {
   private destroy$ = new Subject<void>()
   private animeService = inject(AnimeService)
   seasonAnime = signal<Array<Anime>>([])
+  toltipPosition = signal<string>('left-28')
 
 
 

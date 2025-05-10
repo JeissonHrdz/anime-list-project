@@ -4,7 +4,7 @@
     <a href="/anime" class="text-sm p-2 m-2 sm:mt-0 font-semibold text-center sm:text-left">View More</a>
   </div>
 </section>
-<section class=" h-full flex flex-row  justify-center items-center  p-4 mb-4">
+<section class=" h-full flex flex-row  justify-center items-center mb-4">
   <div class=" overflow-hidden relative" style="width: 95%;" id="season-anime-slider-container">
     <div class="grid  gap-2  overflow-x-hidden overflow-hidden anime-season" id="season-anime-slider">
       @for(anime of seasonAnime(); track anime) {
@@ -17,7 +17,7 @@
         </p>
       </div>
       <ng-template #tpl let-hide >
-        <div [tp]="tpl" class=" relative top-44 left-28  w-[290px] h-[310px]  bg-neutral-700/50 backdrop-blur-lg rounded-2xl">
+        <div [tp]="tpl" class=" relative top-44 left-28 w-[290px] h-auto  bg-neutral-700/50 backdrop-blur-lg rounded-2xl">
           <div class=" w-full h-full  p-4">
             <p class="w-full relative text-neutral-100 font-semibold text-[12px] sm:text-[15px]">
               {{anime.title.romaji}}</p>
@@ -33,12 +33,47 @@
             <div [innerHTML]="anime.description+'...'"
               class="w-full h-[110px] mt-2 overflow-hidden   relative text-neutral-100 font-normal text-[12px] sm:text-[12px]">
             </div>
-            <div>
-
+            <div class="flex w-full flex-row flex-wrap items-center justify-start mt-2 font-semibold text-neutral-800 text-[12px]">
+              @for(genres of anime.genres; track $index) {             
+                @switch (genres) {
+                  @case('Action') {
+                    <span class="bg-blue-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                  }
+                  @case('Adventure') {
+                    <span class="bg-green-300 w-auto  p-1 pl-2 pr-2 "> {{genres}}</span>
+                  }
+                  @case('Comedy') {
+                    <span class="bg-yellow-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                  }
+                  @case('Drama') {
+                    <span class="bg-red-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                  }
+                  @case('Fantasy') {
+                    <span class="bg-purple-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                  }
+                  @case('Sci-Fi') {
+                    <span class="bg-pink-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                  }
+                  @case('Mystery') {
+                    <span class="bg-indigo-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                  }
+                  @case('Romance') {
+                    <span class="bg-orange-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                  }
+                  @case('Horror') {
+                    <span class="bg-red-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                  }
+                  @case('Slice of Life') {
+                    <span class="bg-teal-300 w-[90px] p-1 pl-2 pr-2 "> {{genres}}</span>
+                  }
+                  @default {
+                    <span class="bg-gray-300 w-aut  p-1 pl-2 pr-2 "> {{genres}}</span>
+                  }
+                }
+             
+              } 
             </div>
           </div>
-
-
         </div>
       </ng-template>
 

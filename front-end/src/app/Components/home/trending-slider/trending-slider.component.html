@@ -1,7 +1,7 @@
 <section class="w-full flex   h-[50px]  absolute bg-neutral-800  z-0">    
 </section>
-<section
-    class="w-full max-w-[100vw]   grid grid-cols-[repeat(10,minmax(20%,1fr))]  justify-items-center relative overflow-x-hidden z-30  "
+<section class="h-full flex relative bg-neutral-800  z-0">
+<section class="w-full max-w-[100vw]   grid grid-cols-[repeat(10,minmax(20%,1fr))]  justify-items-center relative overflow-x-hidden z-30  "
     id="slider">
     @for(anime of trendingAnime(); track $index) {
     <div (click)="rotate(directionSlide(), $index)" id="{{$index}}"
@@ -12,7 +12,7 @@
               url(' + anime.coverImage.extraLarge + ')'">
 
             <div class="w-[310px] h-[450px]">
-                <span class="bg-amber-600  absolute rounded-md p-2 m-2 text-white font-semibold">{{anime.format}}</span>
+                <span class="bg-orange-300  absolute rounded-md p-2 m-2 text-neutral-800 font-semibold">{{anime.format}}</span>
                 <span class=" text-white   font-semibold absolute  right-1 m-2 p-2 rounded-md ">Trending  #@if($index > 1){{{($index-1)}}} @else {{{($index+9)}}}                     
                 </span>
                 <div
@@ -28,4 +28,5 @@
         </div>
     </div>
     }
+</section>
 </section>
