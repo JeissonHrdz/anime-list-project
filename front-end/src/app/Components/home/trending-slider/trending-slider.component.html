@@ -5,12 +5,13 @@
         <div class="  grid  justify-items-center relative overflow-x-hidden z-30 "
             id="slider">
             @for(anime of trendingAnime(); track $index) {
+               
             <div (click)="rotate(directionSlide(), $index)" id="{{$index}}"
                 class=" cursor-pointer  mt-8 relative mb-5  bg-neutral-800   slider-item  slide-item">
 
                 <div (click)="goToAnime(anime.id, $index )"
-                    class="trending-slider   relative  opacity-40  transition-opacity duration-300 justify-center  bg-cover bg-no-repeat bg-center"
-                    [style.background-image]="'linear-gradient(to top, rgba(38, 38, 38, 1) 0px, rgba(38, 38, 38, 0.3) 40%)'">
+                    class="trending-slider   relative  opacity-40   transition-opacity duration-300 justify-center  bg-cover bg-no-repeat bg-center"
+                    >
                      <img  class="object-cover w-full  relative" style="height: 100%;" src="{{anime.coverImage.extraLarge}}" alt="">
 
                     <div class="h-full w-full absolute top-0 left-0">

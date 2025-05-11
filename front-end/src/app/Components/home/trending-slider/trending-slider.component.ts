@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import $ from 'jquery';
 import { Router } from '@angular/router';
+import e from 'express';
 
 @Component({
   selector: 'app-trending-slider',
@@ -27,8 +28,8 @@ export class TrendingSliderComponent implements AfterViewInit {
     this.animeService.getAnimeTrending().pipe(
       takeUntil(this.destroy$)
     ).subscribe((anime) => {
-      this.trendingAnime.set(this.rotatePositionArray(anime))      
-    })  
+      this.trendingAnime.set(this.rotatePositionArray(anime))
+    })
   }
 
 
@@ -47,6 +48,14 @@ export class TrendingSliderComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.highlightThirdElement();
+      if (window.innerWidth >= 1250) return
+      const grid = document.querySelector('#slider');
+      const firstColumn = grid?.firstElementChild as HTMLElement;
+      if (!grid && firstColumn) return;
+      grid?.removeChild(firstColumn);
+      grid?.appendChild(firstColumn);
+      this.highlightThirdElement();
+
     }, 700);
   }
 
@@ -58,92 +67,58 @@ export class TrendingSliderComponent implements AfterViewInit {
 
   }
 
+private highlightThirdElement() {
+  const grid = document.querySelector('#slider');
+  if (!grid) return;
 
-  private highlightThirdElement() {
+  const slides = Array.from(grid.children);
+  const isLargeScreen = window.innerWidth > 1250;
+  const highlightIndex = isLargeScreen ? 2 : 1;
+  const boundary = isLargeScreen ? 3 : 2;
 
-    const grid = document.querySelector('#slider');
-    let count = 0;
-    if (grid) {
-      const slides = grid.children;
-      Array.from(slides).forEach(slide => {
-        count++;
-        slide.children[0].classList.remove('highlighted');
-        if (window.innerWidth > 1250) {
-          if (count > 3) {
-            slide.classList.remove('prev');
-            slide.classList.add('next');
-          } else if (count < 3) {
-            slide.classList.remove('next');
-            slide.classList.add('prev');
-          }
-        } else {
-          if (count > 2) {
-            slide.classList.remove('prev');
-            slide.classList.add('next');
-          } else if (count < 2) {
-            slide.classList.remove('next');
-            slide.classList.add('prev');
-          }
-        }
-      });
-
-      if (window.innerWidth > 1250) {
-        if (slides.length >= 3) {
-          slides[2].children[0].classList.add('highlighted');
-          slides[2].classList.remove('prev');
-          slides[2].classList.remove('next');
-        }
-      } else {
-        if (slides.length >= 3) {
-          slides[2].children[0].classList.add('highlighted');
-          slides[2].classList.remove('prev');
-          slides[2].classList.remove('next');
-          slides[1].classList.add('prev');
-          const grid = document.querySelector('#slider');
-          if (grid) {
-            let firstColumn = grid.firstElementChild;
-            if (firstColumn) {
-              grid.removeChild(firstColumn);
-              grid.appendChild(firstColumn);
-
-            }
-          }
-        }
-      }
-
+  slides.forEach((slide, index) => {
+    const count = index + 1; // Los índices empiezan en 0
+    const firstChild = slide.children[0] as HTMLElement;
+    
+    firstChild.classList.remove('highlighted');
+    
+    if (count > boundary) {
+      slide.classList.remove('prev');
+      slide.classList.add('next');
+    } else if (count < boundary) {
+      slide.classList.remove('next');
+      slide.classList.add('prev');
     }
+  });
+
+  const slideToHighlight = slides[highlightIndex];
+  if (slideToHighlight) {
+    const firstChild = slideToHighlight.children[0] as HTMLElement;
+    firstChild.classList.add('highlighted');
+    slideToHighlight.classList.remove('prev', 'next');
   }
+}
 
   rotate(direction: string, elementId: number) {
-    let id = 0;
-   
-    if (window.innerWidth > 1250) {
-      id = elementId;
-    } else {
-      id = elementId - 1;
-    }
     const grid = document.querySelector('#slider');
-    const element = document.getElementById("" + id);
-    
+    const element = document.getElementById(String(elementId));
 
-    if (grid) {
-      let firstColumn = grid.firstElementChild;   
-      let lastColumn = grid.lastElementChild;    
-      if (firstColumn && lastColumn) {
-        if (element?.classList.contains('next')) {
-          grid.removeChild(firstColumn);
-          grid.appendChild(firstColumn);
-        } else if (element?.classList.contains('prev')) {     
-        
-          grid.removeChild(lastColumn);
-          grid.insertBefore(lastColumn, firstColumn);
-              
-        }
-        this.highlightThirdElement();
-      }
+    if (!grid || !element) return;
+
+    const firstColumn = grid.firstElementChild;
+    const lastColumn = grid.lastElementChild;
+
+    if (!firstColumn || !lastColumn) return;
+
+    if (element.classList.contains('next')) {
+      grid.append(firstColumn);
     }
-  }
+    else if (element.classList.contains('prev')) {
+      grid.insertBefore(lastColumn, firstColumn);
+    }
 
+    this.highlightThirdElement();
+  }
   ngOnDestroy(): void {
     this.destroy$.next()
     this.destroy$.complete()
