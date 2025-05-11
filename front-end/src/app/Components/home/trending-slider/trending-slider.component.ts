@@ -27,20 +27,20 @@ export class TrendingSliderComponent implements AfterViewInit {
     this.animeService.getAnimeTrending().pipe(
       takeUntil(this.destroy$)
     ).subscribe((anime) => {
-      this.trendingAnime.set(this.rotatePositionArray(anime))    
-    })
+      this.trendingAnime.set(this.rotatePositionArray(anime))      
+    })  
   }
 
 
-  rotatePositionArray(anime: Array<Anime>){
+  rotatePositionArray(anime: Array<Anime>) {
     for (let i = 0; i < 2; i++) {
-    if (anime.length > 1) {
-      const primerElemento = anime.pop();
-      if (primerElemento) {
-        anime.unshift(primerElemento);
+      if (anime.length > 1) {
+        const primerElemento = anime.pop();
+        if (primerElemento) {
+          anime.unshift(primerElemento);
+        }
       }
     }
-  }
     return anime;
   }
 
@@ -50,16 +50,17 @@ export class TrendingSliderComponent implements AfterViewInit {
     }, 700);
   }
 
-  goToAnime(animeId: number, index: number) {  
-    const element = document.getElementById("" + index);  
-   if(element?.children[0].classList.contains('highlighted')) { 
-    this.router.navigate(['/anime', animeId]);  
-   } 
-   
+  goToAnime(animeId: number, index: number) {
+    const element = document.getElementById("" + index);
+    if (element?.children[0].classList.contains('highlighted')) {
+      this.router.navigate(['/anime', animeId]);
+    }
+
   }
 
 
   private highlightThirdElement() {
+
     const grid = document.querySelector('#slider');
     let count = 0;
     if (grid) {
@@ -67,40 +68,76 @@ export class TrendingSliderComponent implements AfterViewInit {
       Array.from(slides).forEach(slide => {
         count++;
         slide.children[0].classList.remove('highlighted');
-        if (count > 3) {
-          slide.classList.remove('prev');
-          slide.classList.add('next');
-        } else if (count < 3) {
-          slide.classList.remove('next');
-          slide.classList.add('prev');
+        if (window.innerWidth > 1250) {
+          if (count > 3) {
+            slide.classList.remove('prev');
+            slide.classList.add('next');
+          } else if (count < 3) {
+            slide.classList.remove('next');
+            slide.classList.add('prev');
+          }
+        } else {
+          if (count > 2) {
+            slide.classList.remove('prev');
+            slide.classList.add('next');
+          } else if (count < 2) {
+            slide.classList.remove('next');
+            slide.classList.add('prev');
+          }
         }
       });
-      if (slides.length >= 3) {
-        slides[2].children[0].classList.add('highlighted');
-        slides[2].classList.remove('prev');
-        slides[2].classList.remove('next');
+
+      if (window.innerWidth > 1250) {
+        if (slides.length >= 3) {
+          slides[2].children[0].classList.add('highlighted');
+          slides[2].classList.remove('prev');
+          slides[2].classList.remove('next');
+        }
+      } else {
+        if (slides.length >= 3) {
+          slides[2].children[0].classList.add('highlighted');
+          slides[2].classList.remove('prev');
+          slides[2].classList.remove('next');
+          slides[1].classList.add('prev');
+          const grid = document.querySelector('#slider');
+          if (grid) {
+            let firstColumn = grid.firstElementChild;
+            if (firstColumn) {
+              grid.removeChild(firstColumn);
+              grid.appendChild(firstColumn);
+
+            }
+          }
+        }
       }
-
-
 
     }
   }
 
   rotate(direction: string, elementId: number) {
+    let id = 0;
+   
+    if (window.innerWidth > 1250) {
+      id = elementId;
+    } else {
+      id = elementId - 1;
+    }
     const grid = document.querySelector('#slider');
-    const element = document.getElementById("" + elementId);   
+    const element = document.getElementById("" + id);
+    
 
     if (grid) {
-      let firstColumn = grid.firstElementChild;
-      let lastColumn = grid.lastElementChild;
+      let firstColumn = grid.firstElementChild;   
+      let lastColumn = grid.lastElementChild;    
       if (firstColumn && lastColumn) {
-        if (element?.classList.contains('next')) {      
-            grid.removeChild(firstColumn);
-            grid.appendChild(firstColumn);        
-
-        } else if (element?.classList.contains('prev')) {
+        if (element?.classList.contains('next')) {
+          grid.removeChild(firstColumn);
+          grid.appendChild(firstColumn);
+        } else if (element?.classList.contains('prev')) {     
+        
           grid.removeChild(lastColumn);
           grid.insertBefore(lastColumn, firstColumn);
+              
         }
         this.highlightThirdElement();
       }
