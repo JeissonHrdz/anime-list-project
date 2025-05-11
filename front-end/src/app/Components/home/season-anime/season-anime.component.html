@@ -4,7 +4,7 @@
     <a href="/anime" class="text-sm p-2 m-2 sm:mt-0 font-semibold text-center sm:text-left">View More</a>
   </div>
 </section>
-<section class=" h-full flex flex-row  justify-center items-center mb-4">
+<section class=" h-full flex flex-row  justify-center items-center mb-4 ">
   <div class=" overflow-hidden relative" style="width: 95%;" id="season-anime-slider-container">
     <div class="grid  gap-2  overflow-x-hidden overflow-hidden anime-season" id="season-anime-slider">
       @for(anime of seasonAnime(); track anime) {
@@ -23,7 +23,7 @@
               {{anime.title.romaji}}</p>
             <div class="flex flex-row  items-center justify-baseline mt-2">
               <p
-                class=" w-min   relative  bg-orange-300 rounded-md p-1 pl-2 pr-2  text-neutral-800 font-bold text-[12px]">
+                class=" w-min   relative  bg-orange-300  p-1 pl-2 pr-2  text-neutral-800 font-bold text-[12px]">
                 {{anime.format}}</p>
               <ng-icon name="heroStarSolid" size="20"  class="ml-2" color="#FFD700"></ng-icon>
               <p class=" text-white font-semibold ">  {{anime.averageScore}}

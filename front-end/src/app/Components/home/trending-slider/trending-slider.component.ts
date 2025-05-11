@@ -21,6 +21,7 @@ export class TrendingSliderComponent implements AfterViewInit {
   trendingAnime = signal<Array<Anime>>([])
   slideWidth: number | any = 0
   directionSlide = signal<string>('')
+  screenWidth = signal<boolean>(false)
 
 
   ngOnInit(): void {
@@ -28,7 +29,10 @@ export class TrendingSliderComponent implements AfterViewInit {
     this.animeService.getAnimeTrending().pipe(
       takeUntil(this.destroy$)
     ).subscribe((anime) => {
-      this.trendingAnime.set(this.rotatePositionArray(anime))
+       if(window.innerWidth >= 600) {
+        this.trendingAnime.set(this.rotatePositionArray(anime));    
+        }
+       else {this.trendingAnime.set(anime)}
     })
   }
 
@@ -37,7 +41,7 @@ export class TrendingSliderComponent implements AfterViewInit {
     for (let i = 0; i < 2; i++) {
       if (anime.length > 1) {
         const primerElemento = anime.pop();
-        if (primerElemento) {
+        if (primerElemento) {          
           anime.unshift(primerElemento);
         }
       }
@@ -52,10 +56,13 @@ export class TrendingSliderComponent implements AfterViewInit {
       const grid = document.querySelector('#slider');
       const firstColumn = grid?.firstElementChild as HTMLElement;
       if (!grid && firstColumn) return;
-      grid?.removeChild(firstColumn);
-      grid?.appendChild(firstColumn);
-      this.highlightThirdElement();
-
+      if(window.innerWidth <= 600) { this.screenWidth.set(true) }
+        else{ 
+      grid?.removeChild(firstColumn)
+      grid?.appendChild(firstColumn)
+      this.highlightThirdElement()
+}
+   
     }, 700);
   }
 
