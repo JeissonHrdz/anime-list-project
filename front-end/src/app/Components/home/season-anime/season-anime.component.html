@@ -9,7 +9,7 @@
     <div class="grid  gap-2  overflow-x-hidden overflow-hidden anime-season" id="season-anime-slider">
       @for(anime of seasonAnime(); track anime) {
 
-      <div class=" h-full m-2  flex flex-col  item-slide z-10 relative cursor-pointer" [tp]="tpl" [tpPlacement]="'top'">
+      <div class=" h-full m-2  flex flex-col  item-slide z-10 relative cursor-pointer" (click)="goToAnimeSeason(anime.id)" [tp]="tpl" [tpPlacement]="'top'">
         <img src="{{anime.coverImage.large}}" class="object-cover w-full   relative" style="height: 75%;"
           alt="Anime Cover Image" />
         <p class="w-full truncate tracking-tight mt-2 text-neutral-200 font-semibold text-[12px] sm:text-[14px]">

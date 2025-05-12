@@ -1,23 +1,23 @@
 <section class="w-full h-auto  rounded-md l">
-    <div class="bg-neutral-50 h-auto p-4 flex flex-col">
+    <div class="bg-neutral-800 h-auto p-4 flex flex-col">
         <div class="grid grid-cols-1  sm:p-4 sm:grid-cols-[320px_auto]" >
             <div class=" sm:w-[270px] sm:h-[396px] w-[180px] h-[250px] poster-image m-auto sm:m-0 items-center  bg-cover bg-center relative" [style]="{'background-image': 'url(' + character?.image?.large + ')'}">
                 <img class="sm:w-[270px] sm:h-[396px] w-[180px] h-[250px] object-cover shadow-lg rounded-md relative z-10 "src="{{character?.image?.large}}">
             </div>
             <div class="relative flex flex-col ml-2 sm:ml-5 sm:block mt-5 sm:mt-0 text-[12px] sm:text-[14px]  w-full m-0 items-center">
-                <p class="text-3xl  font-semibold  text-neutral-700">{{character?.name?.full}}</p>
+                <p class="text-3xl  font-semibold  text-neutral-100">{{character?.name?.full}}</p>
                 <br>
-                <p class=" text-neutral-700 font-medium "><b>Gender:</b> {{character?.gender}}</p>
-                <p class=" text-neutral-700 font-medium "><b>Birth Date:</b>
+                <p class=" text-neutral-100 font-medium "><b>Gender:</b> {{character?.gender}}</p>
+                <p class=" text-neutral-100 font-medium "><b>Birth Date:</b>
                     {{character?.dateOfBirth?.day}}/{{character?.dateOfBirth?.month}}
                 </p>
                 @if (character?.age != null) {
-                <p class=" text-neutral-700 font-medium "><b>Age:</b> {{character?.age}} </p>
+                <p class=" text-neutral-100 font-medium "><b>Age:</b> {{character?.age}} </p>
                 }
-                <p class=" text-neutral-700 font-medium "><b>Role:</b> </p>
+                <p class=" text-neutral-100 font-medium "><b>Role:</b> </p>
                 @if (isBrowser) {
                     <div *ngFor="let item of descriptionFixed"  [innerHTML]="item | safeHtml" 
-                    class=" text-neutral-700 h-auto font-medium  overflow-y-auto" >
+                    class=" text-neutral-100 h-auto font-medium  overflow-y-auto" >
                     <br>                 
 
                 </div>
@@ -27,11 +27,11 @@
         </div>
 <br>
         <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6  h-auto m-auto w-auto overflow-y-auto z-10">
-            <div class=" h-[290px] w-[180px] m-2 rounded-lg bg-white flex border-1 border-neutral-200 flex-col shadow-xl cursor-pointer z-10" (click)="goToDetails(item.id)"
+            <div class=" h-[290px] w-[180px] m-2  bg-neutral-700 flex   flex-col shadow-xl cursor-pointer z-10" (click)="goToDetails(item.id)"
                 *ngFor="let item of character?.media?.nodes">
-                <img class="h-[257px] w-[180px] object-cover rounded-t-lg  z-20"  title="{{item?.title?.romaji}}"
+                <img class="h-[257px] w-[180px] object-cover   z-20"  title="{{item?.title?.romaji}}"
                     src="{{item?.coverImage?.large}}">
-                <p class=" w-40 truncate m-2 tracking-tight text-neutral-700 font-medium text-[12px] sm:text-[14px]">
+                <p class=" w-40 truncate m-2 tracking-tight text-neutral-100 font-medium text-[12px] sm:text-[14px]">
                     {{item?.title?.romaji}}</p>
             </div>           
         </div>

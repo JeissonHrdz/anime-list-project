@@ -1,26 +1,27 @@
 <section class="w-full h-auto  rounded-md l">
-    <div class="bg-neutral-50 h-auto p-1 mt-2 flex flex-col">
-        <div class="grid grid-cols-1 sm:grid-cols-[320px_auto] p-1 sm:p-4" >
+    <div class="bg-neutral-800 h-auto p-1 mt-2 flex flex-col">
+        <div class="grid grid-cols-1 sm:grid-cols-[320px_auto] p-1 sm:p-4">
             <div class="poster-image shadow-2xl w-[200px] sm:w-[270px] m-auto sm:m-0 items-center h-[296px] sm:h-[396px] bg-cover bg-center relative"
-                [style]="{'background-image': 'url(' +actorVoiceData?.image?.large + ')'}">               
+                [style]="{'background-image': 'url(' +actorVoiceData?.image?.large + ')'}">
             </div>
-            <div class="relative flex flex-col sm:block mt-5 ml-2 sm:ml-5 sm:mt-0 w-full m-0 text-[12px] sm:text-[14px]">
-                <p class="text-3xl  font-semibold  text-neutral-700">{{actorVoiceData?.name?.first}}
+            <div
+                class="relative flex flex-col sm:block mt-5 ml-2 sm:ml-5 sm:mt-0 w-full m-0 text-[12px] sm:text-[14px]">
+                <p class="text-3xl  font-semibold  text-neutral-100">{{actorVoiceData?.name?.first}}
                     {{actorVoiceData?.name?.last}}</p>
                 <br>
-                <p class=" text-neutral-700 font-medium "><b>Gender:</b> {{actorVoiceData?.gender}}</p>
-                <p class=" text-neutral-700 font-medium "><b>Birth Date:</b>
+                <p class=" text-neutral-100 font-medium "><b>Gender:</b> {{actorVoiceData?.gender}}</p>
+                <p class=" text-neutral-100 font-medium "><b>Birth Date:</b>
                     {{actorVoiceData?.dateOfBirth?.day}}/{{actorVoiceData?.dateOfBirth?.month}}/{{actorVoiceData?.dateOfBirth?.year}}
                 </p>
                 @if (actorVoiceData?.age != null) {
-                <p class=" text-neutral-700 font-medium "><b>Age:</b> {{actorVoiceData?.age}} </p>
+                <p class=" text-neutral-100 font-medium "><b>Age:</b> {{actorVoiceData?.age}} </p>
                 }
-                <p class=" text-neutral-700 font-medium "><b>Home Town:</b> {{actorVoiceData?.homeTown}}
+                <p class=" text-neutral-100 font-medium "><b>Home Town:</b> {{actorVoiceData?.homeTown}}
                 </p>
 
                 @if (isBrowser) {
-                <div *ngFor="let item of descriptionFixed"  [innerHTML]="item | safeHtml"
-                    class="  text-neutral-700 h-auto justify-between font-medium  pr-2 sm:pr-2 overflow-y-auto" dir>
+                <div *ngFor="let item of descriptionFixed" [innerHTML]="item | safeHtml"
+                    class="  text-neutral-100 h-auto justify-between font-medium  pr-2 sm:pr-2 overflow-y-auto" dir>
                     <br>
 
                 </div>
@@ -31,30 +32,101 @@
 
         <div class=" m-auto w-full overflow-y-auto  z-10">
             <div class="flex flex-row flex-wrap justify-center w-full p-2 ">
-                <div *ngFor="let item of animeMedia" class="bg-white rounded-lg w-[175px] sm:w-[210px]  sm:m-4 shadow-md overflow-hidden m-1">
-                    
+                <div *ngFor="let item of animeMedia" [tp]="tpl"
+                    class="bg-neutral-600  w-[175px] sm:w-[210px]  sm:m-4 shadow-md overflow-hidden m-1">
+
                     <div class=" h-[210px] sm:h-[300px] ">
-                        <img (click)="goToDetails(item.anime.id)" class="w-[175px] sm:w-[210px] h-[210px] sm:h-[300px]  object-cover cursor-pointer" src="{{item.anime.coverImage.large}}"  title="{{item.anime.title.romaji}}">
+                        <img (click)="goToDetails(item.anime.id)"
+                            class="w-[175px] sm:w-[210px] h-[210px] sm:h-[300px]  object-cover cursor-pointer"
+                            src="{{item.anime.coverImage.large}}" title="{{item.anime.title.romaji}}">
                     </div>
                     <div class="p-1 sm:p-4">
-                        <h3  class=" w-40 sm:w-45 truncate tracking-tight text-neutral-700 font-medium text-[12px] sm:text-[14px]">{{item.anime.title.romaji}}</h3>
-                        <div class="flex items-center space-x-2 mt-2 cursor-pointer" (click)="showCharacterDetails(item.character.id)">
-                            <img class="w-10 sm:w-10 h-10 sm:h-10 rounded-full object-cover " src="{{item.character.image.large}}" title="{{item.character.name.full}}">
+                        <h3
+                            class=" w-40 sm:w-45 truncate tracking-tight text-neutral-100 font-medium text-[12px] sm:text-[14px]">
+                            {{item.anime.title.romaji}}</h3>
+                        <div class="flex items-center space-x-2 mt-2 cursor-pointer"
+                            (click)="showCharacterDetails(item.character.id)">
+                            <img class="w-10 sm:w-10 h-10 sm:h-10 rounded-full object-cover "
+                                src="{{item.character.image.large}}" title="{{item.character.name.full}}">
                             <div>
-                                <p class="text-[12px] sm:text-[14px] w-[100px] sm:w-[150px] truncate tracking-tight font-medium text-neutral-600">{{item.character.name.full}}</p>
-                                <p class="text-xs text-neutral-500">{{item.anime.startDate.year}}</p>
-                            </div> 
+                                <p
+                                    class="text-[12px] sm:text-[14px] w-[100px] sm:w-[150px] truncate tracking-tight font-medium text-neutral-400">
+                                    {{item.character.name.full}}</p>
+                                <p class="text-xs text-neutral-400">{{item.anime.startDate.year}}</p>
+                            </div>
                         </div>
                     </div>
+                    <ng-template #tpl let-hide>
+                        <div [tp]="tpl"
+                            class=" relative top-44 left-28 w-[290px] h-auto  bg-neutral-700/50 backdrop-blur-lg rounded-2xl">
+                            <div class=" w-full h-full  p-4">
+                                <p class="w-full relative text-neutral-100 font-semibold text-[12px] sm:text-[15px]">
+                                    {{item.anime.title.romaji}}</p>
+                                <div class="flex flex-row  items-center justify-baseline mt-2">
+                                    <p
+                                        class=" w-min   relative  bg-orange-300  p-1 pl-2 pr-2  text-neutral-800 font-bold text-[12px]">
+                                        {{item.anime.format}}</p>
+                                    <ng-icon name="heroStarSolid" size="20" class="ml-2" color="#FFD700"></ng-icon>
+                                    <p class=" text-white font-semibold "> {{item.anime.averageScore}}
+                                    </p>
+                                </div>
+
+                                <div [innerHTML]="item.anime.description+'...'"
+                                    class="w-full h-[110px] mt-2 overflow-hidden   relative text-neutral-100 font-normal text-[12px] sm:text-[12px]">
+                                </div>
+                                <div
+                                    class="flex w-full flex-row flex-wrap items-center justify-start mt-2 font-semibold text-neutral-800 text-[12px]">
+                                    @for(genres of item.anime.genres; track $index) {
+                                    @switch (genres) {
+                                    @case('Action') {
+                                    <span class="bg-blue-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                                    }
+                                    @case('Adventure') {
+                                    <span class="bg-green-300 w-auto  p-1 pl-2 pr-2 "> {{genres}}</span>
+                                    }
+                                    @case('Comedy') {
+                                    <span class="bg-yellow-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                                    }
+                                    @case('Drama') {
+                                    <span class="bg-red-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                                    }
+                                    @case('Fantasy') {
+                                    <span class="bg-purple-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                                    }
+                                    @case('Sci-Fi') {
+                                    <span class="bg-pink-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                                    }
+                                    @case('Mystery') {
+                                    <span class="bg-indigo-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                                    }
+                                    @case('Romance') {
+                                    <span class="bg-orange-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                                    }
+                                    @case('Horror') {
+                                    <span class="bg-red-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+                                    }
+                                    @case('Slice of Life') {
+                                    <span class="bg-teal-300 w-[90px] p-1 pl-2 pr-2 "> {{genres}}</span>
+                                    }
+                                    @default {
+                                    <span class="bg-gray-300 w-aut  p-1 pl-2 pr-2 "> {{genres}}</span>
+                                    }
+                                    }
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
             @if (hasNextPage) {
-                <div class="flex justify-center mt-4">
-                    <button (click)="loadMore()" 
-                        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400">
-                        {{ isLoading ? 'Cargando...' : 'Cargar más' }}
-                    </button>
-                </div>
+            <div class="flex justify-center mt-4">
+                <button (click)="loadMore()"
+                    class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400">
+                    {{ isLoading ? 'Cargando...' : 'Cargar más' }}
+                </button>
+            </div>
             }
         </div>
     </div>

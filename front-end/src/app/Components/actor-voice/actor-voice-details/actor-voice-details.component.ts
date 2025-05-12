@@ -8,6 +8,9 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Character, CharacterDetail } from '../../../Core/Model/character.model';
 import { Anime } from '../../../Core/Model/anime.model';
 import { ScrollEndDirective } from '../../shared/directives/scroll-end-directive';
+import { TippyDirective } from '@ngneat/helipopper';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {  heroStarSolid } from '@ng-icons/heroicons/solid';
 
 interface AnimeWithCharacter {
   anime: Anime;
@@ -16,7 +19,8 @@ interface AnimeWithCharacter {
 
 @Component({
   selector: 'app-actor-voice-details',
-  imports: [SafeHtmlPipe, CommonModule],
+  imports: [SafeHtmlPipe, CommonModule,TippyDirective,NgIcon],
+  providers: [provideIcons({ heroStarSolid })],
   templateUrl: './actor-voice-details.component.html',
   styleUrl: './actor-voice-details.component.css'
 })

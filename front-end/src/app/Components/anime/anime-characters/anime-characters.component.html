@@ -1,14 +1,14 @@
 <div class="p-4">
-    <h2 class="text-2xl font-bold text-neutral-700 cursor-pointer"  >Main Characters
+    <h2 class="text-2xl font-bold text-neutral-100 cursor-pointer"  >Main Characters
         
     </h2>
 </div>
-<section *ngIf="(animeCharacters$ |async) as characters" class="bg-[#F0F5FF] flex flex-row p-4 w-[79%] overflow-x-auto ml-5 section-characters">  
+<section *ngIf="(animeCharacters$ |async) as characters" class=" flex flex-row p-4 w-[79%] overflow-x-auto ml-5 section-characters">  
     <div *ngFor="let item of characters" class="mb-2 mr-2 relative w-auto shadow-md">       
-        <div  class=" border-1 w-[250px] border-neutral-50 text-neutral-800 font-medium  flex flex-row  bg-white rounded-md ">
+        <div  class="  w-[250px] text-neutral-100 font-medium  flex flex-row  bg-neutral-700 ">
             <div class="float-left z-10">
-                <div class="rounded-sm w-20  float-left m-1 ">
-                    <img class="object-cover h-[120px] w-full   rounded-md" [src]="item.node.image.large" />
+                <div class=" w-20  float-left m-1 ">
+                    <img class="object-cover h-[120px] w-full  " [src]="item.node.image.large" />
                 </div>
                 <div class="p-2 w-auto float-left absolute bottom-0 ml-21">
                     <p class="text-[12px] font-semibold hover:text-blue-500 cursor-pointer"  (click)="showCharacterDetails(item.node.id)"> {{item.node.name.full}} </p>
@@ -20,8 +20,8 @@
             </div>
           <div class="absolute right-0 overflow-hidden w-[125px] h-[128px] ">
             @if (item.voiceActors.length > 0){
-                <div class=" w-[125px] h-[128px] rounded-md bg-cover bg-no-repeat bg-center" 
-                [style.background-image]="'linear-gradient(to right, rgba(255, 255, 255, 1) 0px, rgba(255, 255, 255, 0.7) 30%), 
+                <div class=" w-[125px] h-[128px]  bg-cover bg-no-repeat bg-center" 
+                [style.background-image]="'linear-gradient(to right, rgba(64, 64, 64, 1) 0px, rgba(64, 64, 64, 0.7) 30%), 
                     url(' + item.voiceActors[0].image.large + ')'">
                     </div>        
                 }                                                      
@@ -30,7 +30,7 @@
   
     </div> 
     <div class="w-120 flex mt-auto mb-auto pl-2">
-        <span  (click)="showAllCharacters()" class="text-neutral-600 font-bold text-[14px] w-20 cursor-pointer ">Show All </span>
+        <span  (click)="showAllCharacters()" class="text-neutral-100 font-bold text-[14px] w-20 cursor-pointer ">Show All </span>
         <ng-icon  class="cursor-pointer" size="20" name="heroChevronRightSolid" color="#000000" ></ng-icon>
     </div>
     <div class="style_warper"></div>

@@ -68,11 +68,11 @@ export class TrendingSliderComponent implements AfterViewInit {
 
   goToAnime(animeId: number, index: number) {
     const element = document.getElementById("" + index);
-    if (element?.children[0].classList.contains('highlighted')) {
+    if (element?.children[0].classList.contains('highlighted') || window.innerWidth <= 600) {
       this.router.navigate(['/anime', animeId]);
     }
-
   }
+  
 
 private highlightThirdElement() {
   const grid = document.querySelector('#slider');
@@ -107,6 +107,7 @@ private highlightThirdElement() {
 }
 
   rotate(direction: string, elementId: number) {
+    if(window.innerWidth <= 600) return
     const grid = document.querySelector('#slider');
     const element = document.getElementById(String(elementId));
 

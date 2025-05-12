@@ -7,6 +7,7 @@ import { heroChevronLeftSolid, heroChevronRightSolid, heroStarSolid } from '@ng-
 import { SafePipe } from '../../shared/pipes/safe-pipe';
 import { TippyDirective } from '@ngneat/helipopper';
 import $ from 'jquery';
+import { Router } from '@angular/router';
 
 
 
@@ -23,6 +24,7 @@ export class SeasonAnimeComponent {
 
   private destroy$ = new Subject<void>()
   private animeService = inject(AnimeService)
+  private router = inject(Router)
   seasonAnime = signal<Array<Anime>>([])
   toltipPosition = signal<string>('left-28')
 
@@ -46,6 +48,10 @@ export class SeasonAnimeComponent {
       $('#season-anime-slider').animate({ scrollLeft: "-=" + (itemwidth + 25) }, "fast");
     }
     console.log(left)
+  }
+
+   goToAnimeSeason(animeId: number) {
+    this.router.navigate(['/anime', animeId]);
   }
 
   showDialogAnimeInfo(id: number) {
