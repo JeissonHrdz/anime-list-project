@@ -1,0 +1,15 @@
+<section class="w-full h-100 bg-amber-200" hidden>
+@for(activity of activity; track $index){
+    @if(activity.type == 'TEXT'){      
+    
+
+    <div class="w-full h-auto  p-2">
+        <p class="w-full relative text-neutral-100 font-semibold text-[12px] sm:text-[15px]">
+            {{activity.user}} 
+        </p> 
+    </div>
+}
+}
+
+</section>
+    

@@ -3,6 +3,7 @@ import { Anime } from "../Models/ani-model";
 import { ANILIST_API_URL } from "../Config/ani-config";
 import { Character } from "../Models/character-model";
 import { voiceActors } from "../Models/actor-voice-model";
+import { Activity } from "../Models/activity-model";
 
 // Constantes
 const DEFAULT_PAGE = 1;
@@ -365,7 +366,58 @@ export class VoiceActorService extends AniListService {
   }
 }
 
+export class ActivityService extends AniListService {
+  private readonly ALL_ACTIVITY_RECENT= `
+   query Activity {
+  Page(page: 3, perPage: 20) {
+    activities(sort: ID_DESC, isFollowing: false, type_in: [TEXT,ANIME_LIST]  
+    ) {
+      ... on ListActivity {
+        id
+        userId
+        type
+        status
+        progress
+        createdAt        
+        user {
+          name
+          avatar {
+            medium
+          }
+        }
+        media {
+          title {
+            romaji
+          }
+          coverImage {
+            medium
+          }
+        }
+      }
+      ... on TextActivity {
+        id
+        userId
+        type
+        text
+        createdAt
+        user {
+          name
+          avatar {
+            medium
+          }
+        }
+      }
+    }
+  } 
+}`;
+  async getGlobalActivity(): Promise<Activity> {    
+    const data = await this.makeRequest(this.ALL_ACTIVITY_RECENT,"");
+    return data.Page.activities as Activity;
+  }
+}
+
 // Exportar instancias de los servicios
 export const animeService = new AnimeService();
 export const characterService = new CharacterService();
 export const voiceActorService = new VoiceActorService();
+export const activityService = new ActivityService();

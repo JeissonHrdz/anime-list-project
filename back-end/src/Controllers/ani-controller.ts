@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"; 
-import { animeService, characterService, voiceActorService } from '../Services/ani-service'; 
+import { activityService, ActivityService, animeService, characterService, voiceActorService } from '../Services/ani-service'; 
 import { getPaginationParams } from '../Middleware/ani-middleware';
 
 
@@ -92,6 +92,18 @@ export const getVoiceActor = async (req: Request, res: Response, next: NextFunct
     try {
         const voiceActor = await voiceActorService.getVoiceActorById(id, page);
         res.json(voiceActor);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+export const getActivity = async (req: Request, res: Response, next: NextFunction): Promise<void> => {   
+    const { page } = getPaginationParams(req);
+
+    try {
+        const activity = await activityService.getGlobalActivity(); 
+        res.json(activity);
     } catch (error) {
         next(error);
     }
