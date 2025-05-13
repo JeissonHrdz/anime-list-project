@@ -1,12 +1,13 @@
 import { Anime } from "./anime.model";
 
 
-export interface ListActivity{
+ interface AllActivity{
     id: number;
     userId: number;
     type: string;
-    status:string;
-    progress: string;
+    status?:string;
+    progress?: string;
+    text?:string; 
     createdAt: string;
     user: {
         name: string;
@@ -17,7 +18,7 @@ export interface ListActivity{
     media: Anime;  
 }
 
-export interface TextActivity{
+/*export interface TextActivity{
     id: number;
     userId: number;
     type: string;
@@ -31,8 +32,8 @@ export interface TextActivity{
     }
     
   
-}
+}*/
 
-export type Activity = ListActivity | TextActivity;
+export type Activity = AllActivity
 
 export type ActivityResponse = Activity[];

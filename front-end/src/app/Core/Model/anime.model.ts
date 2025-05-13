@@ -31,6 +31,7 @@ export interface Anime {
     year: number;
   }
   coverImage: {
+    medium: string;
     large: string;
     extraLarge: string;
   }

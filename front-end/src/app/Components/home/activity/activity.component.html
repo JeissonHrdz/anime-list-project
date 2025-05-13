@@ -1,14 +1,56 @@
-<section class="w-full h-100 bg-amber-200" hidden>
-@for(activity of activity; track $index){
-    @if(activity.type == 'TEXT'){      
-    
+<section class="w-full h-auto grid justify-items-center 
+                lg:grid-cols-[repeat(3,minmax(320px,1fr))] 
+                md:grid-cols-[repeat(2,minmax(320px,1fr))] 
+                sm:grid-cols-[repeat(1,minmax(320px,1fr))] 
+                grid-cols-[repeat(1,minmax(320px,1fr))] 
+                m-auto "  >
+@for(activity of activity; track $index){  
+    @if(activity.type == 'ANIME_LIST'){
 
-    <div class="w-full h-auto  p-2">
+    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-32 bg-neutral-600 text-white m-4">        
+           <div class="relative overflow-hidden w-full h-full  ">
+                    <div class=" w-32 h-full absolute right-0  bg-cover bg-no-repeat bg-center " 
+                    [style.background-image]="'linear-gradient(to right, rgba(82, 82, 82, 1) 0px, rgba(82, 82, 82, 0.5) 30%), 
+                        url(' + activity.media.coverImage.large + ')'">
+                    </div>     
+                 <div class="w-full">
+                <p class="w-full relative text-neutral-100 font-semibold text-[12px] sm:text-[15px]">
+                    {{activity.user.name}}  LIST  {{activity.media.title.romaji}} 
+                </p>
+            </div>                                                           
+            </div> 
+          
+    </div>
+    } 
+    @if(activity.type == 'MANGA_LIST'){
+    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-32 bg-neutral-600 text-white m-4">
+           <div class="relative overflow-hidden w-full h-full  ">
+                    <div class=" w-32 h-full absolute right-0  bg-cover bg-no-repeat bg-center " 
+                    [style.background-image]="'linear-gradient(to right, rgba(82, 82, 82, 1) 0px, rgba(82, 82, 82, 0.5) 30%), 
+                        url(' + activity.media.coverImage.large + ')'">
+                    </div >      
+                      <div class="w-full">
+                <p class="w-full relative text-neutral-100 font-semibold text-[12px] sm:text-[15px]">
+                    {{activity.user.name}}  LIST  {{activity.media.title.romaji}} 
+                </p>
+            </div>                                                          
+            </div>    
+    </div>
+    }
+
+    @if(activity.type == 'TEXT'){
+    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-32 bg-neutral-600 text-white  m-4">
         <p class="w-full relative text-neutral-100 font-semibold text-[12px] sm:text-[15px]">
-            {{activity.user}} 
+            {{activity.user.name}}  TEXT 
         </p> 
     </div>
-}
+
+    }
+        
+    
+
+
+
 }
 
 </section>
