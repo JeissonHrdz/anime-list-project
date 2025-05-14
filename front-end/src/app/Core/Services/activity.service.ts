@@ -15,8 +15,8 @@ export class ActivityService {
 
   constructor() { }
 
-   getGlobalActivity(): Observable<ActivityResponse>{  
-      return this.http.get<ActivityResponse>(`${this.apiUrl}/activity`).pipe(       
+   getGlobalActivity(page: number): Observable<ActivityResponse>{  
+      return this.http.get<ActivityResponse>(`${this.apiUrl}/activity`, {params:{page} }).pipe(       
         catchError(this.handleError)
       )
     }

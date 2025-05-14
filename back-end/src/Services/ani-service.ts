@@ -368,8 +368,8 @@ export class VoiceActorService extends AniListService {
 
 export class ActivityService extends AniListService {
   private readonly ALL_ACTIVITY_RECENT= `
-   query Activity {
-  Page(page: 1, perPage: 20) {
+   query Activity($page: Int) {
+  Page(page: $page, perPage: 20) {
     activities(sort: ID_DESC, isFollowing: false, type_in: [ANIME_LIST,MANGA_LIST,TEXT,MEDIA_LIST]  
     ) {
       ... on ListActivity {
@@ -411,10 +411,14 @@ export class ActivityService extends AniListService {
         }
       }
     }
+    pageInfo {
+      hasNextPage
+    }
   } 
 }`;
-  async getGlobalActivity(): Promise<Activity> {    
-    const data = await this.makeRequest(this.ALL_ACTIVITY_RECENT,"");
+  async getGlobalActivity(page: number): Promise<Activity> {   
+    const variables = { page }; 
+    const data = await this.makeRequest(this.ALL_ACTIVITY_RECENT,variables);
     return data.Page.activities as Activity;
   }
 }

@@ -7,42 +7,72 @@
 @for(activity of activity; track $index){  
     @if(activity.type == 'ANIME_LIST'){
 
-    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-32 bg-neutral-600 text-white m-4">        
+    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-36 bg-neutral-600 text-white m-4">        
            <div class="relative overflow-hidden w-full h-full  ">
                     <div class=" w-32 h-full absolute right-0  bg-cover bg-no-repeat bg-center " 
                     [style.background-image]="'linear-gradient(to right, rgba(82, 82, 82, 1) 0px, rgba(82, 82, 82, 0.5) 30%), 
                         url(' + activity.media.coverImage.large + ')'">
                     </div>     
                  <div class="w-full">
-                <p class="w-full relative text-neutral-100 font-semibold text-[12px] sm:text-[15px]">
-                    {{activity.user.name}}  LIST  {{activity.media.title.romaji}} 
-                </p>
+                <div class="w-full relative p-3 text-neutral-100 font-medium text-[12px] sm:text-[14px]">
+                    <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activity.user.avatar.medium}}" alt="">
+                    <p class=""> {{activity.user.name}}</p>
+                     <p  style="text-shadow: rgb(243, 158, 102) 0px 0px 3px;" class="text-[12px] w-52  truncate text-orange-300 hover:text-orange-100 font-semibold cursor-pointer">{{activity.media.title.romaji}}</p>
+                    <p class="text-[12px] w-52">Anime</p>
+                    </div>
+                <div class=" w-full text-[14px] p-3  ">
+                    @if(activity.progress != null){
+                            <p>Episodes Viewed: {{activity.progress}}</p>
+                    } @else {
+                        <p>Completed</p>
+                    }
+                    <p class="w-full relative text-[12px] font-bold">{{ +activity.createdAt * 1000 | date: 'short'}}</p>
+                </div>
             </div>                                                           
             </div> 
           
     </div>
     } 
     @if(activity.type == 'MANGA_LIST'){
-    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-32 bg-neutral-600 text-white m-4">
+    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-36 bg-neutral-600 text-white m-4">
            <div class="relative overflow-hidden w-full h-full  ">
                     <div class=" w-32 h-full absolute right-0  bg-cover bg-no-repeat bg-center " 
                     [style.background-image]="'linear-gradient(to right, rgba(82, 82, 82, 1) 0px, rgba(82, 82, 82, 0.5) 30%), 
                         url(' + activity.media.coverImage.large + ')'">
                     </div >      
-                      <div class="w-full">
-                <p class="w-full relative text-neutral-100 font-semibold text-[12px] sm:text-[15px]">
-                    {{activity.user.name}}  LIST  {{activity.media.title.romaji}} 
-                </p>
+                <div class="w-full">
+                 <div class="w-full relative p-3 text-neutral-100 font-medium text-[12px] sm:text-[14px]">
+                    <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activity.user.avatar.medium}}" alt="">
+                    <p class=""> {{activity.user.name}}</p>
+                     <p  style="text-shadow: rgb(243, 158, 102) 0px 0px 3px;" class="text-[12px] w-52  truncate text-orange-300 hover:text-orange-100 font-semibold cursor-pointer">{{activity.media.title.romaji}}</p>
+                    <p class="text-[12px] w-52">Manga</p>
+                 </div>
+                <div class=" w-full text-[14px] p-3  ">
+                    @if(activity.progress != null){
+                            <p>Chapters Read: {{activity.progress}}</p>
+                    } @else {
+                        <p>Completed</p>
+                    }
+                    <p class="w-full relative text-[12px] font-bold"> {{ +activity.createdAt * 1000 | date: 'short'}}</p>
+               
+                </div>
             </div>                                                          
             </div>    
     </div>
     }
 
     @if(activity.type == 'TEXT'){
-    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-32 bg-neutral-600 text-white  m-4">
-        <p class="w-full relative text-neutral-100 font-semibold text-[12px] sm:text-[15px]">
-            {{activity.user.name}}  TEXT 
-        </p> 
+    <div class="lg:w-full md:w-96 sm:w-100 w-[350px] relative h-auto bg-neutral-600 text-white  m-4" hidden>
+          <div class="w-full relative p-3 text-neutral-100 font-medium text-[12px] sm:text-[14px]">
+                    <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activity.user.avatar.medium}}" alt="">
+                    <p class=""> {{activity.user.name}}</p>                    
+         </div>
+          <div class="w-full text-[14px] p-3 flex flex-col justify-center items-center ">
+           {{activity.text}}
+         </div>
+         <div class="w-full text-[14px] p-3 flex flex-col   " [innerHTML]="formatTextActivity(activity.text ?? '') | safeHtml">
+          
+         </div>
     </div>
 
     }
@@ -52,6 +82,7 @@
 
 
 }
+<button class="text-white relative cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 mr-4 pl-4 " (click)="loadMoreActivity()">loadMore</button>
 
 </section>
     
