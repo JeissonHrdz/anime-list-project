@@ -4,6 +4,7 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideTippyLoader, provideTippyConfig, tooltipVariation, popperVariation } from '@ngneat/helipopper/config';
+import { provideMarkdown } from 'ngx-markdown';
 
 
 export const appConfig: ApplicationConfig = {
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
         popper: popperVariation,
       },
     }),
+    provideMarkdown(),
   
     
   ]

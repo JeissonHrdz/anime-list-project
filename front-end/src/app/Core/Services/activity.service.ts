@@ -4,6 +4,7 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ActivityResponse } from '../Model/activity.model';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class ActivityService {
         catchError(this.handleError)
       )
     }
+
 
      private handleError(error: HttpErrorResponse){
     if(error.status === 0){

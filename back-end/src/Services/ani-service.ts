@@ -370,7 +370,7 @@ export class ActivityService extends AniListService {
   private readonly ALL_ACTIVITY_RECENT= `
    query Activity($page: Int) {
   Page(page: $page, perPage: 20) {
-    activities(sort: ID_DESC, isFollowing: false, type_in: [ANIME_LIST,MANGA_LIST,TEXT,MEDIA_LIST]  
+    activities(sort: ID_DESC, isFollowing: false, type_in: [TEXT]  
     ) {
       ... on ListActivity {
         id

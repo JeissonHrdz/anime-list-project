@@ -7,7 +7,7 @@
 @for(activity of activity; track $index){  
     @if(activity.type == 'ANIME_LIST'){
 
-    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-36 bg-neutral-600 text-white m-4">        
+    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-36 bg-neutral-600 text-white m-4" >        
            <div class="relative overflow-hidden w-full h-full  ">
                     <div class=" w-32 h-full absolute right-0  bg-cover bg-no-repeat bg-center " 
                     [style.background-image]="'linear-gradient(to right, rgba(82, 82, 82, 1) 0px, rgba(82, 82, 82, 0.5) 30%), 
@@ -62,15 +62,19 @@
     }
 
     @if(activity.type == 'TEXT'){
-    <div class="lg:w-full md:w-96 sm:w-100 w-[350px] relative h-auto bg-neutral-600 text-white  m-4" hidden>
+    <div class="lg:w-[350px] md:w-96 sm:w-100 w-[350px] relative h-auto bg-neutral-600 text-white  m-4" >
           <div class="w-full relative p-3 text-neutral-100 font-medium text-[12px] sm:text-[14px]">
                     <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activity.user.avatar.medium}}" alt="">
                     <p class=""> {{activity.user.name}}</p>                    
-         </div>
-          <div class="w-full text-[14px] p-3 flex flex-col justify-center items-center ">
-           {{activity.text}}
-         </div>
-         <div class="w-full text-[14px] p-3 flex flex-col   " [innerHTML]="formatTextActivity(activity.text ?? '') | safeHtml">
+         </div> 
+          <div class="w-full text-[14px] p-3 flex flex-col"  >
+            {{activity.text}}
+            <br>
+           __________________________________________________________________________________
+         </div>       
+
+         <div class="w-full text-[14px] p-3 flex flex-col" [innerHTML]="formatTextActivity(activity.text ?? '') | safeHtml" >
+            
           
          </div>
     </div>
