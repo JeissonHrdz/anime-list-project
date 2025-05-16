@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, ElementRef, inject, Renderer2, signal, ViewChild } from '@angular/core';
 import { ActivityService } from '../../../Core/Services/activity.service';
 import { Activity } from '../../../Core/Model/activity.model';
 import { Subject, takeUntil } from 'rxjs';
@@ -20,6 +20,7 @@ export class ActivityComponent {
   private activityService = inject(ActivityService)
   private destroy$ = new Subject<void>()
   private apiUrl = environment.frontUrl;
+
 
 
 
@@ -46,95 +47,37 @@ export class ActivityComponent {
   }
 
 
-  formatAnilistMarkdown(text: string): string {
-    if (!text) return '';
-
-    let formatted = text;
-
-    // Escapar caracteres HTML
-    formatted = formatted.replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-
-    // Spoilers
-    formatted = formatted.replace(/~!\s*(.*?)\s*!~/gs, '<span class="spoiler">$1</span>');
-
-    // YouTube videos
-    formatted = formatted.replace(/youtube\((?:https:\/\/www\.youtube\.com\/watch\?v=)?([A-Za-z0-9_-]+)\)/g,
-      '<iframe width="560" height="315" src="https://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>');
-
-    // Webm/video
-    formatted = formatted.replace(/webm\((.*?)\)/g,
-      '<video src="$1" autoplay loop muted></video>');
-
-    // Headers (# to <h1>-<h5>)
-    formatted = formatted.replace(/^##### (.*)$/gm, '<h5>$1</h5>');
-    formatted = formatted.replace(/^#### (.*)$/gm, '<h4>$1</h4>');
-    formatted = formatted.replace(/^### (.*)$/gm, '<h3>$1</h3>');
-    formatted = formatted.replace(/^## (.*)$/gm, '<h2>$1</h2>');
-    formatted = formatted.replace(/^# (.*)$/gm, '<h1>$1</h1>');
-    formatted = formatted.replace(/^(.+)\n==+/gm, '<h1>$1</h1>');
-    formatted = formatted.replace(/^(.+)\n--+/gm, '<h2>$1</h2>');
-
-    // Bold, italic, strikethrough
-    formatted = formatted.replace(/__([^_]+?)__/g, '<strong>$1</strong>');
-    formatted = formatted.replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>');
-    formatted = formatted.replace(/_(?!_)([^_]+?)_/g, '<em>$1</em>');
-    formatted = formatted.replace(/\*(?!\*)([^*]+?)\*/g, '<em>$1</em>');
-    formatted = formatted.replace(/~~(.*?)~~/g, '<del>$1</del>');
-
-    // Inline code
-    formatted = formatted.replace(/`([^`]+?)`/g, '<code>$1</code>');
-
-    // Code block with triple backticks
-    formatted = formatted.replace(/```([\s\S]*?)```/g, '<pre>$1</pre>');
-
-    // Blockquotes
-    formatted = formatted.replace(/^> (.*$)/gm, '<blockquote>$1</blockquote>');
-
-    //Imagen con markdown ![alt](url)
-    formatted = formatted.replace(/!\[.*?]\((https?:\/\/[^\s)]+)\)/g, '<img src="$1" alt="Image">');
-
-    // Imagen con tamaño img###(url)
-    formatted = formatted.replace(/img(\d+)\((https?:\/\/[^\s)]+)\)/g, '<img src="$2" width="$1">');
-
-    // Links con texto [text](url)
-    //formatted = formatted.replace(/\[([^\]]+)]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-
-    // Enlaces simples (pero que NO estén precedidos por '!' para evitar imágenes)
-    //formatted = formatted.replace(/(?<!\!)<?(https?:\/\/[^\s>]+)>?/g, '<a href="$1" target="_blank">$1</a>');
-
-    // Lists
-    formatted = formatted.replace(/^\s*[-+*] (.*)$/gm, '<li>$1</li>');
-    formatted = formatted.replace(/(<li>.*<\/li>)/gms, '<ul>$1</ul>');
-    formatted = formatted.replace(/^\d+\. (.*)$/gm, '<li>$1</li>');
-    formatted = formatted.replace(/(<li>.*<\/li>)/gms, '<ol>$1</ol>');
-
-    // Horizontal rules
-    formatted = formatted.replace(/^[-*]{3,}$/gm, '<hr>');
-
-    // New lines to <br>
-    formatted = formatted.replace(/\n/g, '<br>');
-
-    // Centrado con ~~~
-    formatted = formatted.replace(/˜˜˜(.*?)˜˜˜/gs, '<div style="text-align:center;">$1</div>');
-
-    return formatted;
-  }
-
-
 
   formatTextActivity(content: string): string {
     if (!content) return '';
 
+    let formatted = content;
     // 1. Convertir imágenes embebidas: img350(url) → <img>
-    let formatted = content.replace(/(img[\d%]+[\w%]*)\(([^)]+)\)/g, (match, prefix, url) => {
+   formatted = content.replace(/(img[\d%]+[\w%]*)\(([^)]+)\)/g, (match, prefix, url) => {
+      return `<img src="${url}" class="embedded-image" loading="lazy">`;
+  });
+
+  formatted = formatted.replace(/img\((https?:\/\/[^)]+)\)/g, (match, url) => {
       return `<img src="${url}" class="embedded-image" loading="lazy">`;
     });
 
   formatted = formatted.replace(/Img(\d+)\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" width="$1">');
+
   formatted = formatted.replace(/Img\((https?:\/\/[^\s)]+)\)/gi, '<img src="$1">');
 
+  formatted = formatted.replace(/img\s*(\d+)\s*\((https?:\/\/[^\s)]+)\)/gi,
+    '<img src="$2" width="$1" alt="image">'
+  );
+
+
+  // links anilist
+
+//  formatted = formatted.replace(
+//     /https:\/\/anilist\.co\/anime\/(\d+)\/[^\s]*/g,
+//     (_match, id) => {     
+//       return `<a><a class="text-amber-500 font-medium" href="${this.apiUrl}/anime/${id}" target="_blank">EL NOMBRE DEL ANIME</a>` + this.apiUrl + `/anime/${id}`;
+//     }
+//   );
   formatted = formatted.replace(
     /\[([^\]]+)\]\(https:\/\/anilist\.co\/studio\/(\d+)\/[^\)]+\)/g,
     '<a href="https://miweb.com/studio/$2" target="_blank">$1</a>'
@@ -148,27 +91,56 @@ export class ActivityComponent {
     '<a href="https://miweb.com/manga/$2" target="_blank">$1</a>'
   );
   formatted = formatted.replace(
-    /\[([^\]]+)\]\(https:\/\/anilist\.co\/characters\/(\d+)\/[^\)]+\)/g,
-    '<a href="https://miweb.com/characters/$2" target="_blank">$1</a>'
-  );
-  formatted = formatted.replace(
     /\[([^\]]+)\]\(https:\/\/anilist\.co\/staff\/(\d+)\/[^\)]+\)/g,
     '<a href="https://miweb.com/staff/$2" target="_blank">$1</a>'
   );
- 
-
-
   formatted = formatted.replace(
     /\[\s*`([^`]+)`\s*\]\(https:\/\/anilist\.co\/character\/(\d+)\/[^\)]+\)/g,
     `<strong><a href="${this.apiUrl}/character/$2" target="_blank">$1</a></strong>`
   );
 
+ formatted = formatted.replace(/webm\((https?:\/\/[^\s)]+)\)/gi, (_, url) => {
+    return `
+<video autoplay loop muted playsinline>
+  <source src="${url}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>`.trim();
+  });
 
-  formatted = formatted.replace(/\[([^\]]+)\]/g, '$1');
+  formatted = formatted.replace(/youtube\((https?:\/\/[^\s)]+)\)/gi, (_, url) => {
+    let videoId: string | null = null; 
+    try {
+      const urlObj = new URL(url);
 
-    formatted = formatted.replace(/img\((https?:\/\/[^)]+)\)/g, (match, url) => {
-      return `<img src="${url}" class="embedded-image" loading="lazy">`;
+      if (urlObj.hostname.includes("youtu.be")) {
+        // Formato corto
+        videoId = urlObj.pathname.slice(1);
+      } else if (urlObj.hostname.includes("youtube.com")) {
+        // Formato largo
+        videoId = urlObj.searchParams.get("v");
+      }
+      if (videoId) {
+        return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+      } else {
+        return url; 
+      }
+    } catch (e) {
+      return url; 
+    }
+  });
+
+  formatted = formatted.replace(/\[([^\]]+?)\]\s*\(\s*(https?:\/\/[^\s)]+)\s*\)/g, '<a class="text-amber-500 font-medium" href="$2" target="_blank">$1</a>');
+
+   formatted = formatted.replace(/([^\s]+)\((https?:\/\/[^)]+)\)/g, (match, text, url) => {
+      // Si ya es una imagen, no lo conviertas en enlace
+      if (text.startsWith('/img\d+') || text.startsWith('webm')) return match;
+      return `<a class="text-amber-500 font-medium" href="${url}" target="_blank" rel="noopener">${text}</a>`;
     });
+
+;
+
+
+  formatted = formatted.replace(/\[([^\]]+)\]/g, '$1'); 
 
     
 
@@ -178,24 +150,17 @@ export class ActivityComponent {
     formatted = formatted.replace(/\[\s*img(\d+)\((https?:\/\/[^\s)]+)\)\s*]\((https?:\/\/[^\s)]+)\)/g,
       '<a href="$3" target="_blank"><img src="$2" width="$1"></a>');
 
-    formatted = formatted.replace(/youtube\((https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)(\?[^)]*)?)\)/gi,
-    (_match, _url, videoId) => {
-      return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" ` +
-             `title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; ` +
-             `encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-    });
+    
 
-    formatted = formatted.replace(/([^\s]+)\((https?:\/\/[^)]+)\)/g, (match, text, url) => {
-      // Si ya es una imagen, no lo conviertas en enlace
-      if (text.startsWith('/img\d+') || text.startsWith('webm')) return match;
-      return `<a class="text-amber-500 font-medium" href="${url}" target="_blank" rel="noopener">${text}</a>`;
-    });
+    
   
 
     // 2. Convertir encabezados
     formatted = formatted.replace(/^##### (.*)$/gm, '<h5>$1</h5>');
+    formatted = formatted.replace(/^#####`([^`]+)`/gm, '<p class="font-monoespaced" >$1</p>');
     formatted = formatted.replace(/^#### (.*)$/gm, '<h4>$1</h4>');
     formatted = formatted.replace(/^### (.*)$/gm, '<h3>$1</h3>');
+    formatted = formatted.replace(/^###(.*)$/gm, '<h3>$1</h3>');
     formatted = formatted.replace(/^## (.*)$/gm, '<h2>$1</h2>');
     formatted = formatted.replace(/^# (.*)$/gm, '<h1>$1</h1>');
     formatted = formatted.replace(/^(.+)\n==+/gm, '<h1>$1</h1>');
@@ -207,14 +172,11 @@ export class ActivityComponent {
     formatted = formatted.replace(/^\d+\. (.*)$/gm, '<li>$1</li>');
     formatted = formatted.replace(/(<li>.*<\/li>)/gms, '<ol>$1</ol>')
 
-  //  formatted = formatted.replace(
-  //   /https:\/\/anilist\.co\/anime\/(\d+)\/[^\s]*/g,
-  //   (_match, id) => {
-  //     // Aquí haces lo que quieras con el id, por ejemplo:
-  //     return `<a><a class="text-amber-500 font-medium" href="${this.apiUrl}/anime/${id}" target="_blank">EL NOMBRE DEL ANIME</a>` + this.apiUrl + `/anime/${id}`;
-  //   }
-  // );
-
+  
+    formatted = formatted.replace(/~!\s*([\s\S]*?)\s*!~/g, 
+      '<div  class="spoiler-container cursor-pointer bg-green-600 group text-white p-2">'+
+      '<span class="spoiler revealed group-hover:flex">show Spoiler</span>' +
+      '<span class="spoiler hidden group-hover:inline-block">$1</span></div>');
 
     //formatted = formatted.replace(/˜˜˜(.*?)˜˜˜/gs, '<div style="text-align:center;">$1</div>');
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -226,7 +188,7 @@ export class ActivityComponent {
     formatted = formatted.replace(/<a>(.*?)<\/a>/g, '$1');
 
     // 2. Convertir saltos de línea en <br>
-    formatted = formatted.replace(/\n/g, '<br>');
+    //formatted = formatted.replace(/\n/g, '<br>');
 
     formatted = formatted.replace(/^# ~~~/g, '').replace(/~~~/g, '').replace("#", '').trim()
 
@@ -236,6 +198,9 @@ export class ActivityComponent {
     // 4. Sanitizar para seguridad (Angular DOM sanitizer)
     return formatted;
   }
+
+
+
 
   ngOnDestroy(): void {
     this.destroy$.next()

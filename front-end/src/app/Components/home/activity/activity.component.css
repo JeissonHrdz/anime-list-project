@@ -1,0 +1,12 @@
+.spoiler {
+  background-color: #444;
+  color: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 4px;
+  transition: color 0.3s;
+  user-select: none;
+}
+.spoiler.revealed {
+  color: inherit;
+}

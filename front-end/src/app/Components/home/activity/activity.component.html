@@ -67,15 +67,15 @@
                     <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activity.user.avatar.medium}}" alt="">
                     <p class=""> {{activity.user.name}}</p>                    
          </div> 
-          <div class="w-full text-[14px] p-3 flex flex-col"  >
+          <div class="w-[300px] text-[12px] p-3 flex flex-col"  >
             {{activity.text}}
-            <br>
-           __________________________________________________________________________________
+           
+           ________________________________
          </div>       
 
-         <div class="w-full text-[14px] p-3 flex flex-col" [innerHTML]="formatTextActivity(activity.text ?? '') | safeHtml" >
+         <div class="w-full text-[14px] p-3 flex flex-col"  #contentContainer [innerHTML]="formatTextActivity(activity.text ?? '') | safeHtml" >
             
-          
+         
          </div>
     </div>
 
