@@ -52,16 +52,23 @@ export class ActivityComponent {
     if (!content) return '';
 
     let formatted = content;
+
+formatted = formatted.replace(/img(\d+)%\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" style="width:$1%;" />');
+
+  formatted = formatted.replace(/img\s*(\d+)%\s*\(\s*(https?:\/\/[^\s)]+)\s*\)/gi, '<img src="$2" style="width:$1%;" />');
+
+  formatted = formatted.replace(/img(\d+)\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" style="width:$1px;" />');
+
     // 1. Convertir imágenes embebidas: img350(url) → <img>
-   formatted = content.replace(/(img[\d%]+[\w%]*)\(([^)]+)\)/g, (match, prefix, url) => {
+  /* formatted = content.replace(/(img[\d%]+[\w%]*)\(([^)]+)\)/g, (match, prefix, url) => {
       return `<img src="${url}" class="embedded-image" loading="lazy">`;
-  });
+  });*/
 
   formatted = formatted.replace(/img\((https?:\/\/[^)]+)\)/g, (match, url) => {
       return `<img src="${url}" class="embedded-image" loading="lazy">`;
     });
 
-  formatted = formatted.replace(/Img(\d+)\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" width="$1">');
+  formatted = formatted.replace(/Img(\d+)\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" width="$1">');  
 
   formatted = formatted.replace(/Img\((https?:\/\/[^\s)]+)\)/gi, '<img src="$1">');
 
@@ -80,28 +87,28 @@ export class ActivityComponent {
 //   );
   formatted = formatted.replace(
     /\[([^\]]+)\]\(https:\/\/anilist\.co\/studio\/(\d+)\/[^\)]+\)/g,
-    '<a href="https://miweb.com/studio/$2" target="_blank">$1</a>'
+    '<a href="https://miweb.com/studio/$2" class="text-amber-500 font-medium" target="_blank">$1</a>'
   );
   formatted = formatted.replace(
     /\[([^\]]+)\]\(https:\/\/anilist\.co\/anime\/(\d+)\/[^\)]+\)/g,
-    '<a href="https://miweb.com/anime/$2" target="_blank">$1</a>'
+    '<a href="https://miweb.com/anime/$2" class="text-amber-500 font-medium" target="_blank">$1</a>'
   );
   formatted = formatted.replace(
     /\[([^\]]+)\]\(https:\/\/anilist\.co\/manga\/(\d+)\/[^\)]+\)/g,
-    '<a href="https://miweb.com/manga/$2" target="_blank">$1</a>'
+    '<a href="https://miweb.com/manga/$2" class="text-amber-500 font-medium" target="_blank">$1</a>'
   );
   formatted = formatted.replace(
     /\[([^\]]+)\]\(https:\/\/anilist\.co\/staff\/(\d+)\/[^\)]+\)/g,
-    '<a href="https://miweb.com/staff/$2" target="_blank">$1</a>'
+    '<a href="https://miweb.com/staff/$2" class="text-amber-500 font-medium" target="_blank">$1</a>'
   );
   formatted = formatted.replace(
     /\[\s*`([^`]+)`\s*\]\(https:\/\/anilist\.co\/character\/(\d+)\/[^\)]+\)/g,
-    `<strong><a href="${this.apiUrl}/character/$2" target="_blank">$1</a></strong>`
+    `<strong><a href="${this.apiUrl}/character/$2" class="text-amber-500 font-medium" target="_blank">$1</a></strong>`
   );
 
  formatted = formatted.replace(/webm\((https?:\/\/[^\s)]+)\)/gi, (_, url) => {
     return `
-<video autoplay loop muted playsinline>
+<video  loop controls  playsinline>
   <source src="${url}" type="video/mp4">
   Your browser does not support the video tag.
 </video>`.trim();
@@ -162,6 +169,7 @@ export class ActivityComponent {
     formatted = formatted.replace(/^### (.*)$/gm, '<h3>$1</h3>');
     formatted = formatted.replace(/^###(.*)$/gm, '<h3>$1</h3>');
     formatted = formatted.replace(/^## (.*)$/gm, '<h2>$1</h2>');
+    formatted = formatted.replace(/^##(.*)$/gm, '<h2>$1</h2>');
     formatted = formatted.replace(/^# (.*)$/gm, '<h1>$1</h1>');
     formatted = formatted.replace(/^(.+)\n==+/gm, '<h1>$1</h1>');
     formatted = formatted.replace(/^(.+)\n--+/gm, '<h2>$1</h2>');
@@ -173,27 +181,43 @@ export class ActivityComponent {
     formatted = formatted.replace(/(<li>.*<\/li>)/gms, '<ol>$1</ol>')
 
   
-    formatted = formatted.replace(/~!\s*([\s\S]*?)\s*!~/g, 
-      '<div  class="spoiler-container cursor-pointer bg-green-600 group text-white p-2">'+
-      '<span class="spoiler revealed group-hover:flex">show Spoiler</span>' +
-      '<span class="spoiler hidden group-hover:inline-block">$1</span></div>');
+    formatted = formatted.replace(/~!\s*([\s\S]*?)\s*!~/g,  
+      '<div  class="spoiler-container w-auto flex flex-col cursor-pointer group font-semibold text-orange-300 p-1">'+
+      '<span class="spoiler revealed group-hover:flex transition duration-100 ease-in-out">Spoiler, hover me to reveal</span> <br>' +
+      '<span class="spoiler hidden group-hover:flex flex-col items-center transition duration-100 ease-in-out">$1</span></div>');
 
     //formatted = formatted.replace(/˜˜˜(.*?)˜˜˜/gs, '<div style="text-align:center;">$1</div>');
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
+    
+
     // Centrando con ~~~
-    formatted = formatted.replace(/~~~(.*?)~~~\s*/gs, '<div style="text-align:center">$1</div>');
+    formatted = formatted.replace(/~~~\s*([\s\S]*?)\s*~~~+/g, '<div class="flex w-full flex-col items-center">$1</div>');
+    formatted = formatted.replace(/~~~(.*?)~~~\s*/gs, '<div class="flex w-full flex-col items-center">$1</div>');
 
     // Opcional: eliminar <a> sin href
     formatted = formatted.replace(/<a>(.*?)<\/a>/g, '$1');
 
     // 2. Convertir saltos de línea en <br>
-    //formatted = formatted.replace(/\n/g, '<br>');
+    formatted = formatted.replace(/\n/g, '<br>');
 
     formatted = formatted.replace(/^# ~~~/g, '').replace(/~~~/g, '').replace("#", '').trim()
 
+    formatted = formatted.replace(/~~([\s\S]*?)~~/g, '<u>$1</u>');
+
     // 3. Opcional: Resaltar texto entre __ (negritas simuladas)
-    formatted = formatted.replace(/__([^_]+)__/g, '<h1 class="font-bold text-[18px]">$1</h1>');
+    formatted = formatted.replace(/__([^_]+)__/g, '<h1 class="font-bold text-[18px]" style="display:contents;">$1</h1>');
+
+   formatted = formatted.replace(/__([\s\S]+?)__/g, '<strong>$1</strong>');
+
+   formatted = formatted.replace(/(^|[^a-zA-Z0-9])\*([^*\n]+?)\*(?!\w)/g, '$1<em>$2</em>');
+
+   formatted = formatted.replace(/(^|[^a-zA-Z0-9])_([^_\n]+?)_(?!\w)/g, '$1<em>$2</em>');
+
+   formatted = formatted.replace(/^>?(.*(?:\n> ?.*)*)/gm, (match) => {
+  const cleaned = match.replace(/^>?/gm, '');
+  return `<blockquote>${cleaned}</blockquote>`;
+});
 
     // 4. Sanitizar para seguridad (Angular DOM sanitizer)
     return formatted;

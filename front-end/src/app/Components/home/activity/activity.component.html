@@ -1,5 +1,5 @@
 <section class="w-full h-auto grid justify-items-center 
-                lg:grid-cols-[repeat(3,minmax(320px,1fr))] 
+                lg:grid-cols-[repeat(1,minmax(320px,1fr))] 
                 md:grid-cols-[repeat(2,minmax(320px,1fr))] 
                 sm:grid-cols-[repeat(1,minmax(320px,1fr))] 
                 grid-cols-[repeat(1,minmax(320px,1fr))] 
@@ -62,18 +62,16 @@
     }
 
     @if(activity.type == 'TEXT'){
-    <div class="lg:w-[350px] md:w-96 sm:w-100 w-[350px] relative h-auto bg-neutral-600 text-white  m-4" >
+    <div class="lg:w-[600px] md:w-96 sm:w-100 w-[350px] relative h-auto  bg-neutral-600 text-white  m-4" >
           <div class="w-full relative p-3 text-neutral-100 font-medium text-[12px] sm:text-[14px]">
                     <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activity.user.avatar.medium}}" alt="">
                     <p class=""> {{activity.user.name}}</p>                    
          </div> 
-          <div class="w-[300px] text-[12px] p-3 flex flex-col"  >
-            {{activity.text}}
-           
-           ________________________________
+          <div class="w-[300px] text-[12px] p-3 flex flex-col"  >          
+                     
          </div>       
 
-         <div class="w-full text-[14px] p-3 flex flex-col"  #contentContainer [innerHTML]="formatTextActivity(activity.text ?? '') | safeHtml" >
+         <div class="w-full max-h-[600px] overflow-y-auto overflow-x-hidden text-[14px] p-3 flex flex-col"  #contentContainer [innerHTML]="formatTextActivity(activity.text ?? '') | safeHtml" >
             
          
          </div>
