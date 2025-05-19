@@ -10,3 +10,7 @@
 .spoiler.revealed {
   color: inherit;
 }
+
+ .container:focus-within .hidden-content {
+    display: block;
+  }

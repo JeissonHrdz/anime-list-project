@@ -53,16 +53,30 @@ export class ActivityComponent {
 
     let formatted = content;
 
+ formatted = formatted.replace(
+  /<center>\s*((?:(?:img\s*\d+%?|img\d+)%?\((?:https?:\/\/[^\s)]+)\)\s*)+)(<\/center>)?/gi,
+  (_, imgBlock, closingTag) => {
+    const content = imgBlock.trim();
+    return `<div style="display:flex; justify-content:center; flex-wrap:wrap; gap:4px;">${content}</div>`;
+  }
+);
+
+formatted = formatted.replace(/@([a-zA-Z0-9_]+)/g, '<a class="font-bold contents text-orange-300 hover:text-orange-100" href="https://miweb.com/user/$1" class="user-link">@$1</a>');  
+
 formatted = formatted.replace(/img(\d+)%\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" style="width:$1%;" />');
 
   formatted = formatted.replace(/img\s*(\d+)%\s*\(\s*(https?:\/\/[^\s)]+)\s*\)/gi, '<img src="$2" style="width:$1%;" />');
 
   formatted = formatted.replace(/img(\d+)\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" style="width:$1px;" />');
 
+  formatted = formatted.replace(/\[\!\[([^\]]+)]\s*\((https?:\/\/[^\s)]+)\)\s*\]/g, '<img src="$2" alt="$1">');
+
     // 1. Convertir imágenes embebidas: img350(url) → <img>
   /* formatted = content.replace(/(img[\d%]+[\w%]*)\(([^)]+)\)/g, (match, prefix, url) => {
       return `<img src="${url}" class="embedded-image" loading="lazy">`;
   });*/
+
+    
 
   formatted = formatted.replace(/img\((https?:\/\/[^)]+)\)/g, (match, url) => {
       return `<img src="${url}" class="embedded-image" loading="lazy">`;
@@ -75,6 +89,7 @@ formatted = formatted.replace(/img(\d+)%\((https?:\/\/[^\s)]+)\)/gi, '<img src="
   formatted = formatted.replace(/img\s*(\d+)\s*\((https?:\/\/[^\s)]+)\)/gi,
     '<img src="$2" width="$1" alt="image">'
   );
+
 
 
   // links anilist
@@ -103,8 +118,8 @@ formatted = formatted.replace(/img(\d+)%\((https?:\/\/[^\s)]+)\)/gi, '<img src="
   );
   formatted = formatted.replace(
     /\[\s*`([^`]+)`\s*\]\(https:\/\/anilist\.co\/character\/(\d+)\/[^\)]+\)/g,
-    `<strong><a href="${this.apiUrl}/character/$2" class="text-amber-500 font-medium" target="_blank">$1</a></strong>`
-  );
+    `<strong><a href="${this.apiUrl}/character/$2" class="text-amber-500 font-medium" target="_blank">$1</a></strong>`  );
+
 
  formatted = formatted.replace(/webm\((https?:\/\/[^\s)]+)\)/gi, (_, url) => {
     return `
@@ -114,30 +129,16 @@ formatted = formatted.replace(/img(\d+)%\((https?:\/\/[^\s)]+)\)/gi, '<img src="
 </video>`.trim();
   });
 
-  formatted = formatted.replace(/youtube\((https?:\/\/[^\s)]+)\)/gi, (_, url) => {
-    let videoId: string | null = null; 
-    try {
-      const urlObj = new URL(url);
 
-      if (urlObj.hostname.includes("youtu.be")) {
-        // Formato corto
-        videoId = urlObj.pathname.slice(1);
-      } else if (urlObj.hostname.includes("youtube.com")) {
-        // Formato largo
-        videoId = urlObj.searchParams.get("v");
-      }
-      if (videoId) {
-        return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
-      } else {
-        return url; 
-      }
-    } catch (e) {
-      return url; 
-    }
-  });
+formatted  = formatted.replace(/youtube\((https?:\/\/[^\s]+)\)/g, (match, url) => {
+  const videoId = this.extractYouTubeId(url); // Fun ción que debes tener
+  return `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+});
 
-  formatted = formatted.replace(/\[([^\]]+?)\]\s*\(\s*(https?:\/\/[^\s)]+)\s*\)/g, '<a class="text-amber-500 font-medium" href="$2" target="_blank">$1</a>');
+formatted = formatted.replace(/\[([^\]]+?)\]\s*\(\s*(https?:\/\/[^\s)]+)\s*\)/g, '<a class="text-amber-500 font-medium" href="$2" target="_blank">$1</a>');
 
+    
+  
    formatted = formatted.replace(/([^\s]+)\((https?:\/\/[^)]+)\)/g, (match, text, url) => {
       // Si ya es una imagen, no lo conviertas en enlace
       if (text.startsWith('/img\d+') || text.startsWith('webm')) return match;
@@ -158,8 +159,7 @@ formatted = formatted.replace(/img(\d+)%\((https?:\/\/[^\s)]+)\)/gi, '<img src="
       '<a href="$3" target="_blank"><img src="$2" width="$1"></a>');
 
     
-
-    
+   
   
 
     // 2. Convertir encabezados
@@ -181,15 +181,19 @@ formatted = formatted.replace(/img(\d+)%\((https?:\/\/[^\s)]+)\)/gi, '<img src="
     formatted = formatted.replace(/(<li>.*<\/li>)/gms, '<ol>$1</ol>')
 
   
-    formatted = formatted.replace(/~!\s*([\s\S]*?)\s*!~/g,  
+    /*formatted = formatted.replace(/~!\s*([\s\S]*?)\s*!~/g,  
       '<div  class="spoiler-container w-auto flex flex-col cursor-pointer group font-semibold text-orange-300 p-1">'+
       '<span class="spoiler revealed group-hover:flex transition duration-100 ease-in-out">Spoiler, hover me to reveal</span> <br>' +
-      '<span class="spoiler hidden group-hover:flex flex-col items-center transition duration-100 ease-in-out">$1</span></div>');
+      '<span class="spoiler hidden group-hover:flex flex-col text-white items-center transition duration-100 ease-in-out">$1</span></div>');*/
+
+
+    formatted = formatted.replace(/~!\s*([\s\S]*?)\s*!~/g,  
+      '<details class="group cursor-pointer"><summary class="p-4 text-orange-400 rounded-lg"> Spoiler, lick to reveal '+
+ '    </summary>   <div class="p-4 mt-2 flex justify-center text-white rounded-lg"> $1   </div> </details>');
+
 
     //formatted = formatted.replace(/˜˜˜(.*?)˜˜˜/gs, '<div style="text-align:center;">$1</div>');
-    formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
-    
+    formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');    
 
     // Centrando con ~~~
     formatted = formatted.replace(/~~~\s*([\s\S]*?)\s*~~~+/g, '<div class="flex w-full flex-col items-center">$1</div>');
@@ -206,22 +210,29 @@ formatted = formatted.replace(/img(\d+)%\((https?:\/\/[^\s)]+)\)/gi, '<img src="
     formatted = formatted.replace(/~~([\s\S]*?)~~/g, '<u>$1</u>');
 
     // 3. Opcional: Resaltar texto entre __ (negritas simuladas)
-    formatted = formatted.replace(/__([^_]+)__/g, '<h1 class="font-bold text-[18px]" style="display:contents;">$1</h1>');
+    formatted = formatted.replace(/__([^_]+)__/g, '<h1 class="font-bold " style="display:contents;">$1</h1>');
 
-   formatted = formatted.replace(/__([\s\S]+?)__/g, '<strong>$1</strong>');
+   formatted = formatted.replace(/__([\s\S]+?)__/g, '<center> <strong>$1</strong></center>');
 
    formatted = formatted.replace(/(^|[^a-zA-Z0-9])\*([^*\n]+?)\*(?!\w)/g, '$1<em>$2</em>');
 
    formatted = formatted.replace(/(^|[^a-zA-Z0-9])_([^_\n]+?)_(?!\w)/g, '$1<em>$2</em>');
 
-   formatted = formatted.replace(/^>?(.*(?:\n> ?.*)*)/gm, (match) => {
+   /*formatted = formatted.replace(/^>?(.*(?:\n> ?.*)*)/gm, (match) => {
   const cleaned = match.replace(/^>?/gm, '');
   return `<blockquote>${cleaned}</blockquote>`;
-});
+});*/
+
+
 
     // 4. Sanitizar para seguridad (Angular DOM sanitizer)
     return formatted;
   }
+
+ extractYouTubeId(url: string): string | null {
+  const match = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
+  return match ? match[1] : null;
+}
 
 
 
