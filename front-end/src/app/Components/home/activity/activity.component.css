@@ -14,3 +14,31 @@
  .container:focus-within .hidden-content {
     display: block;
   }
+
+.image-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 8px 0;
+}
+.image-row img {
+  max-width: 100%;
+  height: auto;
+}
+
+ /* Chrome, Edge, and Safari */
+ *::-webkit-scrollbar {
+  width: 7px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #5b5b5b;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #2d2d2d;
+  border-radius: 10px;
+  border: 1px none #ffffff
+ 
+}
