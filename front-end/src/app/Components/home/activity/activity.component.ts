@@ -74,11 +74,11 @@ export class ActivityComponent {
 
     formatted = formatted.replace(/@([a-zA-Z0-9_]+)/g, '<a class="font-bold contents text-orange-300 hover:text-orange-100" href="https://miweb.com/user/$1" class="user-link">@$1</a>');
 
-    formatted = formatted.replace(/img(\d+)%\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" style="width:$1%;" />');
+    formatted = formatted.replace(/img(\d+)%\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" class="h-fit" style="width:$1%;" />');
 
-    formatted = formatted.replace(/img\s*(\d+)%\s*\(\s*(https?:\/\/[^\s)]+)\s*\)/gi, '<img src="$2" style="width:$1%;" />');
+    formatted = formatted.replace(/img\s*(\d+)%\s*\(\s*(https?:\/\/[^\s)]+)\s*\)/gi, '<img src="$2" class="h-fit" style="width:$1%;" />');
 
-    formatted = formatted.replace(/img(\d+)\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" style="width:$1px;" />');
+    formatted = formatted.replace(/img(\d+)\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" class="h-fit" style="width:$1px;" />');
 
     formatted = formatted.replace(/\[\!\[([^\]]+)]\s*\((https?:\/\/[^\s)]+)\)\s*\]/g, '<img src="$2" alt="$1">');
 
@@ -93,12 +93,12 @@ export class ActivityComponent {
       return `<img src="${url}" class="embedded-image" loading="lazy">`;
     });
 
-    formatted = formatted.replace(/Img(\d+)\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" width="$1">');
+    formatted = formatted.replace(/Img(\d+)\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" class="h-fit" width="$1">');
 
     formatted = formatted.replace(/Img\((https?:\/\/[^\s)]+)\)/gi, '<img src="$1">');
 
     formatted = formatted.replace(/img\s*(\d+)\s*\((https?:\/\/[^\s)]+)\)/gi,
-      '<img src="$2" width="$1" alt="image">'
+      '<img src="$2" class="h-fit" width="$1" alt="image">'
     );
 
  formatted = formatted.replace(/^\*{3,}$/gm, '<hr>');
@@ -185,21 +185,21 @@ export class ActivityComponent {
 
     formatted = formatted.replace(/~!\s*([\s\S]*?)\s*!~/g,
       '<details class="group cursor-pointer"><summary class="p-4 text-orange-400 rounded-lg"> Spoiler, lick to reveal ' +
-      '    </summary>   <div class="p-4 mt-2 flex justify-center text-white rounded-lg"> $1   </div> </details>');
+      '    </summary>   <div class="p-4 mt-2 flex flex-col  justify-center text-white rounded-lg"> $1   </div> </details>');
 
 
     formatted = formatted.replace(/_{3,}\s*(.*?)\s*_{3,}/g, '<div style="text-align:center;"><hr style="margin: 8px 0;">$1<hr style="margin: 8px 0;"></div>');
 
     //formatted = formatted.replace(/˜˜˜(.*?)˜˜˜/gs, '<div style="text-align:center;">$1</div>');
-    formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong class="flex flex-col items-center">$1</strong>');
+    formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong class="inline-flex flex-col items-center">$1</strong>');
 
     // Centrando con ~~~
     formatted = formatted.replace(/~~~\s*([\s\S]*?)\s*~~~+/g, (_m, content) => {
-      return `<div style="text-align:center;">${content.trim()}</div>`;
+      return `<div class="flex w-full flex-col items-center"><center style="width: inherit"><div >${content.trim()}</div></center> </div>`;
     });
     
-    formatted = formatted.replace(/~~~\s*([\s\S]*?)\s*~~~+/g, '<div >$1</div>');
-    formatted = formatted.replace(/~~~(.*?)~~~\s*/gs, '<div >$1</div>');
+    formatted = formatted.replace(/~~~\s*([\s\S]*?)\s*~~~+/g, '<center><div >$1</div></center>');
+    formatted = formatted.replace(/~~~(.*?)~~~\s*/gs, '<center><div>$1</div></center>');
 
     formatted = formatted.replace(
       /((?:\[[^\]]+]\((https?:\/\/[^\s)]+)\)\s*\|\s*)+\[[^\]]+]\((https?:\/\/[^\s)]+)\))/g,
@@ -233,7 +233,7 @@ export class ActivityComponent {
     formatted = formatted.replace(/(^|[^a-zA-Z0-9])_([^_\n]+?)_(?!\w)/g, '$1<em>$2</em>');
 
     formatted = formatted.replace(/(<br>\s*)?((?:<img[^>]*>\s*)+)(?=(<br>|$))/g, (_match, br = '', imgs) => {
-      return `${br}<div class="image-row flex wrap gap-2 justify-center m-2">${imgs.trim()}</div>`;
+      return `${br}<center> <p style="display:ruby;">${imgs.trim()}</p></center>`;
     });
 
     

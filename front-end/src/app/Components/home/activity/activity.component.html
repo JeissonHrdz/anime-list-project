@@ -68,7 +68,7 @@
                     <p class=""> {{activity.user.name}}</p>                    
          </div> 
           <div class="w-[300px] text-[12px] p-3 flex flex-col"  >          
-                 
+              
          </div>       
 
          <div class="w-full max-h-[600px] overflow-y-auto overflow-x-hidden text-[14px] p-3 flex flex-col"  #contentContainer [innerHTML]="formatTextActivity(activity.text ?? '') | safeHtml" >
