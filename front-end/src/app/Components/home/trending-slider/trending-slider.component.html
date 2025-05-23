@@ -1,24 +1,23 @@
-<section class="w-full flex   h-[50px]  absolute bg-neutral-800  z-0">
-</section>
-<section class="h-full flex flex-row relative bg-neutral-800  z-0 main-container-slider">
-    <div class=" overflow-hidden relative slide-track" style="width: 100%; ">
-        <div class="  grid  justify-items-center relative overflow-x-hidden z-30 " id="slider">
+
+<section class="h-full flex flex-row relative justify-center z-0 main-container-slider">
+    <div class=" rounded-md overflow-hidden  relative slide-track" style="width: 97%; ">
+        <div class="  grid  justify-items-center relative overflow-x-hidden z-30 rounded-t-md "  id="slider">
             @for(anime of trendingAnime(); track $index) {
 
             <div (click)="rotate(directionSlide(), $index)" id="{{$index}}"
-                class=" cursor-pointer  mt-8 relative mb-5  bg-neutral-800   slider-item  slide-item">
+                class=" cursor-pointer  mt-8 relative mb-5 rounded-t-md bg-neutral-800   slider-item  slide-item">
 
                 <div (click)="goToAnime(anime.id, $index )"
-                    class="trending-slider relative  opacity-25   transition-opacity duration-300 justify-center  bg-cover bg-no-repeat bg-center">
-                    <img class="object-cover w-full relative img-slider" style="height: 100%;"
+                    class="trending-slider relative rounded-t-md  opacity-40   transition-opacity duration-300 justify-center  bg-cover bg-no-repeat bg-center">
+                    <img class="object-cover w-full rounded-t-md relative img-slider" style="height: 100%;"
                         src="{{anime.coverImage.extraLarge}}" alt="">
                          <div class="gradient-overlay"></div>
 
                     <div class="h-full w-full absolute top-0 left-0">
                         <span
-                            class="shadow-md bg-orange-300 relative top-3 text-[12px]  p-2 m-2 text-neutral-800 font-bold">{{anime.format}}</span>
+                            class="rounded-tl-md rounded-bl-md bg-purple-500 relative top-3 text-[12px]  p-2 ml-2 text-neutral-50 font-bold">{{anime.format}}</span>
                         <span
-                            class=" shadow-md bg-neutral-800 text-neutral-100  text-[12px] relative top-3 font-semibold  p-2 ">Trending
+                            class=" bg-neutral-50 rounded-tr-md rounded-br-md text-neutral-800   text-[12px] relative top-3 font-semibold  p-2 ">Trending
                            #@if(screenWidth()){
                                 {{$index+1}}
                             } @else {

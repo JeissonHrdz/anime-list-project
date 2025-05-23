@@ -4,6 +4,7 @@
   z-index: 20;
   transition: all 0.3s ease;
   border-radius: 10px;
+ 
 
 
 }
@@ -62,7 +63,7 @@
   }
 
   .slide-item{
-    width: 100%;
+    width: 98%;
     scroll-snap-align: start;
   }
 

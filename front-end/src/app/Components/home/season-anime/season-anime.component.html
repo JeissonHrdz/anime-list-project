@@ -1,5 +1,5 @@
 <section class="w-full">
-  <div class="flex flex-row  items-center text-white">
+  <div class="flex flex-row  items-center text-neutral-800">
     <h2 class="text-3xl p-2 sm:mt-0 font-bold m-2 tracking-tight text-center sm:text-left">Season Anime</h2>
     <a href="/anime" class="text-sm p-2 m-2 sm:mt-0 font-semibold text-center sm:text-left">View More</a>
   </div>
@@ -9,10 +9,10 @@
     <div class="grid  gap-2  overflow-x-hidden overflow-hidden anime-season" id="season-anime-slider">
       @for(anime of seasonAnime(); track anime) {
 
-      <div class=" h-full m-2  flex flex-col  item-slide z-10 relative cursor-pointer" (click)="goToAnimeSeason(anime.id)" [tp]="tpl" [tpPlacement]="'top'">
-        <img src="{{anime.coverImage.large}}" class="object-cover w-full   relative" style="height: 75%;"
+      <div class=" h-full m-2 hover:text-neutral-800  text-neutral-500 flex flex-col item-slide z-10 relative cursor-pointer" (click)="goToAnimeSeason(anime.id)" [tp]="tpl" [tpPlacement]="'top'">
+        <img src="{{anime.coverImage.large}}" class="object-cover w-full rounded-md  shadow-lg relative" style="height: 75%;"
           alt="Anime Cover Image" />
-        <p class="w-full truncate tracking-tight mt-2 text-neutral-200 font-semibold text-[12px] sm:text-[14px]">
+        <p class="w-full truncate  tracking-tight mt-2  font-semibold text-[12px] sm:text-[14px]">
           {{anime.title.romaji}}
         </p>
       </div>
@@ -84,11 +84,13 @@
 
   </div>
   <div class="relative flex-col m-2 h-full mb-12 w-full  justify-center flex z-10 btn-slides" style="width: 3%;">
-    <button class="pt-10 pb-10 m-1 h-full w-[40px] cursor-pointer bg-amber-500 text-white rounded-md hover:bg-amber-600"
+    <button class="pt-10 pb-10 m-1 shadow-md h-full w-[40px] cursor-pointer bg-neutral-800
+     text-neutral-50 rounded-md hover:bg-purple-500 transition ease-in-out duration-300"
       (click)="rotateAnimes('next')">
       <ng-icon name="heroChevronRightSolid" size="28" class="text-white"></ng-icon>
     </button>
-    <button class="pt-10 pb-10 m-1 h-full w-[40px] cursor-pointer bg-amber-500 text-white rounded-md hover:bg-amber-600"
+    <button class="pt-10 pb-10 m-1 shadow-md  h-full w-[40px] cursor-pointer bg-neutral-800
+     text-neutral-50 rounded-md hover:bg-purple-500 transition ease-in-out duration-300"
       (click)="rotateAnimes('prev')">
       <ng-icon name="heroChevronLeftSolid" size="28" class="text-white "></ng-icon>
     </button>

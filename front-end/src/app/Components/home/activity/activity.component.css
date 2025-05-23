@@ -43,6 +43,11 @@
 }
 
 .bttnActive{
-  background-color: #404040;
-  color: #fff;;
+  background-color: #AD46FF;
+  color: #fff;
+  transition: ease-in-out .3s;
+}
+
+.custom-shadow{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 }

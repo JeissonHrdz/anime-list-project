@@ -148,7 +148,7 @@ export class ActivityComponent {
       '<img src="$1.gif" alt="tumblr gif">'
     );
 
-    formatted = formatted.replace(/@([a-zA-Z0-9_]+)/g, '<a class="font-bold contents text-orange-300 hover:text-orange-100" href="https://miweb.com/user/$1" class="user-link">@$1</a>');
+    formatted = formatted.replace(/@([a-zA-Z0-9_]+)/g, '<a class="font-bold contents text-purple-500 hover:text-purple-700 href="https://miweb.com/user/$1" class="user-link">@$1</a>');
 
     formatted = formatted.replace(/img(\d+)%\((https?:\/\/[^\s)]+)\)/gi, '<img src="$2" class="h-fit" style="width:$1%;" />');
 
@@ -189,23 +189,23 @@ export class ActivityComponent {
     //   );
     formatted = formatted.replace(
       /\[([^\]]+)\]\(https:\/\/anilist\.co\/studio\/(\d+)\/[^\)]+\)/g,
-      '<a href="https://miweb.com/studio/$2" class="text-amber-500 font-medium" target="_blank">$1</a>'
+      '<a href="https://miweb.com/studio/$2" class="text-purple-500 font-medium" target="_blank">$1</a>'
     );
     formatted = formatted.replace(
       /\[([^\]]+)\]\(https:\/\/anilist\.co\/anime\/(\d+)\/[^\)]+\)/g,
-      '<a href="https://miweb.com/anime/$2" class="text-amber-500 font-medium" target="_blank">$1</a>'
+      '<a href="https://miweb.com/anime/$2" class="text-purple-500 font-medium" target="_blank">$1</a>'
     );
     formatted = formatted.replace(
       /\[([^\]]+)\]\(https:\/\/anilist\.co\/manga\/(\d+)\/[^\)]+\)/g,
-      '<a href="https://miweb.com/manga/$2" class="text-amber-500 font-medium" target="_blank">$1</a>'
+      '<a href="https://miweb.com/manga/$2" class="text-purple-500 font-medium" target="_blank">$1</a>'
     );
     formatted = formatted.replace(
       /\[([^\]]+)\]\(https:\/\/anilist\.co\/staff\/(\d+)\/[^\)]+\)/g,
-      '<a href="https://miweb.com/staff/$2" class="text-amber-500 font-medium" target="_blank">$1</a>'
+      '<a href="https://miweb.com/staff/$2" class="text-purple-500 font-medium" target="_blank">$1</a>'
     );
     formatted = formatted.replace(
       /\[\s*`([^`]+)`\s*\]\(https:\/\/anilist\.co\/character\/(\d+)\/[^\)]+\)/g,
-      `<strong><a href="${this.apiUrl}/character/$2" class="text-amber-500 font-medium" target="_blank">$1</a></strong>`);
+      `<strong><a href="${this.apiUrl}/character/$2" class="text-purple-500 font-medium" target="_blank">$1</a></strong>`);
 
 
     formatted = formatted.replace(/webm\((https?:\/\/[^\s)]+)\)/gi, (_, url) => {
@@ -222,12 +222,12 @@ export class ActivityComponent {
       return `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
     });
 
-    formatted = formatted.replace(/\[([^\]]+?)\]\s*\(\s*(https?:\/\/[^\s)]+)\s*\)/g, '<a class="text-amber-500 font-medium" href="$2" target="_blank">$1</a>');
+    formatted = formatted.replace(/\[([^\]]+?)\]\s*\(\s*(https?:\/\/[^\s)]+)\s*\)/g, '<a class="text-purple-500 font-medium" href="$2" target="_blank">$1</a>');
 
     formatted = formatted.replace(/([^\s]+)\((https?:\/\/[^)]+)\)/g, (match, text, url) => {
       // Si ya es una imagen, no lo conviertas en enlace
       if (text.startsWith('/img\d+') || text.startsWith('webm')) return match;
-      return `<a class="text-amber-500 font-medium" href="${url}" target="_blank" rel="noopener">${text}</a>`;
+      return `<a class="text-purple-500 font-medium" href="${url}" target="_blank" rel="noopener">${text}</a>`;
     });
 
 
@@ -260,8 +260,8 @@ export class ActivityComponent {
 
 
     formatted = formatted.replace(/~!\s*([\s\S]*?)\s*!~/g,
-      '<details class="group cursor-pointer"><summary class="p-4 text-orange-400 rounded-lg"> Spoiler, lick to reveal ' +
-      '    </summary>   <div class="p-4 mt-2 flex flex-col  justify-center text-white rounded-lg"> $1   </div> </details>');
+      '<details class="group cursor-pointer"><summary class="p-2 cursor-pointer w-fit bg-purple-500/20 text-purple-500 rounded-lg"> Spoiler, lick to reveal ' +
+      '    </summary>   <div class="p-4 mt-2 flex flex-col  justify-center text-neutral-800 rounded-lg"> $1   </div> </details>');
 
 
     formatted = formatted.replace(/_{3,}\s*(.*?)\s*_{3,}/g, '<div style="text-align:center;"><hr style="margin: 8px 0;">$1<hr style="margin: 8px 0;"></div>');
