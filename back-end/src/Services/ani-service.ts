@@ -370,7 +370,7 @@ export class ActivityService extends AniListService {
   private readonly ALL_ACTIVITY_RECENT= `
    query Activity($page: Int) {
   Page(page: $page, perPage: 20) {
-    activities(sort: ID_DESC, isFollowing: false, type_in: [TEXT]  
+    activities(sort: ID_DESC, isFollowing: false, type_in: [ ANIME_LIST, MANGA_LIST]  
     ) {
       ... on ListActivity {
         id
@@ -396,7 +396,20 @@ export class ActivityService extends AniListService {
           }
           bannerImage
         }
-      }
+      }      
+    }
+    pageInfo {
+      hasNextPage
+    }
+  } 
+}`;
+
+
+  private readonly ALL_ACTIVITY_TEXT= `
+   query Activity($page: Int) {
+  Page(page: $page, perPage: 20) {
+    activities(sort: ID_DESC, isFollowing: false, type_in: [TEXT]  
+    ) {      
       ... on TextActivity {
         id
         userId
@@ -419,6 +432,12 @@ export class ActivityService extends AniListService {
   async getGlobalActivity(page: number): Promise<Activity> {   
     const variables = { page }; 
     const data = await this.makeRequest(this.ALL_ACTIVITY_RECENT,variables);
+    return data.Page.activities as Activity;
+  }
+
+    async getGlobalActivityText(page: number): Promise<Activity> {   
+    const variables = { page }; 
+    const data = await this.makeRequest(this.ALL_ACTIVITY_TEXT,variables);
     return data.Page.activities as Activity;
   }
 }

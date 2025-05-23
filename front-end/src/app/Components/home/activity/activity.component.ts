@@ -16,6 +16,8 @@ import { environment } from '../../../../environments/environment';
   styleUrl: './activity.component.css'
 })
 export class ActivityComponent {
+  @ViewChild('loadMore') loadMore!: ElementRef
+  @ViewChild('loadMoreText') loadMoreText!: ElementRef
 
   private activityService = inject(ActivityService)
   private destroy$ = new Subject<void>()
@@ -25,26 +27,100 @@ export class ActivityComponent {
 
 
   page: number = 1
+  pageText: number = 1
   activity: Activity[] = []
+  activityText: Activity[] = []
 
-  ngOnInit(): void {
-    this.activityService.getGlobalActivity(this.page).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe((activity) => {
-      this.activity = activity
-      console.log(this.activity)
-    })
+  ngOnInit(): void {    
+    this.loadInitialActivity()
+
+    setTimeout(() => {
+      this.stupIntersectionObserver()
+      this.stupIntersectionObserverTextActivity()
+    },1000);
+    
   }
 
-  loadMoreActivity() {
-    this.page++
-    this.activityService.getGlobalActivity(this.page).pipe(
+  stupIntersectionObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          this.loadMoreActivity('media')
+        }
+      })
+    })
+
+    observer.observe(this.loadMore.nativeElement)
+  }
+
+  stupIntersectionObserverTextActivity() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          this.loadMoreActivity('text')
+        }
+      })
+    })
+
+    observer.observe(this.loadMoreText.nativeElement)
+  }
+
+  loadInitialActivity() {
+
+      this.activityService.getGlobalActivity(this.page).pipe(
       takeUntil(this.destroy$)
     ).subscribe((activity) => {
-      this.activity = this.activity.concat(activity)
-      console.log(this.activity)
+      this.activity = activity    
     })
+
+    this.activityService.getGlobalActivityText(this.page).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((activity) => {
+      this.activityText = this.activityText.concat(activity)   
+    })  
+  
+    
   }
+
+  loadMoreActivity(type?: string) {
+    if (type == 'text') {      
+      this.pageText++
+      this.activityService.getGlobalActivityText(this.pageText).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe((activity) => {
+        this.activityText = this.activityText.concat(activity)       
+      })
+    } else {
+      this.page++
+      this.activityService.getGlobalActivity(this.page).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe((activity) => {
+        this.activity = this.activity.concat(activity)       
+      })
+    }
+
+  }
+
+  setViewActivity( item: string) {
+    if(item == 'post') {
+     $('.post-bttn').addClass('bttnActive')
+     $('.media-bttn').removeClass('bttnActive')
+      $('.post').addClass('grid')
+      $('.post').removeClass('hidden')
+      $('.media').addClass('hidden');
+      $('.media').removeClass('grid');
+    } else {
+      $('.post-bttn').removeClass('bttnActive')
+     $('.media-bttn').addClass('bttnActive')
+       $('.post').removeClass('grid')
+     $('.post').addClass('hidden')
+       $('.media').removeClass('hidden')
+      $('.media').addClass('grid');
+    }
+    
+  }
+
+
 
 
 
@@ -101,7 +177,7 @@ export class ActivityComponent {
       '<img src="$2" class="h-fit" width="$1" alt="image">'
     );
 
- formatted = formatted.replace(/^\*{3,}$/gm, '<hr>');
+    formatted = formatted.replace(/^\*{3,}$/gm, '<hr>');
 
     // links anilist
 
@@ -152,7 +228,7 @@ export class ActivityComponent {
       // Si ya es una imagen, no lo conviertas en enlace
       if (text.startsWith('/img\d+') || text.startsWith('webm')) return match;
       return `<a class="text-amber-500 font-medium" href="${url}" target="_blank" rel="noopener">${text}</a>`;
-    });   
+    });
 
 
     formatted = formatted.replace(/\[([^\]]+)\]/g, '$1');
@@ -171,9 +247,9 @@ export class ActivityComponent {
     formatted = formatted.replace(/^###(.*)$/gm, '<h3>$1</h3>');
     formatted = formatted.replace(/^## (.*)$/gm, '<h2>$1</h2>');
     formatted = formatted.replace(/^##(.*)$/gm, '<h2>$1</h2>');
-    formatted = formatted.replace(/^# (.*)$/gm, '<h1 class="flex flex-col items-center">$1</h1>');
-    formatted = formatted.replace(/^#(.*)$/gm, '<h1 class="flex flex-col items-center">$1</h1>');
-    formatted = formatted.replace(/^(.+)\n==+/gm, '<h1 class="flex flex-col items-center">$1</h1>');
+    formatted = formatted.replace(/^# (.*)$/gm, '<h1 class="block flex-col items-center ">$1</h1>');
+    formatted = formatted.replace(/^#(.*)$/gm, '<h1 class="block flex-col items-center">$1</h1>');
+    formatted = formatted.replace(/^(.+)\n==+/gm, '<h1 class="block flex-col items-center">$1</h1>');
     formatted = formatted.replace(/^(.+)\n--+/gm, '<h2>$1</h2>');
 
     // 3. Convertir listas
@@ -197,7 +273,7 @@ export class ActivityComponent {
     formatted = formatted.replace(/~~~\s*([\s\S]*?)\s*~~~+/g, (_m, content) => {
       return `<div class="flex w-full flex-col items-center"><center style="width: inherit"><div >${content.trim()}</div></center> </div>`;
     });
-    
+
     formatted = formatted.replace(/~~~\s*([\s\S]*?)\s*~~~+/g, '<center><div >$1</div></center>');
     formatted = formatted.replace(/~~~(.*?)~~~\s*/gs, '<center><div>$1</div></center>');
 
@@ -226,7 +302,7 @@ export class ActivityComponent {
 
     formatted = formatted.replace(/__([\s\S]+?)__/g, ' <strong>$1</strong>');
 
-   
+
 
     formatted = formatted.replace(/(^|[^a-zA-Z0-9])\*([^*\n]+?)\*(?!\w)/g, '$1<em>$2</em>');
 
@@ -236,7 +312,7 @@ export class ActivityComponent {
       return `${br}<center> <p style="display:ruby;">${imgs.trim()}</p></center>`;
     });
 
-    
+
     return formatted;
   }
 

@@ -24,10 +24,8 @@
 }
 .image-row img {
   max-width: 100%;
-  height: auto;
-
+  height: auto; 
 }
-
  /* Chrome, Edge, and Safari */
  *::-webkit-scrollbar {
   width: 7px;
@@ -42,4 +40,9 @@
   border-radius: 10px;
   border: 1px none #ffffff
  
+}
+
+.bttnActive{
+  background-color: #404040;
+  color: #fff;;
 }

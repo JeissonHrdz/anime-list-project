@@ -1,9 +1,50 @@
-<section class="w-full h-auto grid justify-items-center 
-                lg:grid-cols-[repeat(2,minmax(320px,1fr))] 
-                md:grid-cols-[repeat(2,minmax(320px,1fr))] 
+<section class="block w-full m-auto items-center h-auto mb-20" >
+ <div class="flex flex-row p-4">
+     <h1 class="text-3xl font-bold text-neutral-100"> Activity </h1>
+ </div>
+ <div class="flex flex-row p-4 w-full justify-center md:hidden ">
+    <div class="flex flex-row bg-orange-300 p-1 rounded-md " >
+    <button (click)="setViewActivity('post')" class=" p-2 rounded-sm m-1 mr-6 post-bttn font-semibold bttnActive">User's Post</button>
+    <button (click)="setViewActivity('media')" class="p-2 rounded-sm  m-1 mr-6 media-bttn font-semibold "> Anime/Manga </button>    
+    </div>
+ </div>
+
+    <section class="w-fit h-auto grid  relative float-left post                 
+                grid-cols-[repeat(1,minmax(320px,1fr))] 
+                 "  >
+
+    @for(activityText of activityText; track $index){        
+    
+    <div class="lg:w-[500px] md:w-96 sm:w-100 w-[350px] relative h-auto  bg-neutral-600 text-white  m-4" >
+          <div class="w-full relative p-3 text-neutral-100 font-medium text-[12px] sm:text-[14px]">
+                    <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activityText.user.avatar.medium}}" alt="">
+                    <p class=""> {{activityText .user.name}}</p>                    
+         </div> 
+          <div class="w-[300px] text-[12px] p-3 flex flex-col"  >          
+              
+         </div>       
+
+         <div class="w-full max-h-[600px] overflow-y-auto overflow-x-hidden text-[14px] p-3 flex flex-col"  #contentContainer [innerHTML]="formatTextActivity(activityText.text ?? '') | safeHtml" >
+            
+         
+         </div>
+    </div>
+
+}    
+
+<p #loadMoreText class="mt-20"></p>
+
+
+</section>
+
+<section class="w-fit    relative  h-auto  media
+                hidden   
+                sm:grid             
+                lg:grid-cols-[repeat(2,minmax(320px,1fr))]            
+                md:grid-cols-[repeat(1,minmax(320px,1fr))] 
                 sm:grid-cols-[repeat(1,minmax(320px,1fr))] 
                 grid-cols-[repeat(1,minmax(320px,1fr))] 
-                m-auto "  >
+                "  >
 @for(activity of activity; track $index){  
     @if(activity.type == 'ANIME_LIST'){
 
@@ -60,31 +101,18 @@
             </div>    
     </div>
     }
+}
+<br>
+<p #loadMore class="mt-20"></p>
 
-    @if(activity.type == 'TEXT'){
-    <div class="lg:w-[600px] md:w-96 sm:w-100 w-[350px] relative h-auto  bg-neutral-600 text-white  m-4" >
-          <div class="w-full relative p-3 text-neutral-100 font-medium text-[12px] sm:text-[14px]">
-                    <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activity.user.avatar.medium}}" alt="">
-                    <p class=""> {{activity.user.name}}</p>                    
-         </div> 
-          <div class="w-[300px] text-[12px] p-3 flex flex-col"  >          
-              
-         </div>       
+</section>
 
-         <div class="w-full max-h-[600px] overflow-y-auto overflow-x-hidden text-[14px] p-3 flex flex-col"  #contentContainer [innerHTML]="formatTextActivity(activity.text ?? '') | safeHtml" >
-            
-         
-         </div>
-    </div>
 
-    }
-        
+</section>
     
 
 
 
-}
-<button class="text-white relative cursor-pointer bg-blue-400 rounded-lg shadow-md p-1 pr-4 mr-4 pl-4 " (click)="loadMoreActivity()">loadMore</button>
 
-</section>
+
     

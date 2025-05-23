@@ -22,6 +22,13 @@ export class ActivityService {
       )
     }
 
+     getGlobalActivityText(page: number): Observable<ActivityResponse>{  
+      return this.http.get<ActivityResponse>(`${this.apiUrl}/activity-text`, {params:{page} }).pipe(       
+        catchError(this.handleError)
+      )
+    }
+
+
 
      private handleError(error: HttpErrorResponse){
     if(error.status === 0){

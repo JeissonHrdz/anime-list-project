@@ -108,3 +108,14 @@ export const getActivity = async (req: Request, res: Response, next: NextFunctio
         next(error);
     }
 };
+
+export const getActivityText = async (req: Request, res: Response, next: NextFunction): Promise<void> => {   
+    const { page } = getPaginationParams(req);
+
+    try {
+        const activity = await activityService.getGlobalActivityText( page); 
+        res.json(activity);
+    } catch (error) {
+        next(error);
+    }
+};
