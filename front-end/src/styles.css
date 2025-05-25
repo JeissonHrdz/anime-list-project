@@ -10,4 +10,7 @@
     --font-monoespaced: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
   }
 
+.custom-shadow{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+}
  

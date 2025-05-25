@@ -16,7 +16,7 @@ import { AnimeSearchService } from '../../../Core/Services/anime-search.service'
 
 @Component({
   selector: 'app-anime-details',
-  imports: [AnimeCharactersComponent, SafePipe, NgIcon],  
+  imports: [AnimeCharactersComponent, SafePipe],  
   providers: [provideIcons({ heroCalendarSolid })],  
   templateUrl: './anime-details.component.html',
   styleUrl: './anime-details.component.css',
@@ -35,6 +35,7 @@ export class AnimeDetailsComponent {
   animeCharacters?: Character[];
   trailerId?: string;
   statusModal: boolean = false;
+  expandDescription: boolean = false;
   ngOnInit() {  
     this.route.paramMap.pipe(
       switchMap(params => {
@@ -76,6 +77,10 @@ export class AnimeDetailsComponent {
       this.statusModal = false;
     }    
   }  
+
+  expandDescriptionToggle() {
+    this.expandDescription = !this.expandDescription;
+  }
 
   ngOnDestroy() {
     this.destroy$.next();

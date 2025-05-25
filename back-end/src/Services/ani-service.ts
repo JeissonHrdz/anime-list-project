@@ -89,6 +89,7 @@ export class AnimeService extends AniListService {
         }
         coverImage {
           large
+          extraLarge
         }
         format
         characters (page: 1, perPage: 6, sort: ID) {
