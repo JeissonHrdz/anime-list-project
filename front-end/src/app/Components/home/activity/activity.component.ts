@@ -7,6 +7,8 @@ import { MarkdownModule } from 'ngx-markdown';
 import { SafeHtmlPipe } from '../../shared/pipes/safe-html-pipe';
 import { format } from 'path';
 import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -20,6 +22,7 @@ export class ActivityComponent {
   @ViewChild('loadMoreText') loadMoreText!: ElementRef
 
   private activityService = inject(ActivityService)
+  private router = inject(Router)
   private destroy$ = new Subject<void>()
   private apiUrl = environment.frontUrl;
 
@@ -98,8 +101,12 @@ export class ActivityComponent {
         this.activity = this.activity.concat(activity)       
       })
     }
-
   }
+
+  goToAnime(animeId: number) {
+    this.router.navigate(['/anime', animeId]);
+  }
+
 
   setViewActivity( item: string) {
     if(item == 'post') {

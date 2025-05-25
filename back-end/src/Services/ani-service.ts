@@ -386,6 +386,7 @@ export class ActivityService extends AniListService {
           }
         }
         media {
+          id
           title {
             romaji
           }

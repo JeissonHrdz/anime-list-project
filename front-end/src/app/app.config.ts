@@ -15,9 +15,13 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideTippyLoader(() => import('tippy.js')),
     provideTippyConfig({
-      defaultVariation: 'tooltip',
+      defaultVariation: 'tooltip',               
       variations: {
-        tooltip: tooltipVariation,
+        tooltip:{
+          ...tooltipVariation,          
+          delay: [0, 0],
+          hideOnClick: false
+        },
         popper: popperVariation,
       },
     }),

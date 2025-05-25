@@ -4,7 +4,6 @@ import { Anime } from '../../../Core/Model/anime.model';
 import { Subject, takeUntil } from 'rxjs';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroChevronLeftSolid, heroChevronRightSolid, heroStarSolid } from '@ng-icons/heroicons/solid';
-import { SafePipe } from '../../shared/pipes/safe-pipe';
 import { TippyDirective } from '@ngneat/helipopper';
 import $ from 'jquery';
 import { Router } from '@angular/router';

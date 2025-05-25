@@ -1,120 +1,129 @@
-
- <div class="flex flex-row p-4">
-     <h1 class="text-3xl font-bold text-neutral-800"> Activity </h1>
- </div>
-<section class="grid grid-cols-1 sm:grid-cols-2 justify-items-center w-full m-auto  h-auto mb-20" >
-
- <div class="flex flex-col p-4 w-full justify-items-center items-center md:hidden ">
-    <div class="flex flex-row bg-neutral-800 text-neutral-50 p-1 rounded-md " >
-    <button (click)="setViewActivity('post')" class=" p-2 rounded-sm m-1  post-bttn font-semibold bttnActive">User's Post</button>
-    <button (click)="setViewActivity('media')" class="p-2 rounded-sm  m-1  media-bttn font-semibold "> Anime/Manga </button>    
+<div class="flex flex-col p-4 w-full justify-items-center items-center md:hidden ">
+    <div class="flex flex-row bg-neutral-800 text-neutral-50 p-1 rounded-md ">
+        <button (click)="setViewActivity('post')" class=" p-2 rounded-sm m-1  post-bttn font-semibold bttnActive">User's
+            Post</button>
+        <button (click)="setViewActivity('media')" class="p-2 rounded-sm  m-1  media-bttn font-semibold "> Anime/Manga
+        </button>
     </div>
- </div>
+</div>
+<section class="grid grid-cols-1 sm:grid-cols-2 justify-items-center w-fit m-auto  h-auto mb-20">
+
+
 
     <section class="w-fit h-auto grid  relative  post                 
                 grid-cols-[repeat(1,minmax(320px,1fr))] 
-                 "  >
+                 ">
+                  <div class="flex flex-row p-4">
+     <h1 class="text-2xl font-bold text-neutral-800"> Post Users </h1>
+ </div>
 
-    @for(activityText of activityText; track $index){        
-    
-    <div class="lg:w-[500px] md:w-96 sm:w-100 w-[350px] relative h-auto custom-shadow rounded-md  bg-neutral-50 text-neutral-800  m-4" >
-          <div class="w-full relative p-3 text-neutral-100 font-medium text-[12px] sm:text-[14px]">
-                    <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activityText.user.avatar.medium}}" alt="">
-                    <p class="text-neutral-800 font-semibold "> {{activityText .user.name}}</p>                    
-         </div> 
-          <div class="w-[300px] text-[12px] p-3 flex flex-col"  >          
-              
-         </div>       
+        @for(activityText of activityText; track $index){
 
-         <div class="w-full max-h-[600px] overflow-y-auto overflow-x-hidden text-[14px] p-3 flex flex-col"  #contentContainer [innerHTML]="formatTextActivity(activityText.text ?? '') | safeHtml" >
-            
-         
-         </div>
-    </div>
+        <div
+            class="lg:w-[500px] md:w-96 sm:w-100 w-[350px] relative h-auto custom-shadow rounded-md  bg-neutral-50 text-neutral-800  m-4">
+            <div class="w-full relative p-3 text-neutral-100 font-medium text-[12px] sm:text-[14px]">
+                <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activityText.user.avatar.medium}}" alt="">
+                <p class="text-neutral-800 font-semibold "> {{activityText .user.name}}</p>
+            </div>
+            <div class="w-[300px] text-[12px] p-3 flex flex-col">
 
-}    
+            </div>
 
-<p #loadMoreText class="mt-20"></p>
+            <div class="w-full max-h-[600px] overflow-y-auto overflow-x-hidden text-[14px] p-3 flex flex-col"
+                #contentContainer [innerHTML]="formatTextActivity(activityText.text ?? '') | safeHtml">
 
 
-</section>
+            </div>
+        </div>
 
-<section class="w-fit  relative  h-fit  media
+        }
+
+        <p #loadMoreText class="mt-20"></p>
+
+
+    </section>
+
+    <section class="w-fit  relative  h-fit  media
                 hidden   
                 sm:grid             
-                lg:grid-cols-[repeat(2,minmax(320px,1fr))]            
-                md:grid-cols-[repeat(1,minmax(320px,1fr))] 
-                sm:grid-cols-[repeat(1,minmax(320px,1fr))] 
-                grid-cols-[repeat(1,minmax(320px,1fr))] 
-                "  >
-@for(activity of activity; track $index){  
-    @if(activity.type == 'ANIME_LIST'){
+                lg:grid-cols-[repeat(1,minmax(auto,1fr))]            
+                md:grid-cols-[repeat(1,minmax(auto,1fr))] 
+                sm:grid-cols-[repeat(1,minmax(auto,1fr))] 
+                grid-cols-[repeat(1,minmax(auto,1fr))] 
+                ">
 
-    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-36 custom-shadow rounded-md bg-neutral-50 text-neutral-800 m-4" >        
-           <div class="relative overflow-hidden w-full h-full  ">
-                    <div class=" w-32 h-full absolute right-0  bg-cover bg-no-repeat bg-center " 
-                    [style.background-image]="'linear-gradient(to right, rgba(250, 250, 250, 1) 0px, rgba(250, 250, 250, 0.5) 30%), 
+        <div class="flex flex-row p-4">
+            <h1 class="text-2xl font-bold text-neutral-800"> Anime/Manga Activity </h1>
+        </div>
+        @for(activity of activity; track $index){
+        @if(activity.type == 'ANIME_LIST'){
+
+        <div
+            class=" md:w-[400px] lg:w-[500px] sm:w-100 w-[350px] relative h-36 custom-shadow rounded-md bg-neutral-50 text-neutral-800 m-4">
+            <div class="relative overflow-hidden w-full h-full  ">
+                <div class=" w-32 h-full absolute right-0  bg-cover bg-no-repeat bg-center " [style.background-image]="'linear-gradient(to right, rgba(250, 250, 250, 1) 0px, rgba(250, 250, 250, 0.5) 30%), 
                         url(' + activity.media.coverImage.large + ')'">
-                    </div>     
-                 <div class="w-full">
-                <div class="w-full relative p-3 text-neutral-100 font-medium text-[12px] sm:text-[14px]">
-                    <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activity.user.avatar.medium}}" alt="">
-                    <p class="text-neutral-800 "> {{activity.user.name}}</p>
-                    <p class="text-[12px]   w-32  truncate text-purple-500 hover:text-purple-300 font-bold cursor-pointer">{{activity.media.title.romaji}}</p>
-                    <p class="text-[12px] w-52 text-neutral-600">Anime</p>
-                    </div>
-                <div class=" w-full text-[14px] p-3  ">
-                    @if(activity.progress != null){
-                            <p>Episodes Viewed: {{activity.progress}}</p>
-                    } @else {
-                        <p>Completed</p>
-                    }
-                    <p class="w-full relative text-[12px] font-medium">{{ +activity.createdAt * 1000 | date: 'short'}}</p>
                 </div>
-            </div>                                                           
-            </div> 
-          
-    </div>
-    } 
-    @if(activity.type == 'MANGA_LIST'){
-    <div class="lg:w-80 md:w-96 sm:w-100 w-[350px] relative h-36 custom-shadow rounded-md bg-neutral-50 text-neutral-800 m-4">
-           <div class="relative overflow-hidden w-full h-full  ">
-                    <div class=" w-32 h-full absolute right-0  bg-cover bg-no-repeat bg-center " 
-                    [style.background-image]="'linear-gradient(to right, rgba(250, 250, 250, 1) 0px, rgba(250, 250, 250, 0.5) 30%), 
-                        url(' + activity.media.coverImage.large + ')'">
-                    </div >      
                 <div class="w-full">
-                 <div class="w-full relative p-3  font-medium text-[12px] sm:text-[14px]">
-                    <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activity.user.avatar.medium}}" alt="">
-                    <p class="text-neutral-800 "> {{activity.user.name}}</p>
-                     <p   class="text-[12px] w-32   truncate  text-purple-500 hover:text-purple-300 font-bold cursor-pointer">{{activity.media.title.romaji}}</p>
-                    <p class="text-[12px] w-52 text-neutral-600">Manga</p>
-                 </div>
-                <div class=" w-full text-[14px] p-3  ">
-                    @if(activity.progress != null){
-                            <p>Chapters Read: {{activity.progress}}</p>
-                    } @else {
+                    <div class="w-full relative p-3 text-neutral-100 font-medium text-[12px] sm:text-[14px]">
+                        <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activity.user.avatar.medium}}"
+                            alt="">
+                        <p class="text-neutral-800 "> {{activity.user.name}}</p>
+                        <p  (click)="goToAnime(activity.media.id)"
+                            class="text-[12px] md:w-72 w-36  truncate  text-purple-500 hover:text-purple-300 font-bold cursor-pointer">
+                            {{activity.media.title.romaji}}</p>
+                        <p class="text-[12px]  text-neutral-600">Anime</p>
+                    </div>
+                    <div class=" w-full text-[14px] p-3  ">
+                        @if(activity.progress != null){
+                        <p>Episodes Viewed: <span class="font-semibold text-purple-500">{{activity.progress}}</span></p>
+                        } @else {
                         <p>Completed</p>
-                    }
-                    <p class="w-full relative text-[12px] font-medium"> {{ +activity.createdAt * 1000 | date: 'short'}}</p>
-               
+                        }
+                        <p class="w-full relative text-[12px] font-medium">{{ +activity.createdAt * 1000 | date:
+                            'short'}}</p>
+                    </div>
                 </div>
-            </div>                                                          
-            </div>    
-    </div>
-    }
-}
-<br>
-<p #loadMore class="mt-20"></p>
+            </div>
+
+        </div>
+        }
+        @if(activity.type == 'MANGA_LIST'){
+        <div
+            class=" md:w-[400px] lg:w-[500px] sm:w-100 w-[350px] relative h-36 custom-shadow rounded-md bg-neutral-50 text-neutral-800 m-4">
+            <div class="relative overflow-hidden w-full h-full  ">
+                <div class=" w-32 h-full absolute right-0  bg-cover bg-no-repeat bg-center " [style.background-image]="'linear-gradient(to right, rgba(250, 250, 250, 1) 0px, rgba(250, 250, 250, 0.5) 30%), 
+                        url(' + activity.media.coverImage.large + ')'">
+                </div>
+                <div class="w-full">
+                    <div class="w-full relative p-3  font-medium text-[12px] sm:text-[14px]">
+                        <img class="w-12 h-12 rounded-full float-left mr-2" src="{{activity.user.avatar.medium}}"
+                            alt="">
+                        <p class="text-neutral-800 "> {{activity.user.name}}</p>
+                        <p
+                            class="text-[12px] md:w-72 w-36  truncate     text-purple-500 hover:text-purple-300 font-bold cursor-pointer">
+                            {{activity.media.title.romaji}}</p>
+                        <p class="text-[12px] w-52 text-neutral-600">Manga</p>
+                    </div>
+                    <div class=" w-full text-[14px] p-3  ">
+                        @if(activity.progress != null){
+                        <p>Chapters Read: <span class="font-semibold text-purple-500">{{activity.progress}}</span></p>
+                        } @else {
+                        <p>Completed</p>
+                        }
+                        <p class="w-full relative text-[12px] font-medium"> {{ +activity.createdAt * 1000 | date:
+                            'short'}}</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+        }
+        <br>
+        <p #loadMore class="mt-20"></p>
+
+    </section>
+
 
 </section>
-
-
-</section>
-    
-
-
-
-
-
-    
