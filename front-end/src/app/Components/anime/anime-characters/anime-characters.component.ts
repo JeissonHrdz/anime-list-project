@@ -9,10 +9,11 @@ import { catchError, of, Subject, takeUntil } from 'rxjs';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroChevronRightSolid } from '@ng-icons/heroicons/solid';
 import $ from 'jquery';
+import { AnimeAllCharactersComponent } from "../anime-all-characters/anime-all-characters.component";
 
 @Component({
   selector: 'app-anime-characters',
-  imports: [CommonModule, NgIcon],
+  imports: [CommonModule, NgIcon, AnimeAllCharactersComponent,AnimeAllCharactersComponent],
   providers: [provideIcons({ heroChevronRightSolid })],
   templateUrl: './anime-characters.component.html',
   styleUrl: './anime-characters.component.css',
@@ -26,6 +27,7 @@ export class AnimeCharactersComponent {
   animeData?: Anime;
   animeCharacters?: Character[];
   animeId: number = 0;
+  statusModal: boolean = false;
 
   animeCharacters$ = this.animeDetailsService.characters.pipe(
     catchError((error) => {
@@ -41,6 +43,17 @@ export class AnimeCharactersComponent {
         this.animeId = data;
       });
   }
+
+    modalAllCharacters() {    
+    if (!this.statusModal) { 
+      $('#modal-characters').show("fast"); 
+     
+      this.statusModal = true;
+    } else {
+      $('#modal-characters').hide("fast");
+      this.statusModal = false;
+    }    
+  }  
   showCharacterDetails(characterId: number) {
     this.router.navigate(['/character', characterId]);
   }

@@ -15,6 +15,9 @@ export interface Anime {
   genres: string[];
   season?: string;
   bannerImage?: string;
+  source?: string;
+  duration?: number;
+  type?: string;
   trailer?: {
     id: string;
     site: string;

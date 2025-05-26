@@ -11,7 +11,7 @@
       <!-- Columna 1: Imagen -->
       <div class="md:h-[367px] md:w-[270px] sm:h-[100px] sm:w-[153px] sm:m-auto sm:ml-0 sm:mr-0   col-span-1 align-middle md:ml-10
        flex justify-center items-center ">
-        <img class=" md:h-[360px] md:w-[253px]  shadow-2xl rounded-md" src="{{animeData?.coverImage?.extraLarge}}"
+        <img class=" md:h-[360px] sm:w-[253px] w-[220px]  shadow-2xl rounded-md" src="{{animeData?.coverImage?.extraLarge}}"
           alt="">
       </div>
 
@@ -22,25 +22,29 @@
             {{animeData?.title?.romaji}}</p>
           <p class="text-xl text-neutral-400 mt-2 sm:mt-0 font-semibold m-2  tracking-tight text-center sm:text-left">
             {{animeData?.title?.native}}, {{animeData?.title?.english}}</p>
-          <div class="block" >
-            <p class="h-[130px] overflow-hidden" [class.h-auto]="!expandDescription" [innerHTML]="animeData?.description?.replace( '<br><br>', '<br>') ">
-            </p><button (click)="expandDescriptionToggle() " class="text-sm cursor-pointer w-full text-purple-500"> + Show more</button>
+          <div class="block">
+            <p class="h-[100px] overflow-hidden" [class.h-auto]="expandDescription"
+              [innerHTML]="animeData?.description?.replace( '<br><br>', '<br>') ">
+            </p><button (click)="expandDescriptionToggle() " class="text-sm cursor-pointer w-full text-purple-500"> +
+              Show more</button>
           </div>
 
-          <div class="flex flex-row items-center mt-2 w-[500px] sm:items-baseline tracking-wider ">
+          <div class="flex flex-row items-center mt-2 sm:w-[500px] w-[350px] sm:text-[14px] text-[14px]  sm:items-baseline tracking-wider ">
             <div class="w-full flex flex-col *:font-bold  ">
               <p><span class="font-normal "> Realsed: </span>
                 {{animeData?.startDate?.day}}/{{animeData?.startDate?.month}}/{{animeData?.startDate?.year}}</p>
               <p> <span class="font-normal">Season: </span> {{animeData?.season}}</p>
-              <p> <span class="font-normal">Score: </span> {{animeData?.averageScore}}</p>
+              <p> <span class="font-normal">Score: </span> {{animeData?.averageScore}}%</p>
               <p> <span class="font-normal">Status: </span> {{animeData?.status}}</p>
             </div>
             <div class="w-full flex flex-col *:font-bold">
+              <p><span class="font-normal"> Type: </span> {{animeData?.format}}</p>
               <p><span class="font-normal"> Episodes: </span> {{animeData?.episodes}}</p>
-              <p> <span class="font-normal">Season: </span> {{animeData?.season}}</p>
-              <p> <span class="font-normal">Score: </span> {{animeData?.averageScore}}</p>
+              <p> <span class="font-normal">Duration: </span> {{animeData?.duration}} min/ep</p>
+              <p> <span class="font-normal">Source: </span> {{animeData?.source?.replace("_", " ") }}</p>
             </div>
           </div>
+          <br>
 
 
           <p class="mt-2 rounded-l-md text-[14px] flex flex-wrap justify-center sm:justify-start">
@@ -84,11 +88,7 @@
             }
           </p>
 
-          <div class="pt-2 pb-2 ">
-            <button id="button-trailer" (click)="modalTrailer()" type="button"
-              class="text-white cursor-pointer bg-purple-500 rounded-md custom-shadow p-1 pr-4 pl-4">
-              Trailer</button>
-          </div>
+
 
 
         </div>
@@ -99,6 +99,11 @@
   <!---- Div para la sección de personajes -->
   <div class="relative w-full">
     <app-anime-characters />
+  </div>
+  <div class="pt-2 pb-2 ">
+    <button id="button-trailer" (click)="modalTrailer()" type="button"
+      class="text-white cursor-pointer bg-purple-500 rounded-md custom-shadow p-1 pr-4 pl-4">
+      Trailer</button>
   </div>
 
 </section>

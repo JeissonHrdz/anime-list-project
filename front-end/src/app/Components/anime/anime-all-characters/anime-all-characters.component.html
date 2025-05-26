@@ -1,19 +1,13 @@
-<section class="flex flex-col sm:flex-row ">
 
-<section class="w-80 flex flex-col m-auto mt-6 sm:m-6 bg-neutral-700    float-left h-100 p-4 shadow-lg">
-    <div class="w-[220px] m-auto">
-        <img class="shadow-xl rounded-md" [src]="animeImage" alt="">
-    </div>
-    <div class="mt-5 text-lg text-neutral-100 font-semibold text-center">{{animeTitle}} ({{animeYear}})</div>
-</section>
-
-<section  class="grid  mt-2 gap-4 px-4 m-auto grid-characters w-100 sm:w-[90%]  ">    
-    <div *ngFor="let item of characters; let i = index"  class="m-1 sm:m-4  w-full sm:w-[250px] relative rounded-md shadow-md">
+  <h2 class="text-xl p-3 pl-6 w-full font-bold text-neutral-800 cursor-pointer"  >Characters & Voice Actors </h2>
+<section  class="grid p-6   gap-4 m-auto h-[550px] overflow-y-auto overflow-x-hidden grid-characters ]  ">    
   
-        <div  class="  w-auto  text-neutral-100  font-medium  flex flex-row  bg-neutral-700  ">
+    <div *ngFor="let item of characters; let i = index"  class="m-1 sm:m-1  w-full sm:w-[350px] relative rounded-md custom-shadow">
+  
+        <div  class="  w-auto  text-neutral-800  font-medium rounded-md flex flex-row  bg-neutral-50  ">
             
-                <div class="rounded-md w-20  shrink-0 h-[120px] float-left m-1 z-10">
-                    <img class="object-cover h-full w-full" [src]="item.node.image.large" />
+                <div class="rounded-md w-20  shrink-0 h-[90px] float-left m-1 z-10">
+                    <img class="object-cover rounded-md h-full w-full" [src]="item.node.image.large" />
                 </div>
                 <div class="p-2 flex-1 min-w-0  ml-2 z-10 overflow-hidden">
                     <p class="text-[12px] font-semibold text-ellipsis text-shadow-lg  cursor-pointer hover:text-blue-400" (click)="showCharacterDetails(item.node.id)"> {{item.node.name.full}} </p>
@@ -24,9 +18,9 @@
                 </div>
             
             @if (item.voiceActors.length > 0) {
-                <div class="absolute right-0 top-0overflow-hidden w-[125px] h-full  ">
-                    <div class=" w-full h-full  bg-cover bg-no-repeat bg-center " 
-                    [style.background-image]="'linear-gradient(to right, rgba(64, 64, 64, 1) 0px, rgba(64, 64, 64, 0.7) 30%), 
+                <div class="absolute right-0 top-0overflow-hidden w-[90px] rounded-md h-full  ">
+                    <div class=" w-full h-full rounded-md  bg-cover bg-no-repeat bg-center " 
+                    [style.background-image]="'linear-gradient(to right, rgba(250, 250, 250, 1) 0px, rgba(250, 250, 250, 0.7) 30%), 
                         url(' + item.voiceActors[0].image.large + ')'">
                         </div>                                                             
                 </div>
@@ -40,7 +34,7 @@
     
     </div> 
 </section>
-</section>
+
 
 
 

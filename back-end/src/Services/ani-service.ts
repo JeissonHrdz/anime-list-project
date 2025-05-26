@@ -72,6 +72,9 @@ export class AnimeService extends AniListService {
         genres
         season
         bannerImage
+        source
+        duration
+        type
         trailer {
           id
           site
