@@ -7,6 +7,8 @@ export interface Character {
     id: number;
     name: {
       full: string;
+      native: string;
+      alternative: string[];
     }
     description?: string;
     image: {
@@ -34,6 +36,8 @@ export interface CharacterDetail {
     id: number;
     name: {
       full: string;
+      native: string;
+      alternative: string[];      
     }
     description?: string;
     image: {

@@ -57,6 +57,11 @@ export class AnimeCharactersComponent {
   showCharacterDetails(characterId: number) {
     this.router.navigate(['/character', characterId]);
   }
+
+   showVoiceActorDetails(voiceActorId: number) {         
+    this.router.navigate(['/voice-actor', voiceActorId]);  
+
+}
   showAllCharacters() {
     $("#topBar").addClass("bg-neutral-800");
     this.router.navigate(['/anime', this.animeId, 'characters']);

@@ -1,58 +1,64 @@
 <section class="w-full h-auto  rounded-md l">
-    <div class="bg-neutral-800 h-auto p-1 mt-2 flex flex-col">
-        <div class="grid grid-cols-1 sm:grid-cols-[320px_auto] p-1 sm:p-4">
-            <div class="poster-image shadow-2xl w-[200px] sm:w-[270px] m-auto sm:m-0 items-center h-[296px] sm:h-[396px] bg-cover bg-center relative"
+    <div class="bg-purple-50 h-auto p-1 mt-2 flex flex-col">
+        <div class="grid grid-cols-1 sm:grid-cols-[320px_auto] w-[90%] rounded-md m-auto sm:w-[80%] bg-neutral-50 custom-shadow sm:p-6">
+            <div class="poster-image custom-shadow w-[200px] mt-3 sm:mt-0 sm:w-[270px] m-auto sm:m-0 items-center h-[296px] sm:h-[396px] bg-cover bg-center relative"
                 [style]="{'background-image': 'url(' +actorVoiceData?.image?.large + ')'}">
             </div>
-            <div
-                class="relative flex flex-col sm:block mt-5 ml-2 sm:ml-5 sm:mt-0 w-full m-0 text-[12px] sm:text-[14px]">
-                <p class="text-3xl  font-semibold  text-neutral-100">{{actorVoiceData?.name?.first}}
+            <div class="relative flex flex-col  sm:block mt-5 ml-2 sm:ml-5 sm:mt-0 w-full m-0 text-[12px] sm:text-[14px]">
+                <p class="text-3xl  font-bold text-center sm:text-start  text-neutral-800">{{actorVoiceData?.name?.first}}
                     {{actorVoiceData?.name?.last}}</p>
+                    <p class="text-lg  font-semibold text-center sm:text-start text-neutral-400">{{actorVoiceData?.name?.native}}, {{actorVoiceData?.name?.alternative}}
+                  </p>
                 <br>
-                <p class=" text-neutral-100 font-medium "><b>Gender:</b> {{actorVoiceData?.gender}}</p>
-                <p class=" text-neutral-100 font-medium "><b>Birth Date:</b>
+                <div class="sm:grid sm:grid-cols-2 relative flex flex-col items-baseline w-full pl-3 sm:p-0">
+                      <p class=" text-neutral-800 font-medium "><b>Gender:</b> {{actorVoiceData?.gender}}</p>
+                <p class=" text-neutral-800 font-medium "><b>Birth Date:</b>
                     {{actorVoiceData?.dateOfBirth?.day}}/{{actorVoiceData?.dateOfBirth?.month}}/{{actorVoiceData?.dateOfBirth?.year}}
                 </p>
                 @if (actorVoiceData?.age != null) {
-                <p class=" text-neutral-100 font-medium "><b>Age:</b> {{actorVoiceData?.age}} </p>
+                <p class=" text-neutral-800 font-medium "><b>Age:</b> {{actorVoiceData?.age}} </p>
                 }
-                <p class=" text-neutral-100 font-medium "><b>Home Town:</b> {{actorVoiceData?.homeTown}}
+                <p class=" text-neutral-800 font-medium "><b>Home Town:</b> {{actorVoiceData?.homeTown}}
                 </p>
-
-                @if (isBrowser) {
+                </div>
+                <br>
+                <div class="p-3 sm:p-0">
+                           @if (isBrowser) {
                 <div *ngFor="let item of descriptionFixed" [innerHTML]="item | safeHtml"
-                    class="  text-neutral-100 h-auto justify-between font-medium  pr-2 sm:pr-2 overflow-y-auto" dir>
+                    class="  text-neutral-800 h-auto justify-between font-medium   overflow-y-auto" dir>
                     <br>
 
                 </div>
                 }
+                </div>
+         
             </div>
         </div>
         <br>
 
         <div class=" m-auto w-full overflow-y-auto  z-10">
-            <div class="flex flex-row flex-wrap justify-center w-full p-2 ">
-                <div *ngFor="let item of animeMedia" [tp]="tpl"
-                    class="bg-neutral-600  w-[175px] sm:w-[210px]  sm:m-4 shadow-md overflow-hidden m-1">
+            <div class="flex flex-row flex-wrap justify-center w-full sm:p-10 p-4 ">
+                <div *ngFor="let item of animeMedia" 
+                    class="bg-neutral-50 flex flex-row mb-2 custom-shadow  w-[500px] sm:w-[400px]  sm:m-4 shadow-md overflow-hidden m-1">
 
-                    <div class=" h-[210px] sm:h-[300px] ">
-                        <img (click)="goToDetails(item.anime.id)"
-                            class="w-[175px] sm:w-[210px] h-[210px] sm:h-[300px]  object-cover cursor-pointer"
+                    <div class=" h-[150px] w-[110px] sm:h-[150px] sm:w-[110px]" [tp]="tpl">
+                        <img (click)="goToDetails(item.anime.id)" 
+                            class=" h-auto  object-cover cursor-pointer"
                             src="{{item.anime.coverImage.large}}" title="{{item.anime.title.romaji}}">
                     </div>
-                    <div class="p-1 sm:p-4">
+                    <div class="p-4 sm:p-4">
                         <h3
-                            class=" w-40 sm:w-45 truncate tracking-tight text-neutral-100 font-medium text-[12px] sm:text-[14px]">
+                            class=" w-40 sm:w-60 truncate tracking-tight text-purple-500 font-semibold text-[12px] sm:text-[14px]">
                             {{item.anime.title.romaji}}</h3>
                         <div class="flex items-center space-x-2 mt-2 cursor-pointer"
                             (click)="showCharacterDetails(item.character.id)">
-                            <img class="w-10 sm:w-10 h-10 sm:h-10 rounded-full object-cover "
+                            <img class="w-16 sm:w-20 h-16 sm:h-20 rounded-full object-cover "
                                 src="{{item.character.image.large}}" title="{{item.character.name.full}}">
                             <div>
                                 <p
-                                    class="text-[12px] sm:text-[14px] w-[100px] sm:w-[150px] truncate tracking-tight font-medium text-neutral-400">
+                                    class="text-[14px] sm:text-[14px] w-[150px] sm:w-[150px] truncate tracking-tight font-medium text-neutral-600">
                                     {{item.character.name.full}}</p>
-                                <p class="text-xs text-neutral-400">{{item.anime.startDate.year}}</p>
+                                <p class="text-sm font-semibold text-neutral-600">{{item.anime.startDate.year}}</p>
                             </div>
                         </div>
                     </div>

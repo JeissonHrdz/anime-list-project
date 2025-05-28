@@ -57,6 +57,11 @@ export class CharacterDetailsComponent {
     this.animeSearchService.statusCloseComponent(false);
   }
 
+   showVoiceActorDetails(voiceActorId: number) {         
+    this.router.navigate(['/voice-actor', voiceActorId]);  
+
+}
+
   destructuringDescription(data: CharacterDetail): string[] {
     const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
     const descriptionArray = data.description?.split("\n") ?? [];
@@ -65,10 +70,8 @@ export class CharacterDetailsComponent {
       descriptionFixed.push(
         descriptionArray[i].replace("__","<b>").replace("__","</b>")
         .replace(linkRegex, '<a class="text-blue-500" href="$2" target="_blank">$1</a>')+"<br>"      
-      );
-      
+      );      
     }
-
     return  descriptionFixed;
   }
 

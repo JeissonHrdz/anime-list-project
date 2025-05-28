@@ -261,6 +261,8 @@ export class CharacterService extends AniListService {
         id
         name {
           full
+          native
+          alternative
         }
         description
         gender
