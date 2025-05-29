@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable,EventEmitter } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Anime } from '../Model/anime.model';
+import { Anime, AnimeSeason } from '../Model/anime.model';
 import { Character } from '../Model/character.model';
 import { environment } from '../../../environments/environment';
 
@@ -40,11 +40,19 @@ export class AnimeService {
     )     
   }
 
-  getAnimesActualSeason(): Observable<Array<Anime>>{
-    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/season`).pipe(
+  getAnimesActualSeason( page: number, perPage: number): Observable<Array<Anime>>{
+    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/season` ,{params:{page, perPage}}).pipe(
       catchError(this.handleError)
     )
   }
+
+   getAllAnimesActualSeason(page: number, perPage: number): Observable<Array<Anime>>{
+    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/season` ,{params:{page, perPage}}).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  
 
   dataFoundEmitter  = new EventEmitter<any>();
   dataFound(data: any){

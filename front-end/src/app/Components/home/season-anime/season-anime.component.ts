@@ -7,12 +7,13 @@ import { heroChevronLeftSolid, heroChevronRightSolid, heroStarSolid } from '@ng-
 import { TippyDirective } from '@ngneat/helipopper';
 import $ from 'jquery';
 import { Router } from '@angular/router';
+import { AllSeasonAnimeComponent } from "./all-season-anime/all-season-anime.component";
 
 
 
 @Component({
   selector: 'app-season-anime',
-  imports: [NgIcon , TippyDirective], 
+  imports: [NgIcon, TippyDirective, AllSeasonAnimeComponent], 
   providers: [provideIcons({ heroChevronLeftSolid, heroChevronRightSolid, heroStarSolid })],
   templateUrl: './season-anime.component.html',
   styleUrl: './season-anime.component.css'
@@ -30,7 +31,7 @@ export class SeasonAnimeComponent {
 
 
   ngOnInit(): void {
-    this.animeService.getAnimesActualSeason().pipe(
+    this.animeService.getAnimesActualSeason(1,10).pipe(
       takeUntil(this.destroy$)
     ).subscribe((anime) => {
       this.seasonAnime.set(anime)

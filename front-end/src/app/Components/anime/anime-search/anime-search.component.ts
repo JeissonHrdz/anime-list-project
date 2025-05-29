@@ -40,14 +40,24 @@ export class AnimeSearchComponent {
       takeUntil(this.destroy$)
     ).subscribe((data: Anime[]) => {      
       this.anime = data
-    }
+        $("body").css("overflow", "hidden");
+          }
     );
+
+  
     
   }
   goToDetails(id: number) {
+     $("body").css("overflow", "auto");
     this.animeSearchService.getAnimeId(id);
     this.router.navigate(['/anime', id]);    
     this.animeSearchService.statusCloseComponent(false);
+  }
+
+  closeModal() {
+     this.animeSearchService.statusCloseComponent(false);
+     
+    $("body").css("overflow", "auto");
   }
 
   ngOnDestroy() {

@@ -1,8 +1,8 @@
 
   <h2 class="text-xl p-3 pl-6 w-full font-bold text-neutral-800 cursor-pointer"  >Characters & Voice Actors </h2>
-<section  class="grid p-6   gap-4 m-auto h-[550px] overflow-y-auto overflow-x-hidden grid-characters ]  ">    
+<section  class="grid p-6   gap-4 m-auto h-auto max-h-[550px] overflow-y-auto overflow-x-hidden grid-characters ]  ">    
   
-    <div *ngFor="let item of characters; let i = index"  class="m-1 sm:m-1  w-full sm:w-[350px] relative rounded-md custom-shadow">
+    <div *ngFor="let item of characters; let i = index"  class="m-1 sm:m-1 h-fit w-full sm:w-[350px] relative rounded-md custom-shadow character-card">
   
         <div  class="  w-auto  text-neutral-800  font-medium rounded-md flex flex-row  bg-neutral-50  ">
             

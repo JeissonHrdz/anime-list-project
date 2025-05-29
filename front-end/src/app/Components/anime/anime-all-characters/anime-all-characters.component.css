@@ -19,4 +19,8 @@
     .grid-characters {
       grid-template-columns: repeat(1, minmax(0, 1fr));
     }
+    .character-card{
+      width: 350px;
+      height: 100%;
+    }
   }

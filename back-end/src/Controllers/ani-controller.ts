@@ -43,6 +43,7 @@ export const getAnimeSeason = async (req: Request, res: Response, next: NextFunc
 
     let season = "";
     const month = new Date().getMonth()+1;
+     const { page, perPage } = getPaginationParams(req);
     
     if(month >= 1 && month <= 3) {
         season = "WINTER";
@@ -56,7 +57,7 @@ export const getAnimeSeason = async (req: Request, res: Response, next: NextFunc
     const seasonYear = new Date().getFullYear();
 
     try {
-        const anime = await animeService.getAnimeSeason(season, seasonYear);
+        const anime = await animeService.getAnimeSeason(season, seasonYear, page, perPage);
         res.json(anime);
     } catch (error) {
         next(error);

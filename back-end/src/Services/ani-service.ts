@@ -1,5 +1,5 @@
-import axios from "axios"; 
-import { Anime } from "../Models/ani-model"; 
+import axios from "axios";
+import { Anime } from "../Models/ani-model";
 import { ANILIST_API_URL } from "../Config/ani-config";
 import { Character } from "../Models/character-model";
 import { voiceActors } from "../Models/actor-voice-model";
@@ -124,7 +124,7 @@ export class AnimeService extends AniListService {
     }
   `;
 
-   private readonly ANIME_TRENDING_QUERY = ` 
+  private readonly ANIME_TRENDING_QUERY = ` 
     query ( $seasonYear: Int) {
       Page (page: 1, perPage: 10) {
         media (type: ANIME,  seasonYear: $seasonYear, sort: [TRENDING_DESC, FORMAT_DESC]) {
@@ -146,11 +146,11 @@ export class AnimeService extends AniListService {
         }
       }
     }
-  `; 
+  `;
 
   private readonly ANIME_SEASON = ` 
-  query ($season: MediaSeason, $seasonYear: Int) {
-    Page (page: 1, perPage: 10) {
+  query ($season: MediaSeason, $seasonYear: Int, $page: Int, $perPage: Int) {
+    Page (page: $page, perPage: $perPage) {
       media (type: ANIME, season: $season,  seasonYear: $seasonYear) {
         id
         title {
@@ -169,11 +169,14 @@ export class AnimeService extends AniListService {
         }
         format
       }
+      pageInfo {
+      hasNextPage
+     }
     }
   }
-`; 
-   
-   
+`;
+
+
 
   async getAnimeByTitle(
     title: string,
@@ -195,14 +198,14 @@ export class AnimeService extends AniListService {
     return data.Media as Anime;
   }
 
-  async getAnimeTrending( seasonYear: number): Promise<Anime[]> {
-  const variables = {  seasonYear };
-  const data = await this.makeRequest(this.ANIME_TRENDING_QUERY, variables);
-  return data.Page.media as Anime[];
+  async getAnimeTrending(seasonYear: number): Promise<Anime[]> {
+    const variables = { seasonYear };
+    const data = await this.makeRequest(this.ANIME_TRENDING_QUERY, variables);
+    return data.Page.media as Anime[];
   }
 
-  async getAnimeSeason(season: string, seasonYear: number): Promise<Anime[]> {
-    const variables = { season, seasonYear };
+  async getAnimeSeason(season: string, seasonYear: number, page:number, perPage:number): Promise<Anime[]> {
+    const variables = { season, seasonYear, page, perPage };
     const data = await this.makeRequest(this.ANIME_SEASON, variables);
     return data.Page.media as Anime[];
   }
@@ -373,7 +376,7 @@ export class VoiceActorService extends AniListService {
 }
 
 export class ActivityService extends AniListService {
-  private readonly ALL_ACTIVITY_RECENT= `
+  private readonly ALL_ACTIVITY_RECENT = `
    query Activity($page: Int) {
   Page(page: $page, perPage: 20) {
     activities(sort: ID_DESC, isFollowing: false, type_in: [ ANIME_LIST, MANGA_LIST]  
@@ -412,7 +415,7 @@ export class ActivityService extends AniListService {
 }`;
 
 
-  private readonly ALL_ACTIVITY_TEXT= `
+  private readonly ALL_ACTIVITY_TEXT = `
    query Activity($page: Int) {
   Page(page: $page, perPage: 20) {
     activities(sort: ID_DESC, isFollowing: false, type_in: [TEXT]  
@@ -436,15 +439,15 @@ export class ActivityService extends AniListService {
     }
   } 
 }`;
-  async getGlobalActivity(page: number): Promise<Activity> {   
-    const variables = { page }; 
-    const data = await this.makeRequest(this.ALL_ACTIVITY_RECENT,variables);
+  async getGlobalActivity(page: number): Promise<Activity> {
+    const variables = { page };
+    const data = await this.makeRequest(this.ALL_ACTIVITY_RECENT, variables);
     return data.Page.activities as Activity;
   }
 
-    async getGlobalActivityText(page: number): Promise<Activity> {   
-    const variables = { page }; 
-    const data = await this.makeRequest(this.ALL_ACTIVITY_TEXT,variables);
+  async getGlobalActivityText(page: number): Promise<Activity> {
+    const variables = { page };
+    const data = await this.makeRequest(this.ALL_ACTIVITY_TEXT, variables);
     return data.Page.activities as Activity;
   }
 }
