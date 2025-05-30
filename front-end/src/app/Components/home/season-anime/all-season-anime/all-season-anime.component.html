@@ -1,1 +1,46 @@
-<p>all-season-anime works!</p>
+<section class="w-full h-[550px] overflow-auto bg-purple-50">
+    <div>
+        <p class="text-2xl p-2 sm:mt-0 font-bold m-2 tracking-tight text-center sm:text-left">All Season Anime</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 w-full">
+           @for(anime of seasonAnimes; track anime) {
+            <div class="w-[400px] custom-shadow m-2">
+            <div class="  h-[130px]  flex flex-row">
+                <img src="{{anime.coverImage.large}}" class="object-cover w-[130px] h-full  rounded-l-md  relative"  alt="Anime Cover Image" />
+               <div class="w-full h-full p-2">
+                   <p class="w-[280px] mt-1  font-semibold text-[14px] truncate">{{anime.title.romaji}}</p>  
+                   @switch (anime.format) {
+                    @case ("TV"){
+                         <p class="w-fit mt-1 bg-blue-500/20 p-1 rounded-md text-blue-500 font-medium text-[12px] truncate">{{anime.format}}</p>
+                    }
+                    @case ("MOVIE") {
+                         <p class="w-fit mt-1 bg-amber-500/20 p-1 rounded-md text-amber-500 font-medium text-[12px] truncate">{{anime.format}}</p>
+                    }
+                    @case ("OVA") {
+                         <p class="w-fit mt-1 bg-green-500/20 p-1 rounded-md text-green-500 font-medium text-[12px] truncate">{{anime.format}}</p>
+                    }
+                    @case ("ONA") {
+                         <p class="w-fit mt-1 bg-purple-500/20 p-1 rounded-md text-purple-500 font-medium text-[12px] truncate">{{anime.format}}</p>
+                    }
+                    @case ("SPECIAL") {
+                         <p class="w-fit mt-1 bg-red-500/20 p-1 rounded-md text-red-500 font-medium text-[12px] truncate">{{anime.format}}</p>
+                    }
+                    @case ("TV_SHORT") {
+                         <p class="w-fit mt-1 bg-pink-500/20 p-1 rounded-md text-pink-500 font-medium text-[12px] truncate">{{anime.format.replace("_", " ")}}</p>
+                    }
+
+                    
+                   }             
+                  
+                 
+               </div>
+             
+            </div>
+            
+            </div>
+   
+    }
+
+    </div>
+ 
+</section>

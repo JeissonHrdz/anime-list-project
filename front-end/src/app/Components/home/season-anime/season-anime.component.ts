@@ -54,13 +54,14 @@ export class SeasonAnimeComponent {
     this.router.navigate(['/anime', animeId]);
   }
 
+  showModalAllAnimes() {
+    alert('hola')
+    $('#all-season-anime').toggle('fast')
+  }
+
   showDialogAnimeInfo(id: number) {
     $(`#${id}`).show('fast')
-  }
-    
-  
-
-
+  }  
   ngOnDestroy(): void {
     this.destroy$.next()
     this.destroy$.complete()
