@@ -55,7 +55,6 @@ export class SeasonAnimeComponent {
   }
 
   showModalAllAnimes() {
-    alert('hola')
     $('#all-season-anime').toggle('fast')
   }
 

@@ -102,13 +102,18 @@
 <div class="relative z-10 hidden" id="all-season-anime"  aria-labelledby="modal-title"
   role="dialog" aria-modal="true">
   <div   class="fixed inset-0 bg-gray-500/75 z-10 transition-opacity" aria-hidden="true"></div>
-  <div   class="fixed inset-0 z-10 w-screen p-2 overflow-y-auto">
+  <div  class="fixed inset-0 z-10 w-screen p-2 overflow-y-auto">
     <div  class="flex min-h-full w-full items-center justify-center  text-center sm:items-center sm:p-0">
       <div
-        class="relative transform overflow-hidden h-auto w-auto rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 l ">
-        <div class="bg-white  sm:p-1 sm:pb-1">
+        class="relative transform overflow-hidden h-auto w-auto rounded-lg bg-purple-50 text-left shadow-xl transition-all sm:my-8 l ">
+       
+        <div class="bg-purple-50  sm:p-1 sm:pb-1">
+          <button (click)="showModalAllAnimes()"  class="absolute -top-2 z-30 right-2.5 text-white bg-purple-500 hover:bg-purple-800  rounded-xl text-md p-2 items-center">
+              x  
+              </button>
           <div class="sm:flex sm:items-start">
             <div class="w-full h-full  text-center sm:text-left">
+              
               <app-all-season-anime></app-all-season-anime>
             </div>
           </div>
