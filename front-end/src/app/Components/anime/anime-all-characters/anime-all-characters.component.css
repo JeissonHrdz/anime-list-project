@@ -24,3 +24,19 @@
       height: 100%;
     }
   }
+
+  *::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: rgb(250, 238, 254);  
+    
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color:  #AD46FF; 
+    border-radius: 10px;
+    
+   
+  }

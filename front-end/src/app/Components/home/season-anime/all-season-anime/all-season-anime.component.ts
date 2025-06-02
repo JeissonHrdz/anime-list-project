@@ -4,9 +4,11 @@ import { AnimeService } from '../../../../Core/Services/anime.service';
 import { Anime } from '../../../../Core/Model/anime.model';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-all-season-anime',
-  imports: [],
+  imports: [ ],
+
   templateUrl: './all-season-anime.component.html',
   styleUrl: './all-season-anime.component.css'
 })

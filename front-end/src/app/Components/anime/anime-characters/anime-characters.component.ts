@@ -7,14 +7,14 @@ import { Anime } from '../../../Core/Model/anime.model';
 import { AnimeSearchService } from '../../../Core/Services/anime-search.service';
 import { catchError, of, Subject, takeUntil } from 'rxjs';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroChevronRightSolid } from '@ng-icons/heroicons/solid';
+import { heroChevronRightSolid, heroXMarkSolid  } from '@ng-icons/heroicons/solid';
 import $ from 'jquery';
 import { AnimeAllCharactersComponent } from "../anime-all-characters/anime-all-characters.component";
 
 @Component({
   selector: 'app-anime-characters',
   imports: [CommonModule, NgIcon, AnimeAllCharactersComponent,AnimeAllCharactersComponent],
-  providers: [provideIcons({ heroChevronRightSolid })],
+  providers: [provideIcons({ heroChevronRightSolid, heroXMarkSolid })],
   templateUrl: './anime-characters.component.html',
   styleUrl: './anime-characters.component.css',
 })

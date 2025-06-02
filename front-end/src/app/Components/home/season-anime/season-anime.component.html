@@ -1,7 +1,10 @@
+
 <section class="w-full">
   <div class="flex flex-row  items-center text-neutral-800">
     <h2 class="text-3xl p-2 sm:mt-0 font-bold m-2 tracking-tight text-center sm:text-left">Season Anime</h2>
-    <a (click)="showModalAllAnimes()" class=" cursor-pointer hover:text-purple-500 text-sm p-2 m-2 sm:mt-0 font-semibold text-center sm:text-left">View More</a>
+    <a (click)="showModalAllAnimes()"
+      class=" cursor-pointer hover:text-purple-500 text-sm p-2 m-2 sm:mt-0 font-semibold text-center sm:text-left">View
+      More</a>
   </div>
 </section>
 <section class=" h-full flex flex-row  justify-center items-center mb-4 ">
@@ -9,70 +12,72 @@
     <div class="grid  gap-2  overflow-x-hidden overflow-hidden anime-season" id="season-anime-slider">
       @for(anime of seasonAnime(); track anime) {
 
-      <div class=" h-full m-2 hover:text-neutral-800 z-10 text-neutral-500 flex flex-col item-slide  relative cursor-pointer"
-       (click)="goToAnimeSeason(anime.id)" [tp]="tpl" [tpPlacement]="'top'">
-        <img src="{{anime.coverImage.large}}" class="object-cover w-full rounded-md  shadow-lg relative" style="height: 75%;"
-          alt="Anime Cover Image" />
+      <div
+        class=" h-full m-2 hover:text-neutral-800 z-10 text-neutral-500 flex flex-col item-slide  relative cursor-pointer"
+        (click)="goToAnimeSeason(anime.id)" [tp]="tpl" [tpPlacement]="'top'">
+        <img src="{{anime.coverImage.large}}" class="object-cover w-full rounded-md  shadow-lg relative"
+          style="height: 75%;" alt="Anime Cover Image" />
         <p class="w-full truncate  tracking-tight mt-2  font-semibold text-[12px] sm:text-[14px]">
           {{anime.title.romaji}}
         </p>
       </div>
-      <ng-template #tpl let-hide class="z-20" >
-        <div [tp]="tpl" class=" absolute -top-20 left-0 w-[290px] h-auto  bg-neutral-700/50 backdrop-blur-lg rounded-2xl">
+      <ng-template #tpl let-hide class="z-20">
+        <div [tp]="tpl"
+          class=" absolute -top-20 left-0 w-[290px] h-auto  bg-neutral-700/50 backdrop-blur-lg rounded-2xl">
           <div class=" w-full h-full  p-4">
             <p class="w-full relative text-neutral-100 font-semibold text-[12px] sm:text-[15px]">
               {{anime.title.romaji}}</p>
             <div class="flex flex-row  items-center justify-baseline mt-2">
-              <p
-                class=" w-min   relative  bg-orange-300  p-1 pl-2 pr-2  text-neutral-800 font-bold text-[12px]">
+              <p class=" w-min   relative  bg-orange-300  p-1 pl-2 pr-2  text-neutral-800 font-bold text-[12px]">
                 {{anime.format}}</p>
-              <ng-icon name="heroStarSolid" size="20"  class="ml-2" color="#FFD700"></ng-icon>
-              <p class=" text-white font-semibold ">  {{anime.averageScore}}
+              <ng-icon name="heroStarSolid" size="20" class="ml-2" color="#FFD700"></ng-icon>
+              <p class=" text-white font-semibold "> {{anime.averageScore}}
               </p>
             </div>
 
             <div [innerHTML]="anime.description+'...'"
               class="w-full h-[110px] mt-2 overflow-hidden   relative text-neutral-100 font-normal text-[12px] sm:text-[12px]">
             </div>
-            <div class="flex w-full flex-row flex-wrap items-center justify-start mt-2 font-semibold text-neutral-800 text-[12px]">
-              @for(genres of anime.genres; track $index) {             
-                @switch (genres) {
-                  @case('Action') {
-                    <span class="bg-blue-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
-                  }
-                  @case('Adventure') {
-                    <span class="bg-green-300 w-auto  p-1 pl-2 pr-2 "> {{genres}}</span>
-                  }
-                  @case('Comedy') {
-                    <span class="bg-yellow-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
-                  }
-                  @case('Drama') {
-                    <span class="bg-red-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
-                  }
-                  @case('Fantasy') {
-                    <span class="bg-purple-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
-                  }
-                  @case('Sci-Fi') {
-                    <span class="bg-pink-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
-                  }
-                  @case('Mystery') {
-                    <span class="bg-indigo-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
-                  }
-                  @case('Romance') {
-                    <span class="bg-orange-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
-                  }
-                  @case('Horror') {
-                    <span class="bg-red-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
-                  }
-                  @case('Slice of Life') {
-                    <span class="bg-teal-300 w-[90px] p-1 pl-2 pr-2 "> {{genres}}</span>
-                  }
-                  @default {
-                    <span class="bg-gray-300 w-aut  p-1 pl-2 pr-2 "> {{genres}}</span>
-                  }
-                }
-             
-              } 
+            <div
+              class="flex w-full flex-row flex-wrap items-center justify-start mt-2 font-semibold text-neutral-800 text-[12px]">
+              @for(genres of anime.genres; track $index) {
+              @switch (genres) {
+              @case('Action') {
+              <span class="bg-blue-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+              }
+              @case('Adventure') {
+              <span class="bg-green-300 w-auto  p-1 pl-2 pr-2 "> {{genres}}</span>
+              }
+              @case('Comedy') {
+              <span class="bg-yellow-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+              }
+              @case('Drama') {
+              <span class="bg-red-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+              }
+              @case('Fantasy') {
+              <span class="bg-purple-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+              }
+              @case('Sci-Fi') {
+              <span class="bg-pink-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+              }
+              @case('Mystery') {
+              <span class="bg-indigo-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+              }
+              @case('Romance') {
+              <span class="bg-orange-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+              }
+              @case('Horror') {
+              <span class="bg-red-300 w-auto p-1 pl-2 pr-2 "> {{genres}}</span>
+              }
+              @case('Slice of Life') {
+              <span class="bg-teal-300 w-[90px] p-1 pl-2 pr-2 "> {{genres}}</span>
+              }
+              @default {
+              <span class="bg-gray-300 w-aut  p-1 pl-2 pr-2 "> {{genres}}</span>
+              }
+              }
+
+              }
             </div>
           </div>
         </div>
@@ -98,23 +103,23 @@
   </div>
 </section>
 
- <!-- Modal animes seasson -->
-<div class="relative z-10 hidden" id="all-season-anime"  aria-labelledby="modal-title"
-  role="dialog" aria-modal="true">
-  <div   class="fixed inset-0 bg-gray-500/75 z-10 transition-opacity" aria-hidden="true"></div>
-  <div  class="fixed inset-0 z-10 w-screen p-2 overflow-y-auto">
-    <div  class="flex min-h-full w-full items-center justify-center  text-center sm:items-center sm:p-0">
-      <div
-        class="relative transform overflow-hidden h-auto w-auto rounded-lg bg-purple-50 text-left shadow-xl transition-all sm:my-8 l ">
-       
-        <div class="bg-purple-50  sm:p-1 sm:pb-1">
-          <button (click)="showModalAllAnimes()"  class="absolute -top-2 z-30 right-2.5 text-white bg-purple-500 hover:bg-purple-800  rounded-xl text-md p-2 items-center">
-              x  
-              </button>
-          <div class="sm:flex sm:items-start">
-            <div class="w-full h-full  text-center sm:text-left">
-              
-              <app-all-season-anime></app-all-season-anime>
+<!-- Modal animes seasson -->
+<div class="relative z-10 hidden" id="all-season-anime" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div (click)="showModalAllAnimes()" class="fixed inset-0 bg-gray-500/75  z-10 transition-opacity">
+    <div  class="fixed inset-0 z-20 w-screen p-2 overflow-y-auto">
+      <div class="flex min-h-full z-20 w-full items-center justify-center  text-center sm:items-center sm:p-0">
+        <div
+          class="relative transform  z-20 overflow-hidden h-auto w-auto rounded-lg bg-purple-50 text-left shadow-xl transition-all sm:my-8 l ">
+
+          <div class="bg-purple-50  sm:p-1 sm:pb-1" (click)="$event.stopPropagation()">
+            <button (click)="showModalAllAnimes()"
+              class="absolute flex top-2 z-30 right-2.5 cursor-pointer hover:bg-gray-200 rounded-full h-auto mt-2 p-2 ">
+              <ng-icon color="#8a8a8a" name="heroXMarkSolid" size="20"></ng-icon>
+            </button>
+            <div class="sm:flex sm:items-start">
+              <div class="w-full h-full  text-center sm:text-left">
+                <app-all-season-anime></app-all-season-anime>
+              </div>
             </div>
           </div>
         </div>

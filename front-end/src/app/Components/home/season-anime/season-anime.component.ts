@@ -3,7 +3,7 @@ import { AnimeService } from '../../../Core/Services/anime.service';
 import { Anime } from '../../../Core/Model/anime.model';
 import { Subject, takeUntil } from 'rxjs';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroChevronLeftSolid, heroChevronRightSolid, heroStarSolid } from '@ng-icons/heroicons/solid';
+import { heroChevronLeftSolid, heroChevronRightSolid, heroStarSolid, heroXMarkSolid } from '@ng-icons/heroicons/solid';
 import { TippyDirective } from '@ngneat/helipopper';
 import $ from 'jquery';
 import { Router } from '@angular/router';
@@ -11,10 +11,11 @@ import { AllSeasonAnimeComponent } from "./all-season-anime/all-season-anime.com
 
 
 
+
 @Component({
   selector: 'app-season-anime',
   imports: [NgIcon, TippyDirective, AllSeasonAnimeComponent], 
-  providers: [provideIcons({ heroChevronLeftSolid, heroChevronRightSolid, heroStarSolid })],
+  providers: [provideIcons({ heroChevronLeftSolid, heroChevronRightSolid, heroStarSolid, heroXMarkSolid })],
   templateUrl: './season-anime.component.html',
   styleUrl: './season-anime.component.css'
 })

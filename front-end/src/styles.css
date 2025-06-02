@@ -14,3 +14,19 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 }
  
+*::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: rgb(52, 52, 52);  
+    
+  }
+ 
+  
+  *::-webkit-scrollbar-thumb {
+    background-color:  #AD46FF; 
+    border-radius: 10px;
+    
+   
+  }
