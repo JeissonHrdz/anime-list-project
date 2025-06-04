@@ -1,5 +1,5 @@
 import express from 'express'; // impotamos express desde la libreria express
-import { getActivity, getActivityText, getAllCharactersByAnime, getAnimeSeason, getAnimeTrending, getCharacter, getVoiceActor, searchAnimeById, searchAnimeByTitle } from '../Controllers/ani-controller'; // importamos la función searchAnime del archivo ani-controller.ts
+import { getActivity, getActivityText, getAllCharactersByAnime, getAnimeSeason, getAnimeTrending, getAnimeUpcomingSeason, getCharacter, getVoiceActor, searchAnimeById, searchAnimeByTitle } from '../Controllers/ani-controller'; // importamos la función searchAnime del archivo ani-controller.ts
 import { 
     validateId, 
     validateTitle, 
@@ -11,7 +11,9 @@ router.get('/anime', validateTitle, searchAnimeByTitle);
 
 router.get('/anime/trending', getAnimeTrending);
 
-router.get('/anime/season', getAnimeSeason); // Cambia esto por la función correcta para obtener anime de temporada
+router.get('/anime/season', getAnimeSeason); 
+
+router.get('/anime/upcoming-season', getAnimeUpcomingSeason); 
 
 router.get('/anime-details', validateId, searchAnimeById); 
 

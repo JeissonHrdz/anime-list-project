@@ -46,6 +46,12 @@ export class AnimeService {
     )
   }
 
+  getAnimesUpcoming(page: number, perPage: number): Observable<Array<Anime>>{
+    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/upcoming-season` ,{params:{page, perPage}}).pipe(
+      catchError(this.handleError)
+    )
+  }
+
    getAllAnimesActualSeason(page: number, perPage: number): Observable<Array<Anime>>{
     return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/season` ,{params:{page, perPage}}).pipe(
       catchError(this.handleError)

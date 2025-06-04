@@ -1,0 +1,11 @@
+@media(width <=1440px) {
+  .container-home {
+    display: flex;
+    flex-direction: column-reverse  
+  }
+  .app-activity {
+    width: 100%;   
+    display: flex;
+    justify-content: center;    
+  }
+}

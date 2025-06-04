@@ -149,15 +149,20 @@ export class AnimeService extends AniListService {
   `;
 
   private readonly ANIME_SEASON = ` 
-  query ($season: MediaSeason, $seasonYear: Int, $page: Int, $perPage: Int) {
+  query ($season: MediaSeason, $seasonYear: Int, $page: Int, $perPage: Int, $sort: MediaSort) {
     Page (page: $page, perPage: $perPage) {
-      media (type: ANIME, season: $season,  seasonYear: $seasonYear) {
+      media (type: ANIME, season: $season,  seasonYear: $seasonYear, sort: [$sort] ) {
         id
         title {
           romaji
           english
           native
         }
+        startDate {
+          day
+          month
+          year 
+        }        
         description
         episodes
         status 
@@ -204,8 +209,8 @@ export class AnimeService extends AniListService {
     return data.Page.media as Anime[];
   }
 
-  async getAnimeSeason(season: string, seasonYear: number, page:number, perPage:number): Promise<Anime[]> {
-    const variables = { season, seasonYear, page, perPage };
+  async getAnimeSeason(season: string, seasonYear: number, page:number, perPage:number, sort: string): Promise<Anime[]> {
+    const variables = { season, seasonYear, page, perPage, sort };
     const data = await this.makeRequest(this.ANIME_SEASON, variables);
     return data.Page.media as Anime[];
   }

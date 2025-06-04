@@ -43,21 +43,47 @@ export const getAnimeSeason = async (req: Request, res: Response, next: NextFunc
 
     let season = "";
     const month = new Date().getMonth()+1;
-     const { page, perPage } = getPaginationParams(req);
+     const { page, perPage } = getPaginationParams(req); 
     
-    if(month >= 1 && month <= 3) {
-        season = "WINTER";
-    } else if(month >= 4 && month <= 6) {
-        season = "SPRING";
-    } else if(month >= 7 && month <= 9) {
-        season = "SUMMER";
-    } else if(month >= 10 && month <= 12) {
-        season = "FALL";
-    }
+    const seasonMapping: { [key: number]: string } = {
+        1: "WINTER", 2: "WINTER", 3: "WINTER",
+        4: "SPRING", 5: "SPRING", 6: "SPRING",
+        7: "SUMMER", 8: "SUMMER", 9: "SUMMER",
+        10: "FALL", 11: "FALL", 12: "FALL"
+    };
+    season = seasonMapping[month] || "";
     const seasonYear = new Date().getFullYear();
 
     try {
-        const anime = await animeService.getAnimeSeason(season, seasonYear, page, perPage);
+        const anime = await animeService.getAnimeSeason(season, seasonYear, page, perPage,"ID");
+        res.json(anime);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getAnimeUpcomingSeason = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+
+    let season = "";
+    let nextSeason = "";
+    const month = new Date().getMonth()+1;
+    let seasonYear = new Date().getFullYear();
+     const { page, perPage } = getPaginationParams(req);   
+   
+
+     if (month >= 10) {
+        nextSeason = "WINTER";
+        seasonYear += 1; // Increment the year for the next season
+    } else if (month >= 7) {
+        nextSeason = "SPRING";
+    } else if (month >= 4) {
+        nextSeason = "SUMMER";
+    } else if (month >= 1) {
+        nextSeason = "FALL";
+    } 
+
+    try {
+        const anime = await animeService.getAnimeSeason(nextSeason, seasonYear, page, perPage, "TRENDING_DESC");
         res.json(anime);
     } catch (error) {
         next(error);
