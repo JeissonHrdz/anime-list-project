@@ -22,6 +22,8 @@ export class TrendingSliderComponent implements AfterViewInit {
   slideWidth: number | any = 0
   directionSlide = signal<string>('')
   screenWidth = signal<boolean>(false)
+  indexRotate = 2;
+  private intervalId: any;
 
 
   ngOnInit(): void {
@@ -34,6 +36,15 @@ export class TrendingSliderComponent implements AfterViewInit {
         }
        else {this.trendingAnime.set(anime)}
     })
+    this.intervalId = setInterval(() => {
+
+        this.rotate('next', this.indexRotate);
+        this.indexRotate++;
+        if (this.indexRotate > 9) { 
+          this.indexRotate = 0 
+        }
+    },5000)
+
   }
 
 
@@ -66,7 +77,7 @@ export class TrendingSliderComponent implements AfterViewInit {
     }, 700);
   }
 
-  goToAnime(animeId: number, index: number) {
+  goToAnime(animeId: number, index: number) {       
     const element = document.getElementById("" + index);
     if (element?.children[0].classList.contains('highlighted') || window.innerWidth <= 600) {
       this.router.navigate(['/anime', animeId]);
@@ -106,7 +117,7 @@ private highlightThirdElement() {
   }
 }
 
-  rotate(direction: string, elementId: number) {
+  rotate(direction: string, elementId: number) {    
     if(window.innerWidth <= 600) return
     const grid = document.querySelector('#slider');
     const element = document.getElementById(String(elementId));

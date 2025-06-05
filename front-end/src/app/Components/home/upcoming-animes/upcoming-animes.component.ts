@@ -19,7 +19,7 @@ export class UpcomingAnimesComponent {
 
 
   ngOnInit() {
-    this.animeService.getAnimesUpcoming(1, 10).pipe(
+    this.animeService.getAnimesUpcoming(1, 12).pipe(
      takeUntil(this.destroy$)
     ).subscribe((data) => { 
       console.info('Upcoming Animes', data);
