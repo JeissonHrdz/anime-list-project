@@ -1,0 +1,216 @@
+{
+  "anime_categories": {
+    "main_genres": [
+      "Action",
+      "Adventure",
+      "Comedy",
+      "Drama",
+      "Ecchi",
+      "Fantasy",
+      "Horror",
+      "Mahou Shoujo",
+      "Mecha",
+      "Music",
+      "Mystery",
+      "Psychological",
+      "Romance",
+      "Sci-Fi",
+      "Slice of Life",
+      "Sports",
+      "Supernatural",
+      "Thriller"
+    ],
+    "subgenres_themes": {
+      "action_adventure": [
+        "Battle Royale",
+        "Cyberpunk",
+        "Dystopian",
+        "Isekai",
+        "Post-Apocalyptic",
+        "Space Opera",
+        "Steampunk",
+        "Survival",
+        "Urban Fantasy",
+        "Wuxia"
+      ],
+      "drama_psychological": [
+        "Age Regression",
+        "Amnesia",
+        "Coming of Age",
+        "Dissociative Identities",
+        "Memory Manipulation",
+        "Tragedy",
+        "Unrequited Love"
+      ],
+      "romance_relationships": [
+        "Age Gap",
+        "Arranged Marriage",
+        "Fake Relationship",
+        "Love Triangle",
+        "Polyamorous",
+        "Teens' Love",
+        "Yuri",
+        "Boys' Love (BL)"
+      ],
+      "horror_mystery": [
+        "Body Horror",
+        "Cosmic Horror",
+        "Crime",
+        "Gore",
+        "Noir",
+        "Psychological Horror",
+        "Thriller"
+      ],
+      "sci_fi": [
+        "Aliens",
+        "Artificial Intelligence",
+        "Cyborg",
+        "Robots",
+        "Space",
+        "Time Manipulation",
+        "Virtual World"
+      ],
+      "fantasy": [
+        "Angels",
+        "Dragons",
+        "Dungeon",
+        "Fairy Tale",
+        "Gods",
+        "Magic",
+        "Mythology",
+        "Super Power",
+        "Youkai"
+      ]
+    },
+    "demographics": [
+      "Josei",
+      "Seinen",
+      "Shoujo",
+      "Shounen",
+      "Kids"
+    ],
+    "visual_styles": [
+      "4-koma",
+      "Achromatic",
+      "CGI",
+      "Full CGI",
+      "Chibi",
+      "Flash",
+      "Long Strip",
+      "Mixed Media",
+      "Noir",
+      "Rotoscoping",
+      "Stop Motion",
+      "Vertical Video"
+    ],
+    "settings": [
+      "Ancient China",
+      "Boarding School",
+      "College",
+      "Desert",
+      "Medieval",
+      "Military",
+      "Office",
+      "Prison",
+      "Rural",
+      "School",
+      "Space",
+      "Urban"
+    ],
+    "social_themes": [
+      "Bullying",
+      "Class Struggle",
+      "Disability",
+      "Environmental",
+      "Gender Bending",
+      "LGBTQ+ Themes",
+      "Matriarchy",
+      "Orphan",
+      "Religion",
+      "Slavery",
+      "Terrorism",
+      "Transgender"
+    ],
+    "activities_hobbies": {
+      "arts": [
+        "Acting",
+        "Calligraphy",
+        "Dancing",
+        "Filmmaking",
+        "Photography",
+        "Writing"
+      ],
+      "sports": [
+        "Baseball",
+        "Basketball",
+        "Boxing",
+        "Cycling",
+        "Football",
+        "Surfing",
+        "Swimming",
+        "Volleyball"
+      ],
+      "games_competitions": [
+        "Card Battle",
+        "Chess/Shogi",
+        "E-Sports",
+        "Gambling",
+        "Video Games"
+      ],
+      "music": [
+        "Hip-hop",
+        "Idol",
+        "Jazz",
+        "Rock",
+        "Vocal Synth"
+      ],
+      "others": [
+        "Cooking/Food",
+        "Fishing",
+        "Gardening",
+        "Travel"
+      ]
+    },
+    "character_traits": {
+      "archetypes": [
+        "Anti-Hero",
+        "Chuunibyou",
+        "Delinquents",
+        "Kuudere",
+        "Tsundere",
+        "Yandere"
+      ],
+      "roles_groups": [
+        "Assassins",
+        "Butler/Maids",
+        "Detectives",
+        "Gangs/Yakuza",
+        "Ninja/Samurai",
+        "Police",
+        "Vampire/Werewolf"
+      ],
+      "relationships": [
+        "Found Family",
+        "Harem",
+        "Twins"
+      ]
+    },
+    "supernatural_elements": [
+      "Angels/Demons",
+      "Necromancy",
+      "Reincarnation",
+      "Spirits",
+      "Witch/Succubus",
+      "Zombie"
+    ],
+    "specific_tags": [
+      "Cannibalism",
+      "Crossdressing",
+      "Drug Use",
+      "Nudity",
+      "Pandemic",
+      "Time Loop",
+      "Torture"
+    ]
+  }
+}

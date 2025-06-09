@@ -16,6 +16,14 @@ export const routes: Routes = [
             }
         ]   
     }, 
+    { path: 'search', loadComponent: () => import('./Components/search/search.component')
+        .then(m => m.SearchComponent),
+        providers: [
+            {
+              provide: 'renderMode',
+              useValue: 'client'
+            }       
+        ]},
     {path: 'home', component: HomeComponent },  
     {path: 'anime/:id/characters', 
         loadComponent: () => import('./Components/anime/anime-all-characters/anime-all-characters.component')

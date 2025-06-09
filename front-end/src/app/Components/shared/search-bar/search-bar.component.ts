@@ -34,6 +34,10 @@ export class SearchBarComponent {
     this.animeSearchService.statusCloseComponent(true);
   }  
 
+  goToFiltersSearch() {
+    this.router.navigate(['/search']);
+  }
+
   sendData(){    
     this.animeService.dataFound(this.anime);
   }
