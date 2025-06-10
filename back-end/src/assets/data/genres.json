@@ -1,0 +1,221 @@
+{
+  "categories": [
+    {
+      "name": "Main Genres",
+      "description": "Primary genres that define the core theme of the anime.",
+      "items": [
+        "Action",
+        "Adventure",
+        "Comedy",
+        "Drama",
+        "Ecchi",
+        "Fantasy",
+        "Horror",
+        "Mahou Shoujo",
+        "Mecha",
+        "Music",
+        "Mystery",
+        "Psychological",
+        "Romance",
+        "Sci-Fi",
+        "Slice of Life",
+        "Sports",
+        "Supernatural",
+        "Thriller"
+      ]
+    },
+    {
+      "name": "Action & Adventure Subgenres",
+      "description": "Subgenres or themes related to action-packed or adventurous narratives.",
+      "items": [
+        "Battle Royale",
+        "Cyberpunk",
+        "Dystopian",
+        "Isekai",
+        "Post-Apocalyptic",
+        "Space Opera",
+        "Steampunk",
+        "Survival",
+        "Urban Fantasy",
+        "Wuxia"
+      ]
+    },
+    {
+      "name": "Drama & Psychological Themes",
+      "description": "Tags focused on emotional depth, mental states, or complex character development.",
+      "items": [
+        "Age Regression",
+        "Amnesia",
+        "Coming of Age",
+        "Dissociative Identities",
+        "Memory Manipulation",
+        "Psychological",
+        "Tragedy",
+        "Unrequited Love"
+      ]
+    },
+    {
+      "name": "Romance & Relationships",
+      "description": "Themes centered around love, partnerships, or interpersonal dynamics.",
+      "items": [
+        "Age Gap",
+        "Arranged Marriage",
+        "Fake Relationship",
+        "Love Triangle",
+        "Polyamorous",
+        "Teens' Love",
+        "Yuri",
+        "Boys' Love (BL)"
+      ]
+    },
+    {
+      "name": "Demographics",
+      "description": "Target audience classifications.",
+      "items": [
+        "Josei",
+        "Seinen",
+        "Shoujo",
+        "Shounen",
+        "Kids"
+      ]
+    },
+    {
+      "name": "Visual Styles & Formats",
+      "description": "Artistic or presentation techniques used in the anime.",
+      "items": [
+        "4-koma",
+        "Achromatic",
+        "CGI",
+        "Full CGI",
+        "Chibi",
+        "Flash",
+        "Long Strip",
+        "Mixed Media",
+        "Noir",
+        "Rotoscoping",
+        "Stop Motion",
+        "Vertical Video"
+      ]
+    },
+    {
+      "name": "Settings",
+      "description": "Common backdrops or environments where the story takes place.",
+      "items": [
+        "Ancient China",
+        "Boarding School",
+        "College",
+        "Desert",
+        "Medieval",
+        "Military",
+        "Office",
+        "Prison",
+        "Rural",
+        "School",
+        "Space",
+        "Urban"
+      ]
+    },
+    {
+      "name": "Social & Cultural Themes",
+      "description": "Tags addressing societal issues, identities, or cultural elements.",
+      "items": [
+        "Bullying",
+        "Class Struggle",
+        "Disability",
+        "Environmental",
+        "Gender Bending",
+        "LGBTQ+ Themes",
+        "Matriarchy",
+        "Orphan",
+        "Religion",
+        "Slavery",
+        "Terrorism",
+        "Transgender"
+      ]
+    },
+    {
+      "name": "Activities & Hobbies",
+      "description": "Tags related to specific activities, professions, or pastimes.",
+      "subcategories": [
+        {
+          "name": "Arts",
+          "items": [
+            "Acting",
+            "Calligraphy",
+            "Dancing",
+            "Filmmaking",
+            "Photography",
+            "Writing"
+          ]
+        },
+        {
+          "name": "Sports",
+          "items": [
+            "Baseball",
+            "Basketball",
+            "Boxing",
+            "Cycling",
+            "Football",
+            "Surfing",
+            "Swimming",
+            "Volleyball"
+          ]
+        },
+        {
+          "name": "Games Competitions",
+          "items": [
+            "Card Battle",
+            "Chess/Shogi",
+            "E-Sports",
+            "Gambling",
+            "Video Games"
+          ]
+        },
+        {
+          "name": "Music",
+          "items": [
+            "Hip-hop",
+            "Idol",
+            "Jazz",
+            "Rock",
+            "Vocal Synth"
+          ]
+        },
+        {
+          "name": "Others",
+          "items": [
+            "Cooking/Food",
+            "Fishing",
+            "Gardening",
+            "Travel"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Supernatural & Mythical Elements",
+      "description": "Fantastical beings, powers, or phenomena.",
+      "items": [
+        "Angels/Demons",
+        "Necromancy",
+        "Reincarnation",
+        "Spirits (Youkai, Ghosts)",
+        "Witch/Succubus",
+        "Zombie"
+      ]
+    },
+    {
+      "name": "Specific Tags",
+      "description": "Niche or mature themes that may require content warnings.",
+      "items": [
+        "Cannibalism",
+        "Crossdressing",
+        "Drug Use",
+        "Nudity",
+        "Pandemic",
+        "Time Loop",
+        "Torture"
+      ]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import express from 'express'; // impotamos express desde la libreria express
-import { getActivity, getActivityText, getAllCharactersByAnime, getAnimeSeason, getAnimeTrending, getAnimeUpcomingSeason, getCharacter, getVoiceActor, searchAnimeById, searchAnimeByTitle } from '../Controllers/ani-controller'; // importamos la función searchAnime del archivo ani-controller.ts
+import { getActivity, getActivityText, getAllCharactersByAnime, getAnimeSeason, getAnimeTrending, getAnimeUpcomingSeason, getCharacter, getGenres, getVoiceActor, searchAnimeById, searchAnimeByTitle } from '../Controllers/ani-controller'; // importamos la función searchAnime del archivo ani-controller.ts
 import { 
     validateId, 
     validateTitle, 
@@ -26,6 +26,8 @@ router.get('/voice-actor', validateId, getVoiceActor);
 router.get('/activity', getActivity);
 
 router.get('/activity-text', getActivityText);
+
+router.get('/genres', getGenres)
 
 router.use(errorHandler);
 

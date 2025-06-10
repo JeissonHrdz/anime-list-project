@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { GenresService } from '../../Core/Services/genres.service';
+import { Genre } from '../../Core/Model/genres.model';
 
 @Component({
   selector: 'app-search',
@@ -11,17 +12,15 @@ export class SearchComponent {
 
 
 private genresService = inject(GenresService);
-genres: any[] = [];
+genres?: Genre;
 
 
   ngOnInit() {
     this.genresService.getGenres().subscribe({
-      next: (data) => {
-        if (data && Array.isArray(data)) {
+      next: (data) => {        
           this.genres = data;
-        } else {
-          console.error('Data is not an array:', data);
-        }
+          console.log('Genres loaded successfully:', this.genres);    
+         
       },
       error: (err) => {
         console.error('Error loading genres:', err);
