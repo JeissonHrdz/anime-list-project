@@ -149,7 +149,7 @@ export const getActivityText = async (req: Request, res: Response, next: NextFun
 
 export const getGenres = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const fs = require('fs');
-    fs.readFile('src/assets/data/genres.json', 'utf8', (err: any, data: string) => {
+    fs.readFile('src/assets/genres.json', 'utf8', (err: any, data: string) => {
         if (err) {
             console.error('Error reading file:', err);
             res.status(500).json({ error: 'Error reading file' });

@@ -4,182 +4,84 @@
         <div>
             <p class="text-xl font-bold">Filters</p>
             <br>
-            <input type="text" class="w-[200px] p-2 rounded-md outline-0 bg-neutral-50 custom-shadow mb-4
+            <input type="text" class="w-[200px] p-2 rounded-md outline-0 bg-white custom-shadow mb-4
             font-semibold placeholder:text-neutral-400 text-[14px]" placeholder="Name" />
             <br>
-            <div class="w-[200px] p-2 cursor-pointer rounded-md outline-0 bg-neutral-50 custom-shadow mb-4">
-                <p class="font-semibold text-neutral-400 text-[14px]">Genres</p>
-            </div>
-            <!-- Genres Box  -->
-            <div class="w-[620px] h-[350px] overflow-y-scroll p-5 rounded-md bg-white custom-shadow">
-                <div class="w-full">
-                    <p class="text-[14px] w-fit  p-2 rounded-md text-neutral-500 font-semibold">Main Genres</p>
-                    <div class="p-1 flex flex-col">
-                        @for(genre of genres?.categories; track $index) {
-                        <details>
-                            <summary class="text-[12px] w-full m-1 cursor-pointer bg-purple-500 p-2 rounded-md
-                             text-neutral-50 font-semibold">
-                                {{genre.name}}</summary>                            
-                                @if(!genre.subcategories?.length ){
-                                    <div class="p-1  grid grid-cols-4">
-                                @for(items of genre.items ;track $index) {
-                                <div class="flex items-center mb-2">
-                                    <input type="checkbox" class="mr-2 custom-checkbox" />
-                                    <span class="text-[13px] w-[110px] truncate font-semibold">{{items}}</span>
+            <div (click)="showBoxGenres()" class="w-[200px] p-2 select-none cursor-pointer rounded-md outline-0 bg-white custom-shadow mb-4">
+                <div id="genresBox" (click)="$event.stopPropagation()"
+                    class="w-[620px] absolute hidden h-[350px] left-65 -mt-1 overflow-y-scroll p-5 rounded-md bg-white custom-shadow">
+                    <div class="w-full">                     
+                        <div class="p-1 flex flex-col">
+
+                            @for(genre of genres?.categories; track $index) {
+                            @if(genre.name == 'Main Genres'){
+                                
+                                <p class="text-[14px] text-neutral-400 p-3 font-semibold">Main Genres</p>                    
+                                <div class="p-1  grid grid-cols-4">
+                                    @for(items of genre.items ;track $index) {                                       
+                                    <div class="flex items-center mb-3">
+                                        <input id="{{items}}" type="checkbox" class="mr-2 custom-checkbox" />
+                                        <label  (click)="selectedGenresItems(items)" for="{{items}}" 
+                                        class="text-[13px] w-[110px] truncate hover:text-purple-500 
+                                        transition ease-in-out duration-75 cursor-pointer font-semibold">{{items}}</label>
+                                    </div>
+                                    }
                                 </div>                                
+                        
                                 }
-                               </div>
+                            }
+
+                            <p class="text-[14px] text-neutral-400 p-3 pb-1 font-semibold">Tags</p>
+
+                            @for(genre of genres?.categories; track $index) {
+                                @if(genre.name != 'Main Genres'){
+                           
+                               <p class="text-[14px] text-neutral-400 p-3 font-semibold">{{genre.name}}</p>    
+                                @if(!genre.subcategories?.length ){
+                                <div class="p-1  grid grid-cols-4">
+                                    @for(items of genre.items ;track $index) {                                       
+                                    <div class="flex items-center mb-2">
+                                        <input id="{{items}}" type="checkbox" class="mr-2 custom-checkbox" />
+                                        <label  (click)="selectedGenresItems(items)" for="{{items}}" 
+                                        class="text-[13px] w-[110px] truncate hover:text-purple-500 
+                                        transition ease-in-out duration-75 cursor-pointer font-semibold">{{items}}</label>
+                                    </div>
+                                    }
+                                </div>
                                 } @else {
                                 @for(subcategory of genre.subcategories; track $index) {
-                              
-                                    <details class="flex flex-col pl-4">
-                                        <summary class="text-[12px] w-full m-1  cursor-pointer bg-neutral-600 p-2 rounded-md
-                                                         text-neutral-50 font-semibold">
-                                            {{subcategory.name}}</summary>
-                                            <div class="p-1  grid grid-cols-4">
-                                            @for(subItems of subcategory.items; track $index) {                                    
+                                      <p class="text-[14px] text-neutral-400 p-3 font-semibold">{{subcategory.name}}</p>   
+                                
+                                    <div class="p-1  grid grid-cols-4">
+                                        @for(subItems of subcategory.items; track $index) {
                                         <div class="flex items-center mb-2">
-                                            <input type="checkbox" class="mr-2 custom-checkbox" />
-                                            <span class="text-[13px] font-semibold">{{subItems}}</span>
+                                       <input id="{{subItems}}" type="checkbox" class="mr-2 custom-checkbox" />
+                                        <label (click)="selectedGenresItems(subItems)" for="{{subItems}}" 
+                                        class="text-[13px] w-[110px] truncate font-semibold  hover:text-purple-500 
+                                        transition ease-in-out duration-75 cursor-pointer">{{subItems}}</label>
                                         </div>
-                                            }
-                                        </div>
-                                    </details>                                
+                                        }
+                                    </div>
+                               
                                 }
                                 }
-
-                          
-                        </details>
+                           
+                            }
                         }
-                    </div>
+                        </div>
 
-                    <!-- <p class="text-[14px] w-fit  p-2 rounded-md text-neutral-500 font-semibold">Subgenres</p> 
-                    <details>
-                        <summary
-                            class="text-[12px] w-full m-1 cursor-pointer bg-purple-500 p-2 rounded-md
-                             text-neutral-50 font-semibold">
-                            Action / Adventure</summary>
-                        <div class="p-1  grid grid-cols-4">
-                            @for(genre of genres?.subgeneres_themes?.action_adventure ;track $index) {
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" class="mr-2 custom-checkbox" />
-                                <span class="text-[13px] font-semibold">{{genre}}</span>
-                            </div>
-                            }
-                        </div>
-                    </details>
-                    <details>
-                        <summary class="text-[12px] w-full m-1 p-2 cursor-pointer bg-purple-500  rounded-md
-                     text-neutral-50 font-semibold">Drama / Pyschological</summary>
-                        <div class="p-1  grid grid-cols-4">
-                            @for(genre of genres.subgenres_themes.drama_psychological; track $index) {
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" class="mr-2 custom-checkbox" />
-                                <span class="text-[13px] font-semibold">{{genre}}</span>
-                            </div>
-                            }
-                        </div>
-                    </details>
-                    <details>
-                        <summary class="text-[12px] w-full m-1 p-2 cursor-pointer bg-purple-500  rounded-md
-                         text-neutral-50 font-semibold">Romance / Relationship</summary>
-                        <div class="p-1  grid grid-cols-4">
-                            @for(genre of genres.subgenres_themes.romance_relationships; track $index) {
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" class="mr-2 custom-checkbox" />
-                                <span class="text-[13px] font-semibold">{{genre}}</span>
-                            </div>
-                            }
-                        </div>
-                    </details>
-                    <details>
-                        <summary class="text-[12px] w-full m-1 p-2 cursor-pointer bg-purple-500  rounded-md
-                     text-neutral-50 font-semibold">Horror / Mystery </summary>
-                        <div class="p-1  grid grid-cols-4">
-                            @for(genre of genres.subgenres_themes.horror_mystery; track $index) {
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" class="mr-2 custom-checkbox" />
-                                <span class="text-[13px] font-semibold">{{genre}}</span>
-                            </div>
-                            }
-                        </div>
-                    </details>
-                    <details>
-                        <summary class="text-[12px] w-full m-1 p-2 cursor-pointer bg-purple-500  rounded-md
-                     text-neutral-50 font-semibold">Sci-Fi </summary>
-                        <div class="p-1  grid grid-cols-4">
-                            @for(genre of genres.subgenres_themes.sci_fi; track $index) {
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" class="mr-2 custom-checkbox" />
-                                <span class="text-[13px] font-semibold">{{genre}}</span>
-                            </div>
-                            }
-                        </div>
-                    </details>
-                    <details>
-                        <summary class="text-[12px] w-full m-1 p-2 cursor-pointer bg-purple-500  rounded-md
-                     text-neutral-50 font-semibold">Fantasy </summary>
-                        <div class="p-1  grid grid-cols-4">
-                            @for(genre of genres.subgenres_themes.fantasy; track $index) {
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" class="mr-2 custom-checkbox" />
-                                <span class="text-[13px] font-semibold">{{genre}}</span>
-                            </div>
-                            }
-                        </div>
-                    </details>
-                       <details>
-                        <summary class="text-[12px] w-full m-1 p-2 cursor-pointer bg-purple-500  rounded-md
-                     text-neutral-50 font-semibold">Demographics </summary>
-                        <div class="p-1  grid grid-cols-4">
-                            @for(genre of genres.demographics; track $index) {
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" class="mr-2 custom-checkbox" />
-                                <span class="text-[13px] font-semibold">{{genre}}</span>
-                            </div>
-                            }
-                        </div>
-                    </details>
-                      <details>
-                        <summary class="text-[12px] w-full m-1 p-2 cursor-pointer bg-purple-500  rounded-md
-                     text-neutral-50 font-semibold">Visual Styles </summary>
-                        <div class="p-1  grid grid-cols-4">
-                            @for(genre of genres.visual_styles; track $index) {
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" class="mr-2 custom-checkbox" />
-                                <span class="text-[13px] font-semibold">{{genre}}</span>
-                            </div>
-                            }
-                        </div>
-                    </details>
-                         <details>
-                        <summary class="text-[12px] w-full m-1 p-2 cursor-pointer bg-purple-500  rounded-md
-                     text-neutral-50 font-semibold">Settings </summary>
-                        <div class="p-1  grid grid-cols-4">
-                            @for(genre of genres.settings; track $index) {
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" class="mr-2 custom-checkbox" />
-                                <span class="text-[13px] font-semibold">{{genre}}</span>
-                            </div>
-                            }
-                        </div>
-                             <details>
-                        <summary class="text-[12px] w-full m-1 p-2 cursor-pointer bg-purple-500  rounded-md
-                     text-neutral-50 font-semibold">Social Themes </summary>
-                        <div class="p-1  grid grid-cols-4">
-                            @for(genre of genres.social_themes; track $index) {
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" class="mr-2 custom-checkbox" />
-                                <span class="text-[13px] font-semibold">{{genre}}</span>
-                            </div>
-                            }
-                        </div>
-                    </details>
-                    </details> -->
+                    </div>
                 </div>
+                <p class="font-semibold text-neutral-400 text-[14px]">
+                    Genres:
+                    <span class="text-purple-500 font-bold">{{nameSelecteFirstGenre}} @if(countSelectedsGenres > 1) { + {{(countSelectedsGenres-1)}} } </span>
+
+                </p>
             </div>
+            <!-- Genres Box  -->
+
             <br>
-            <button class="w-[250px] p-2 rounded-md bg-purple-500 text-neutral-50 custom-shadow">Search</button>
+            <button class="w-[200px] p-2 rounded-md bg-purple-500 text-neutral-50 custom-shadow">Search</button>
         </div>
     </div>
 

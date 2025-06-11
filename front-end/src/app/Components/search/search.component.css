@@ -1,0 +1,43 @@
+input[type="checkbox"] {
+   
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  font-size: 1rem;
+  background-color: #ede0f7;  
+  border-radius: 3px;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: .9rem;
+  height: .9rem;
+    clip-path: polygon(
+    25% 45%,   /* Punto inicial (parte izquierda del check) */
+    40% 60%,   /* Parte media (inicio del ángulo) */
+    75% 30%,   /* Parte superior derecha (final del check) */
+    80% 35%,   /* Ajuste para suavizar la punta */
+    40% 75%,   /* Parte inferior derecha (extensión del check) */
+    20% 50%    /* Parte inferior izquierda (cierre del check) */
+  );
+   border-radius: 3px;
+  transform: scale(0);
+  background-color: #ffffff
+}
+
+input[type="checkbox"]:checked {
+   background-color: #AC46FE
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+  transition: 120ms transform ease-in-out
+}
+
+input[type="checkbox"]:hover {
+  color: black;
+}
+
+
