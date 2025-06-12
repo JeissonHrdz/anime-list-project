@@ -5,3 +5,20 @@
     top: 22%;    
    
 }
+
+*::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: #fff
+    
+  }
+ 
+  
+  *::-webkit-scrollbar-thumb {
+    background-color:  #edd8ff; 
+    border-radius: 10px;
+    
+   
+  }

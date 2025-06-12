@@ -7,79 +7,126 @@
             <input type="text" class="w-[200px] p-2 rounded-md outline-0 bg-white custom-shadow mb-4
             font-semibold placeholder:text-neutral-400 text-[14px]" placeholder="Name" />
             <br>
-            <div (click)="showBoxGenres()" class="w-[200px] p-2 select-none cursor-pointer rounded-md outline-0 bg-white custom-shadow mb-4">
+            <div (click)="showBoxGenres()" class="w-[200px] p-2 select-none cursor-pointer rounded-md outline-0
+             bg-white custom-shadow mb-4">
                 <div id="genresBox" (click)="$event.stopPropagation()"
                     class="w-[620px] absolute hidden h-[350px] left-65 -mt-1 overflow-y-scroll p-5 rounded-md bg-white custom-shadow">
-                    <div class="w-full">                     
+                    <div class="w-full ">
                         <div class="p-1 flex flex-col">
 
                             @for(genre of genres?.categories; track $index) {
                             @if(genre.name == 'Main Genres'){
-                                
-                                <p class="text-[14px] text-neutral-400 p-3 font-semibold">Main Genres</p>                    
-                                <div class="p-1  grid grid-cols-4">
-                                    @for(items of genre.items ;track $index) {                                       
-                                    <div class="flex items-center mb-3">
-                                        <input id="{{items}}" type="checkbox" class="mr-2 custom-checkbox" />
-                                        <label  (click)="selectedGenresItems(items)" for="{{items}}" 
+
+                            <p class="text-[14px] text-neutral-400 p-3 font-semibold">Main Genres</p>
+                            <div class="p-1  grid grid-cols-4">
+                                @for(items of genre.items ;track $index) {
+                                <div class="flex items-center mb-3">
+                                    <input id="{{items}}" type="checkbox" class="mr-2 custom-checkbox" />
+                                    <label (click)="selectedGenresItems(items)" for="{{items}}"
                                         class="text-[13px] w-[110px] truncate hover:text-purple-500 
                                         transition ease-in-out duration-75 cursor-pointer font-semibold">{{items}}</label>
-                                    </div>
-                                    }
-                                </div>                                
-                        
+                                </div>
                                 }
+                            </div>
+
+                            }
                             }
 
                             <p class="text-[14px] text-neutral-400 p-3 pb-1 font-semibold">Tags</p>
 
                             @for(genre of genres?.categories; track $index) {
-                                @if(genre.name != 'Main Genres'){
-                           
-                               <p class="text-[14px] text-neutral-400 p-3 font-semibold">{{genre.name}}</p>    
-                                @if(!genre.subcategories?.length ){
-                                <div class="p-1  grid grid-cols-4">
-                                    @for(items of genre.items ;track $index) {                                       
-                                    <div class="flex items-center mb-2">
-                                        <input id="{{items}}" type="checkbox" class="mr-2 custom-checkbox" />
-                                        <label  (click)="selectedGenresItems(items)" for="{{items}}" 
+                            @if(genre.name != 'Main Genres'){
+
+                            <p class="text-[14px] text-neutral-400 p-3 font-semibold">{{genre.name}}</p>
+                            @if(!genre.subcategories?.length ){
+                            <div class="p-1  grid grid-cols-4">
+                                @for(items of genre.items ;track $index) {
+                                <div class="flex items-center mb-2">
+                                    <input id="{{items}}" type="checkbox" class="mr-2 custom-checkbox" />
+                                    <label (click)="selectedGenresItems(items)" for="{{items}}"
                                         class="text-[13px] w-[110px] truncate hover:text-purple-500 
                                         transition ease-in-out duration-75 cursor-pointer font-semibold">{{items}}</label>
-                                    </div>
-                                    }
                                 </div>
-                                } @else {
-                                @for(subcategory of genre.subcategories; track $index) {
-                                      <p class="text-[14px] text-neutral-400 p-3 font-semibold">{{subcategory.name}}</p>   
-                                
-                                    <div class="p-1  grid grid-cols-4">
-                                        @for(subItems of subcategory.items; track $index) {
-                                        <div class="flex items-center mb-2">
-                                       <input id="{{subItems}}" type="checkbox" class="mr-2 custom-checkbox" />
-                                        <label (click)="selectedGenresItems(subItems)" for="{{subItems}}" 
-                                        class="text-[13px] w-[110px] truncate font-semibold  hover:text-purple-500 
+                                }
+                            </div>
+                            } @else {
+                            @for(subcategory of genre.subcategories; track $index) {
+                            <p class="text-[14px] text-neutral-400 p-3 font-semibold">{{subcategory.name}}</p>
+
+                            <div class="p-1  grid grid-cols-4">
+                                @for(subItems of subcategory.items; track $index) {
+                                <div class="flex items-center mb-2">
+                                    <input id="{{subItems}}" type="checkbox" class="mr-2 custom-checkbox" />
+                                    <label (click)="selectedGenresItems(subItems)" for="{{subItems}}" class="text-[13px] w-[110px] truncate font-semibold  hover:text-purple-500 
                                         transition ease-in-out duration-75 cursor-pointer">{{subItems}}</label>
-                                        </div>
-                                        }
-                                    </div>
-                               
+                                </div>
                                 }
-                                }
-                           
+                            </div>
+
                             }
-                        }
+                            }
+
+                            }
+                            }
                         </div>
 
                     </div>
                 </div>
                 <p class="font-semibold text-neutral-400 text-[14px]">
                     Genres:
-                    <span class="text-purple-500 font-bold">{{nameSelecteFirstGenre}} @if(countSelectedsGenres > 1) { + {{(countSelectedsGenres-1)}} } </span>
+                    <span class="text-purple-500 font-bold">{{nameSelecteFirstGenre}} @if(countSelectedsGenres > 1) { +
+                        {{(countSelectedsGenres-1)}} } </span>
 
                 </p>
             </div>
-            <!-- Genres Box  -->
 
+            <div (click)="showBoxYears()" class="w-[200px] p-2 select-none cursor-pointer rounded-md outline-0
+             bg-white custom-shadow mb-4">
+                <div id="yearsBox"
+                    class="w-[135px] hidden h-[200px] p-4 -mt-1 overflow-y-auto absolute left-65 bg-white custom-shadow rounded-md">
+                    @for(year of years; track $index){
+                    <p (click)="getYearSelected(year)" id="{{year}}" class="p-2 font-semibold text-[14px] rounded-md
+                        hover:bg-purple-100 transition ease-in-out duration-150
+                        ">{{year}}</p>
+                    }
+                </div>
+                <p class="font-semibold text-neutral-400 text-[14px]">
+                    @if(yearSelected != 0){
+                    <span class="text-purple-500 text-[14px] p-1 font-bold rounded-md"> {{yearSelected}}</span>
+                    } @else {
+                    Year
+                    }
+
+                </p>
+            </div>
+            <div (click)="showBoxSeason()" class="w-[200px] p-2 select-none cursor-pointer rounded-md outline-0
+             bg-white custom-shadow mb-4">
+                <div id="seasonBox"
+                    class="w-[135px] hidden h-[173px] p-4 -mt-1  absolute left-65 bg-white custom-shadow rounded-md">
+
+                    <p (click)="getSeasonSelected('Winter')" id="Winter" class="p-2 font-semibold text-[14px] rounded-md hover:bg-purple-100 transition ease-in-out duration-150">
+                        Winter
+                    </p>
+                    <p (click)="getSeasonSelected('Spring')" id="Spring" class="p-2 font-semibold text-[14px] rounded-md hover:bg-purple-100 transition ease-in-out duration-150">
+                        Spring
+                    </p>
+                    <p (click)="getSeasonSelected('Summer')" id="Summer" class="p-2 font-semibold text-[14px] rounded-md hover:bg-purple-100 transition ease-in-out duration-150">
+                        Summer
+                    </p>
+                    <p  (click)="getSeasonSelected('Fall')" id="Fall" class="p-2 font-semibold text-[14px] rounded-md hover:bg-purple-100 transition ease-in-out duration-150">
+                        Fall
+                    </p>
+
+                </div>
+                <p class="font-semibold text-neutral-400 text-[14px]">
+                    @if(seasonSelected !== ''){
+                    <span class="text-purple-500 text-[14px] p-1 font-bold rounded-md"> {{seasonSelected}}</span>
+                    } @else {
+                    Season
+                    }
+
+                </p>
+            </div>
             <br>
             <button class="w-[200px] p-2 rounded-md bg-purple-500 text-neutral-50 custom-shadow">Search</button>
         </div>
