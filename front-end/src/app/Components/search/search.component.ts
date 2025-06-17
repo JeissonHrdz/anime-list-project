@@ -24,6 +24,8 @@ export class SearchComponent {
   isVisibleBoxYears = false;
   isVisibleBoxSeason = false;
   isVisibleBoxFormat = false;
+  isBoxOpened = false;
+  boxOpened: string = '';
 
   countSelectedsGenres = 0;
   nameSelecteFirstGenre: string = '';
@@ -40,7 +42,6 @@ export class SearchComponent {
       next: (data) => {
         this.genres = data;
         console.log('Genres loaded successfully:', this.genres);
-
       },
       error: (err) => {
         console.error('Error loading genres:', err);
@@ -70,17 +71,19 @@ export class SearchComponent {
   }
 
 
-  toggleBoxVisibility(id: string) {
-    if (id === 'Genres') {    
-     
-        this.isVisibleBoxYears = false;
-        this.isVisibleBoxSeason = false;
-        this.isVisibleBoxFormat = false;
-      } 
-      
-
+  toggleBoxVisibility(id: string) {  
+    if (this.boxOpened !== '' && this.boxOpened !== id) { 
+      this.closeBox(this.boxOpened);
+    } 
     (this as any)[`isVisibleBox${id}`] = !(this as any)[`isVisibleBox${id}`];
-    $(`#${id}Box`)[(this as any)[`isVisibleBox${id}`] ? 'fadeIn' : 'fadeOut'](150);
+    $(`#${id}Box`)[(this as any)[`isVisibleBox${id}`] ? 'fadeIn' : 'fadeOut'](150);  
+     this.isBoxOpened = true;
+     this.boxOpened = id;
+  }
+
+  closeBox(id: string) {
+    (this as any)[`isVisibleBox${id}`] = false;
+    $(`#${id}Box`).fadeOut(150);
   }
 
   getYearSelected(year: number) {
@@ -104,13 +107,14 @@ export class SearchComponent {
     this.formatSelected = format;
   }
 
-
-
   @HostListener('document:click')
-  onDocumentClick(): void {  
-
+  onDocumentClick(): void {    
+    if (!this.isBoxOpened) { 
+      this.closeBox(this.boxOpened);
+    }
+    this.isBoxOpened = false;   
+    
   }
-
 }
 
 
