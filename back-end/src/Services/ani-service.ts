@@ -181,6 +181,34 @@ export class AnimeService extends AniListService {
   }
 `;
 
+private readonly ANIME_BY_FILTER = ` 
+query ($page: Int, $perPage: Int, $type: MediaType,  $season: MediaSeason , $search: String, $genreIn: [String],
+ $tagIn: [String], $seasonYear: Int, $formatIn: [MediaFormat]){ 
+Page (page: $page, perPage: $perPage) {
+  media(type: $type, format_in: $formatIn, season: $season, search: $search, genre_in: $genreIn, tag_in: $tagIn, 
+  seasonYear: $seasonYear ,sort: [START_DATE_DESC]) {
+    title {
+      romaji     
+    }  
+    format
+    season  
+    coverImage {
+      large
+    } 
+  }
+}  
+}
+`;
+
+ async getAnimeByFilter(page: number, perPage: number, type? : string, season?: string | null, search?: string | null, 
+  genreIn?: string[] | null, tagIn?: string[] | null, seasonYear?: number | null, formatIn?: string[] | null
+): Promise<Anime[]> {
+  search = null;  
+  const variables = { page, perPage, type, season, search, genreIn, tagIn, seasonYear, formatIn };
+  const data = await this.makeRequest(this.ANIME_BY_FILTER, variables);
+  console.log(variables);
+  return data.Page.media as Anime[]; 
+} 
 
 
   async getAnimeByTitle(

@@ -5,6 +5,9 @@ import $ from 'jquery';
 import { SearchService } from '../../Core/Services/search.service';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroChevronDown } from '@ng-icons/heroicons/outline';
+import { AnimeService } from '../../Core/Services/anime.service';
+import { Anime } from '../../Core/Model/anime.model';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -15,9 +18,12 @@ import { heroChevronDown } from '@ng-icons/heroicons/outline';
 })
 export class SearchComponent {
 
-
-  private genresService = inject(GenresService);
+  private destroy$ = new Subject<void>();
+    private genresService = inject(GenresService);
   private searchService = inject(SearchService)
+  private animeService = inject(AnimeService)
+
+  anime: Anime[] = [];
 
   genres?: Genre;
   isVisibleBoxGenres = false;
@@ -29,12 +35,13 @@ export class SearchComponent {
 
   countSelectedsGenres = 0;
   nameSelecteFirstGenre: string = '';
-  genresSelected: string[] = [];
+  genresSelected: string[] | null = null;
+  nameAnime: string | null = null;
   yearSelected: number = 0;
   seasonSelected: string = '';
   formatSelected: string = '';
   years: number[] = [];
-  formats = ['TV_Show', 'TV_Short', 'OVA', 'ONA', 'Special', 'Movie', 'Music'];
+  formats = ["TV","MOVIE","MUSIC","ONA","OVA","SPECIAL","TV_SHORT"];
 
 
   ngOnInit() {
@@ -50,6 +57,30 @@ export class SearchComponent {
     });
 
     this.years = this.searchService.getAllYears();
+  }  
+
+  getAnimeByFilters(){  
+    this.animeService.getAnimeByFilters(
+      1, 
+      20, 
+      'ANIME',
+      'SUMMER',
+      this.nameAnime,
+      this.genresSelected || [],
+      [],
+      this.yearSelected,
+      this.formats).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: (data) => {
+        this.anime = data;
+        console.log('Anime loaded successfully:', this.anime);
+      },
+      error: (err) => {
+        console.error('Error loading anime:', err);
+        console.error(err);
+      }
+    })
   }
 
 
@@ -58,7 +89,7 @@ export class SearchComponent {
     if (this.countSelectedsGenres === 0) {
       this.nameSelecteFirstGenre = name;
     }
-    if (this.genresSelected.includes(name)) {
+    if (this.genresSelected?.includes(name)) {
       this.genresSelected = this.genresSelected.filter(item => item !== name);
       if (this.countSelectedsGenres === 1) {
         this.nameSelecteFirstGenre = '';
@@ -66,7 +97,7 @@ export class SearchComponent {
       this.countSelectedsGenres--;
       return;
     }
-    this.genresSelected.push(name);
+    this.genresSelected?.push(name);
     this.countSelectedsGenres++;
   }
 

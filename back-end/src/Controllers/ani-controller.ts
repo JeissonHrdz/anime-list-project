@@ -90,6 +90,19 @@ export const getAnimeUpcomingSeason = async (req: Request, res: Response, next: 
     }
 };
 
+export const getAnimeByFilter = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const { page, perPage } = getPaginationParams(req);
+    const { type, season, search, genreIn, tagIn, seasonYear, formatIn } = req.query;
+
+    try {
+        const anime = await animeService.getAnimeByFilter(page, perPage, type as string, season as string, search as string, 
+             genreIn as string[], tagIn as string[], Number(seasonYear) || undefined, formatIn as string[]);
+            res.json(anime);           
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const getAllCharactersByAnime = async (req: Request, res: Response, next: NextFunction): Promise<void> => { 
     const id = req.query.id as string;
 

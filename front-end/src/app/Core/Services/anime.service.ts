@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { inject, Injectable,EventEmitter } from '@angular/core';
+import { inject, Injectable, EventEmitter } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Anime, AnimeSeason } from '../Model/anime.model';
 import { Character } from '../Model/character.model';
@@ -15,61 +15,76 @@ export class AnimeService {
 
   constructor() { }
 
-  searchAnime(title: string): Observable<Array<Anime>>{
-  
-    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime`,{params:{title}}).pipe(
+  searchAnime(title: string): Observable<Array<Anime>> {
+
+    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime`, { params: { title } }).pipe(
       catchError(this.handleError)
     )
   }
 
-  searchAnimeById(id: string): Observable<Anime>{  
-    return this.http.get<Anime>(`${this.apiUrl}/anime-details`,{params:{id}}).pipe(
+  searchAnimeById(id: string): Observable<Anime> {
+    return this.http.get<Anime>(`${this.apiUrl}/anime-details`, { params: { id } }).pipe(
       catchError(this.handleError)
     )
   }
 
-  getAnimeTrending(): Observable<Array<Anime>>{
+  getAnimeTrending(): Observable<Array<Anime>> {
     return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/trending`).pipe(
       catchError(this.handleError)
     )
   }
 
-  getAllCharacterByAnime(id: number): Observable<Array<Character>>{
-    return this.http.get<Array<Character>>(`${this.apiUrl}/anime/characters`,{params:{id}}).pipe(
-      catchError(this.handleError)      
-    )     
-  }
-
-  getAnimesActualSeason( page: number, perPage: number): Observable<Array<Anime>>{
-    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/season` ,{params:{page, perPage}}).pipe(
+  getAllCharacterByAnime(id: number): Observable<Array<Character>> {
+    return this.http.get<Array<Character>>(`${this.apiUrl}/anime/characters`, { params: { id } }).pipe(
       catchError(this.handleError)
     )
   }
 
-  getAnimesUpcoming(page: number, perPage: number): Observable<Array<Anime>>{
-    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/upcoming-season` ,{params:{page, perPage}}).pipe(
+  getAnimesActualSeason(page: number, perPage: number): Observable<Array<Anime>> {
+    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/season`, { params: { page, perPage } }).pipe(
       catchError(this.handleError)
     )
   }
 
-   getAllAnimesActualSeason(page: number, perPage: number): Observable<Array<Anime>>{
-    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/season` ,{params:{page, perPage}}).pipe(
+  getAnimesUpcoming(page: number, perPage: number): Observable<Array<Anime>> {
+    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/upcoming-season`, { params: { page, perPage } }).pipe(
       catchError(this.handleError)
     )
   }
 
-  
+  getAllAnimesActualSeason(page: number, perPage: number): Observable<Array<Anime>> {
+    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/season`, { params: { page, perPage } }).pipe(
+      catchError(this.handleError)
+    )
+  }
 
-  dataFoundEmitter  = new EventEmitter<any>();
-  dataFound(data: any){
+  getAnimeByFilters(page: number, perPage: number,
+    type: any,
+    season: any ,
+    search: any,
+    genreIn: any[],
+    tagIn: any[],
+    seasonYear: any,
+    formatIn: any[]
+  ): Observable<Array<Anime>> {
+    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/filters`, { 
+      params: { page, perPage, type, season, search, genreIn, tagIn, seasonYear, formatIn } }).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+
+
+  dataFoundEmitter = new EventEmitter<any>();
+  dataFound(data: any) {
     this.dataFoundEmitter.emit(data);
   }
 
-  private handleError(error: HttpErrorResponse){
-    if(error.status === 0){
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
       console.error('An error occurred:', error.error);
-    }else{
-      console.error(`Backend returned code ${error.status}, body was: `, error.error); 
+    } else {
+      console.error(`Backend returned code ${error.status}, body was: `, error.error);
     }
     return throwError(() => new Error('Something happened with request, please try again later.'));
   }
