@@ -8,6 +8,7 @@ import { heroChevronDown } from '@ng-icons/heroicons/outline';
 import { AnimeService } from '../../Core/Services/anime.service';
 import { Anime } from '../../Core/Model/anime.model';
 import { Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -22,6 +23,7 @@ export class SearchComponent {
     private genresService = inject(GenresService);
   private searchService = inject(SearchService)
   private animeService = inject(AnimeService)
+  private router = inject(Router)
 
   anime: Anime[] = [];
 
@@ -35,13 +37,14 @@ export class SearchComponent {
 
   countSelectedsGenres = 0;
   nameSelecteFirstGenre: string = '';
-  genresSelected: string[] | null = null;
+  genresSelected: string[] = [];
   nameAnime: string | null = null;
   yearSelected: number = 0;
-  seasonSelected: string = '';
-  formatSelected: string = '';
+  seasonSelected: string | null = null;
+  formatSelected: string[] = [];
   years: number[] = [];
   formats = ["TV","MOVIE","MUSIC","ONA","OVA","SPECIAL","TV_SHORT"];
+  seasons = ["WINTER","SPRING","SUMMER","FALL"];
 
 
   ngOnInit() {
@@ -60,16 +63,27 @@ export class SearchComponent {
   }  
 
   getAnimeByFilters(){  
+    this.nameAnime = $("#nameAnime").val() as string || null;
+    this.seasonSelected = this.seasonSelected?.replace('.','').toUpperCase() || null;
+
+    if(this.yearSelected !== 0 && this.seasonSelected === null){
+      this.seasonSelected = 'WINTER';
+    }
+    if(this.yearSelected === 0 && this.seasonSelected !== null){
+      this.yearSelected = 2025;
+    }   
+    
     this.animeService.getAnimeByFilters(
       1, 
       20, 
       'ANIME',
-      'SUMMER',
+      this.seasonSelected,
       this.nameAnime,
-      this.genresSelected || [],
+      this.genresSelected || null,
       [],
       this.yearSelected,
-      this.formats).pipe(
+      this.formatSelected.length > 0 ? this.formatSelected.map(format => format.replace('.','')) : this.formats
+    ).pipe( 
       takeUntil(this.destroy$)
     ).subscribe({
       next: (data) => {
@@ -89,7 +103,7 @@ export class SearchComponent {
     if (this.countSelectedsGenres === 0) {
       this.nameSelecteFirstGenre = name;
     }
-    if (this.genresSelected?.includes(name)) {
+    if (this.genresSelected?.includes(name)) {      
       this.genresSelected = this.genresSelected.filter(item => item !== name);
       if (this.countSelectedsGenres === 1) {
         this.nameSelecteFirstGenre = '';
@@ -126,16 +140,31 @@ export class SearchComponent {
 
   getSeasonSelected(season: string) {
     if (season !== this.seasonSelected) {
-      $(this.seasonSelected).removeClass('selected')
+      $(this.seasonSelected!).removeClass('selected')
     }
     $(season).addClass('selected')
     this.seasonSelected = season  }
+
   getFormatSelected(format: string) {
-    if (format !== this.formatSelected) {
-      $(this.formatSelected).removeClass('selected')
+    if (this.formatSelected.includes(format)) {
+      // Remove format if already selected
+      this.formatSelected = this.formatSelected.filter(f => f !== format);
+      $(format).removeClass('selected');
+    } else {
+      // Add format if not selected
+      this.formatSelected = [format];
+      $(format).addClass('selected');
+      // Remove selection from other formats
+      this.formats.forEach(f => {
+        if (f !== format) {
+          $(f).removeClass('selected');
+        }
+      });
     }
-    $(format).addClass('selected')
-    this.formatSelected = format;
+  }
+
+  goToAnimeDetails(id: number) {
+    this.router.navigate(['/anime/', id]);   
   }
 
   @HostListener('document:click')

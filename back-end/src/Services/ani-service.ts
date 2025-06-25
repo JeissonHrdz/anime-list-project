@@ -186,10 +186,11 @@ query ($page: Int, $perPage: Int, $type: MediaType,  $season: MediaSeason , $sea
  $tagIn: [String], $seasonYear: Int, $formatIn: [MediaFormat]){ 
 Page (page: $page, perPage: $perPage) {
   media(type: $type, format_in: $formatIn, season: $season, search: $search, genre_in: $genreIn, tag_in: $tagIn, 
-  seasonYear: $seasonYear ,sort: [START_DATE_DESC]) {
+  seasonYear: $seasonYear ,sort: [TRENDING_DESC, FORMAT_DESC]) {
     title {
       romaji     
     }  
+    id
     format
     season  
     coverImage {
