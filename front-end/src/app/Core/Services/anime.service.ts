@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, EventEmitter } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Anime, AnimeSeason } from '../Model/anime.model';
+import { Anime, AnimeFilters, AnimeSeason } from '../Model/anime.model';
 import { Character } from '../Model/character.model';
 import { environment } from '../../../environments/environment';
 
@@ -66,8 +66,8 @@ export class AnimeService {
     tagIn: any[],
     seasonYear: any,
     formatIn: any[]
-  ): Observable<Array<Anime>> {
-    return this.http.get<Array<Anime>>(`${this.apiUrl}/anime/filters`, { 
+  ): Observable<AnimeFilters> {
+    return this.http.get<AnimeFilters>(`${this.apiUrl}/anime/filters`, { 
       params: { page, perPage, type, season, search, genreIn, tagIn, seasonYear, formatIn } }).pipe(
       catchError(this.handleError)
     )

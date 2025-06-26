@@ -44,13 +44,19 @@ export interface Anime {
   }
 }
 
-export interface AnimeSeason {
- 
+export interface AnimeSeason { 
     anime: Anime[];
     pageInfo: {
       hasNextPage: boolean;
-    }
-  
+  }
+}
+
+export interface AnimeFilters { 
+    media: Anime[];
+    pageInfo: {
+      hasNextPage: boolean;
+  }
+
 
 }
 

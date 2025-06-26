@@ -1,17 +1,22 @@
-<section class="w-full flex flex-row">
+<section class="w-full flex flex-col sm:flex-row">
     <!-- Filters Section -->
-    <div class="w-[350px] z-50  rounded-md p-6 m-4">
+    <button class="sm:hidden flex items-center gap-2  fixed bottom-4 right-4 z-50 p-2 rounded-full bg-purple-500 text-neutral-50 custom-shadow" 
+    (click)="toggleFilters()">        
+        <ng-icon name="heroAdjustmentsHorizontal" size="20" color="8a8a8a"></ng-icon>
+        Filters
+    </button>
+    <div class="filters hidden sm:block w-full absolute sm:relative bottom-0 bg-neutral-800 sm:bg-transparent sd:w-[350px] z-50  sm:rounded-md p-6 m-0 sm:m-4">
         <div>
-            <p class="text-xl font-bold">Filters</p> 
+            <p class="text-xl font-bold text-white sm:text-purple-500">Filters</p> 
             <br>
-            <input type="text" id="nameAnime" class="w-[200px] p-2 rounded-md outline-0 bg-white custom-shadow mb-4
+            <input type="text" id="nameAnime" class="w-full sm:w-[200px] p-2 rounded-md outline-0 bg-white custom-shadow mb-4
             font-semibold placeholder:text-neutral-400 text-[14px]" placeholder="Name" />
             <br>
 
-            <div (click)="toggleBoxVisibility('Format')" class="w-[200px] flex justify-between items-center p-2 select-none cursor-pointer rounded-md outline-0
+            <div (click)="toggleBoxVisibility('Format')" class="w-full sm:w-[200px] flex justify-between items-center p-2 select-none cursor-pointer rounded-md outline-0
              bg-white custom-shadow mb-4">
                 <div id="FormatBox"
-                    class="w-[135px] hidden h-[200px] p-4 mt-41 overflow-y-auto absolute left-65 bg-white custom-shadow rounded-md">
+                    class="w-[135px] hidden h-[200px] p-4 mt-41 overflow-y-auto  absolute left-0 sm:left-65 bg-white custom-shadow rounded-md">
                     @for(format of formats; track $index){
                     <p (click)="getFormatSelected('.'+format)" 
                         class="{{format}} p-2 font-semibold text-[14px] rounded-md  hover:bg-purple-100 transition ease-in-out duration-150">
@@ -27,7 +32,7 @@
                 </p>
                 <ng-icon name="heroChevronDown" size="16" class="ml-2" color="#8a8a8a"></ng-icon>
             </div>
-            <div (click)="toggleBoxVisibility('Genres')" class="w-[200px] p-2 flex justify-between items-center select-none cursor-pointer rounded-md outline-0
+            <div (click)="toggleBoxVisibility('Genres')" class="w-full sm:w-[200px] p-2 flex justify-between items-center select-none cursor-pointer rounded-md outline-0
              bg-white custom-shadow mb-4">
                 <div id="GenresBox" (click)="$event.stopPropagation()"
                     class="w-[620px] absolute hidden h-[350px] left-65 mt-79 overflow-y-scroll p-5 rounded-md bg-white custom-shadow">
@@ -101,7 +106,7 @@
                      <ng-icon name="heroChevronDown" size="16" class="ml-2" color="#8a8a8a"></ng-icon>
             </div>
 
-            <div (click)="toggleBoxVisibility('Years')" class="w-[200px] p-2 flex justify-between items-center select-none cursor-pointer rounded-md outline-0
+            <div (click)="toggleBoxVisibility('Years')" class="w-full sm:w-[200px] p-2 flex justify-between items-center select-none cursor-pointer rounded-md outline-0
              bg-white custom-shadow mb-4">
                 <div id="YearsBox"
                     class="w-[135px] hidden h-[200px] p-4 mt-41 overflow-y-auto absolute left-65 bg-white custom-shadow rounded-md">
@@ -120,7 +125,7 @@
                 </p>
                 <ng-icon name="heroChevronDown" size="16" class="ml-2" color="#8a8a8a"></ng-icon>
             </div>
-            <div (click)="toggleBoxVisibility('Season')" class="w-[200px] p-2 flex justify-between items-center select-none cursor-pointer rounded-md outline-0
+            <div (click)="toggleBoxVisibility('Season')" class="w-full sm:w-[200px] p-2 flex justify-between items-center select-none cursor-pointer rounded-md outline-0
              bg-white custom-shadow mb-4">
                 <div id="SeasonBox"
                     class="w-[135px] hidden h-[173px] p-4 mt-35  absolute left-65 bg-white custom-shadow rounded-md">
@@ -153,19 +158,22 @@
                      <ng-icon name="heroChevronDown" size="16" class="ml-2" color="#8a8a8a"></ng-icon>
             </div>
             <br>
-            <button (click)="getAnimeByFilters()" class="w-[200px] p-2 rounded-md bg-purple-500 text-neutral-50 custom-shadow">Search</button>
+            <button (click)="getAnimeByFilters()" class="w-full sm:w-[200px] p-2 rounded-md bg-purple-500 text-neutral-50 custom-shadow">Search</button>
         </div>
     </div>
     <!-- Results -->
     <div>
-        <div class="flex flex-row flex-wrap gap-4 w-full mt-8" >
-            @for(anime of anime; track $index){
+        <div class="flex flex-row flex-wrap gap-4 w-full mt-8 justify-center" >
+            @for(anime of anime.media; track $index){
+                
             <div (click)="goToAnimeDetails(anime.id)" class=" w-[185px]  p-2 flex flex-col items-center rounded-md  mb-4 cursor-pointer">
                 <img class="custom-shadow w-full h-[256px] object-cover rounded-md" [src]="anime.coverImage.large" alt="">
                 <p class="text-neutral-800 font-semibold text-[14px] mt-2 truncate w-[180px]">{{anime.title.romaji}}</p>
             </div>
             }
         </div>
-    </div>
+        <p #loadMore class="mt-20"></p>
+    </div> 
+  
 
 </section>

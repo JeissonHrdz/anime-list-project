@@ -181,7 +181,7 @@ export class AnimeService extends AniListService {
   }
 `;
 
-private readonly ANIME_BY_FILTER = ` 
+  private readonly ANIME_BY_FILTER = ` 
 query ($page: Int, $perPage: Int, $type: MediaType,  $season: MediaSeason , $search: String, $genreIn: [String],
  $tagIn: [String], $seasonYear: Int, $formatIn: [MediaFormat]){ 
 Page (page: $page, perPage: $perPage) {
@@ -197,19 +197,22 @@ Page (page: $page, perPage: $perPage) {
       large
     } 
   }
-}  
+    pageInfo {
+    hasNextPage
+  }
+}   
 }
 `;
 
- async getAnimeByFilter(page: number, perPage: number, type? : string, season?: string | null, search?: string | null, 
-  genreIn?: string[] | null, tagIn?: string[] | null, seasonYear?: number | null, formatIn?: string[] | null
-): Promise<Anime[]> {
-  search = null;  
-  const variables = { page, perPage, type, season, search, genreIn, tagIn, seasonYear, formatIn };
-  const data = await this.makeRequest(this.ANIME_BY_FILTER, variables);
-  console.log(variables);
-  return data.Page.media as Anime[]; 
-} 
+  async getAnimeByFilter(page: number, perPage: number, type?: string, season?: string | null, search?: string | null,
+    genreIn?: string[] | null, tagIn?: string[] | null, seasonYear?: number | null, formatIn?: string[] | null
+  ): Promise<Anime[]> {
+    search = null;
+    const variables = { page, perPage, type, season, search, genreIn, tagIn, seasonYear, formatIn };
+    const data = await this.makeRequest(this.ANIME_BY_FILTER, variables);
+    console.log(variables);
+    return data.Page;
+  }
 
 
   async getAnimeByTitle(
@@ -238,7 +241,7 @@ Page (page: $page, perPage: $perPage) {
     return data.Page.media as Anime[];
   }
 
-  async getAnimeSeason(season: string, seasonYear: number, page:number, perPage:number, sort: string): Promise<Anime[]> {
+  async getAnimeSeason(season: string, seasonYear: number, page: number, perPage: number, sort: string): Promise<Anime[]> {
     const variables = { season, seasonYear, page, perPage, sort };
     const data = await this.makeRequest(this.ANIME_SEASON, variables);
     return data.Page.media as Anime[];
