@@ -62,27 +62,22 @@ export class SearchComponent {
       }
     });
     this.years = this.searchService.getAllYears();
-
-    setTimeout(() => {
-      this.stupIntersectionObserver()
-    }, 1000);
-
   }
 
-  stupIntersectionObserver() {
-    
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.loadMoreAnime()
-          }
-        })
-      })
-      observer.observe(this.loadMore.nativeElement)  
-  }
+  getAnimeByFilters(state: number) {
+    if (state < 1) {
+      this.page = 1;
+    }
 
-  getAnimeByFilters(state?: boolean, page?: number) {
-  
+    if(window.innerWidth < 768){
+      if($(".filters").is(':visible')){
+        $(".filters").toggleClass("fixed");
+        $(".filters").slideToggle("fast");
+        $("#gray-back").toggleClass("hidden fixed");
+      }
+     
+    }
+
     this.nameAnime = $("#nameAnime").val() as string || null;
     this.seasonSelected = this.seasonSelected?.replace('.', '').toUpperCase() || null;
 
@@ -93,23 +88,20 @@ export class SearchComponent {
       this.yearSelected = 2025;
     }
 
-    this.animeService.getAnimeByFilters(this.page, 15, 'ANIME', this.seasonSelected, this.nameAnime, this.genresSelected || null, [],
+    this.animeService.getAnimeByFilters(this.page, 18, 'ANIME', this.seasonSelected, this.nameAnime, this.genresSelected || null, [],
       this.yearSelected, this.formatSelected.length > 0 ? this.formatSelected.map(format => format.replace('.', '')) : this.formats
     ).pipe(takeUntil(this.destroy$)).subscribe({
-      next: (data) => {            
-     
-        if(state){
-          this.anime.media = this.anime.media.concat(data.media);
-        }else{              
+      next: (data) => {
+        if (state < 1) { 
           this.anime.media = data.media
-          this.page = 2;
+          $("#loadMore").removeClass('hidden')
+        } else {
+          this.anime.media = this.anime.media.concat(data.media)
+        }
+        if (!data.pageInfo.hasNextPage) {
+          this.page = 1;
         }
 
-        if(!data.pageInfo.hasNextPage) {
-          state = false; 
-          this.page = 1;       
-        } 
-       
       },
       error: (err) => {
         console.error('Error loading anime:', err);
@@ -118,12 +110,11 @@ export class SearchComponent {
     })
   }
 
-  loadMoreAnime() {  
-    if(this.page > 1){
+
+  loadMoreAnime() {
     this.page++;
-    this.getAnimeByFilters(true);
-    }
-    
+    this.getAnimeByFilters(1);
+
   }
 
   selectedGenresItems(name: string) {
@@ -154,7 +145,9 @@ export class SearchComponent {
   }
 
   toggleFilters() {
-    $(".filters").slideToggle('fast');
+    $(".filters").toggleClass("fixed");
+    $(".filters").slideToggle("fast");
+    $("#gray-back").toggleClass("hidden fixed");
   }
 
   closeBox(id: string) {

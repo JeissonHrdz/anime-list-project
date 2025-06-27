@@ -58,7 +58,7 @@ export class AnimeService {
     )
   }
 
-  getAnimeByFilters(page: number, perPage: number,
+  getAnimeByFilters(page: number, perPage: number, 
     type: any,
     season: any ,
     search: any,
