@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { inject, Injectable, EventEmitter } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Anime, AnimeFilters, AnimeSeason } from '../Model/anime.model';
@@ -58,17 +58,19 @@ export class AnimeService {
     )
   }
 
-  getAnimeByFilters(page: number, perPage: number, 
+  getAnimeByFilters(params: {
+    page: number,
+    perPage: number,
     type: any,
-    season: any ,
+    season: any,
     search: any,
     genreIn: any[],
     tagIn: any[],
     seasonYear: any,
     formatIn: any[]
-  ): Observable<AnimeFilters> {
-    return this.http.get<AnimeFilters>(`${this.apiUrl}/anime/filters`, { 
-      params: { page, perPage, type, season, search, genreIn, tagIn, seasonYear, formatIn } }).pipe(
+  }): Observable<AnimeFilters> {   
+    const options = { params: new HttpParams({ fromObject: params }) };
+    return this.http.get<AnimeFilters>(`${this.apiUrl}/anime/filters`, options).pipe(
       catchError(this.handleError)
     )
   }

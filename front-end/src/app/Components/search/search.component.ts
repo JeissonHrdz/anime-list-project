@@ -8,7 +8,7 @@ import { heroChevronDown, heroAdjustmentsHorizontal } from '@ng-icons/heroicons/
 import { AnimeService } from '../../Core/Services/anime.service';
 import { Anime, AnimeFilters } from '../../Core/Model/anime.model';
 import { Subject, takeUntil } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { stat } from 'node:fs';
 
 @Component({
@@ -25,6 +25,7 @@ export class SearchComponent {
   private searchService = inject(SearchService)
   private animeService = inject(AnimeService)
   private router = inject(Router)
+  private route = inject(ActivatedRoute)
 
   anime: AnimeFilters = {} as AnimeFilters;
   @ViewChild('loadMore') loadMore!: ElementRef
@@ -35,6 +36,7 @@ export class SearchComponent {
   isVisibleBoxSeason = false;
   isVisibleBoxFormat = false;
   isBoxOpened = false;
+  isPaginating = false;
   boxOpened: string = '';
 
   countSelectedsGenres = 0;
@@ -44,12 +46,15 @@ export class SearchComponent {
   yearSelected: number = 0;
   seasonSelected: string | null = null;
   formatSelected: string[] = [];
+  isAnimesCharged: boolean = false;
   years: number[] = [];
   formats = ["TV", "MOVIE", "MUSIC", "ONA", "OVA", "SPECIAL", "TV_SHORT"];
   seasons = ["WINTER", "SPRING", "SUMMER", "FALL"];
   page = 1;
 
   ngOnInit() {
+    
+    this.readParams();
     this.genresService.getGenres().pipe(takeUntil(this.destroy$)
     ).subscribe({
       next: (data) => {
@@ -62,10 +67,14 @@ export class SearchComponent {
       }
     });
     this.years = this.searchService.getAllYears();
+    
   }
 
   getAnimeByFilters(state: number) {
+     if(this.isAnimesCharged && state === 1) return;
+ 
     if (state < 1) {
+      this.isAnimesCharged = false;    
       this.page = 1;
     }
 
@@ -88,27 +97,91 @@ export class SearchComponent {
       this.yearSelected = 2025;
     }
 
-    this.animeService.getAnimeByFilters(this.page, 18, 'ANIME', this.seasonSelected, this.nameAnime, this.genresSelected || null, [],
-      this.yearSelected, this.formatSelected.length > 0 ? this.formatSelected.map(format => format.replace('.', '')) : this.formats
-    ).pipe(takeUntil(this.destroy$)).subscribe({
-      next: (data) => {
-        if (state < 1) { 
-          this.anime.media = data.media
-          $("#loadMore").removeClass('hidden')
-        } else {
-          this.anime.media = this.anime.media.concat(data.media)
-        }
-        if (!data.pageInfo.hasNextPage) {
-          this.page = 1;
-        }
+    let params = {
+      page: this.page,
+      perPage: 18,
+      type: 'ANIME',
+      season: this.seasonSelected,
+      search: this.nameAnime,
+      genreIn: this.genresSelected || null,
+      tagIn: [],
+      seasonYear: this.yearSelected,
+      formatIn: this.formatSelected.length > 0 ? this.formatSelected.map(format => format.replace('.', '')) : this.formats
+    }
 
+    if (!this.anime.media) {
+      this.anime.media = [];
+    }
+    
+    this.animeService.getAnimeByFilters(params).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (data) => {
+        if (state < 1) {
+          this.anime.media = data.media;
+          this.isPaginating = true;
+          $("#loadMore").removeClass('hidden');
+        } else {
+          this.anime.media = [...this.anime.media, ...data.media];      
+          this.isPaginating = true;
+        }
+    
+        if (!data.pageInfo.hasNextPage) {
+          this.isAnimesCharged = true;
+          this.page = 0;
+        }       
       },
       error: (err) => {
         console.error('Error loading anime:', err);
-        console.error(err);
       }
-    })
+    });
+    
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        ...params,
+        genreIn: params.genreIn?.join(','),
+        formatIn: params.formatIn?.join(','),
+        tagIn: params.tagIn?.join(',')
+      },
+      queryParamsHandling: 'merge'
+    });
+
+    
+
   }
+
+  readParams() {
+    this.route.queryParams.subscribe(params => {
+      if(this.isPaginating){
+        this.isPaginating = false;
+        return;
+      } 
+      const filters = {
+        page: 1,
+        perPage: params['perPage'] || 18,
+        type: params['type'] || 'ANIME',
+        season: params['season'] || null,
+        search: params['search'] || null,
+        genreIn: params['genreIn'] ? params['genreIn'].split(',') : [],
+        tagIn: params['tagIn'] ? params['tagIn'].split(',') : [],
+        seasonYear: params['seasonYear'] || null,
+        formatIn: params['formatIn'] ? params['formatIn'].split(',') : []
+      }
+      this.animeService.getAnimeByFilters(filters).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (data) => {
+          this.anime.media = data.media
+          console.log(data)
+          $("#loadMore").removeClass('hidden')
+        },
+        error: (err) => {
+          console.error('Error loading anime:', err);
+          console.error(err);
+        }
+      })
+    })
+   
+  }
+    
+  
 
 
   loadMoreAnime() {

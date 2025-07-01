@@ -25,10 +25,10 @@
                         {{format.replace('_',' ')}}</p>
                     }
                 </div>
-                <p class="font-semibold text-neutral-400 text-[14px]">
+                <p class="font-semibold text-neutral-400 text-[14px]"> 
                     Format:
                     @if(this.formatSelected.length > 0){
-                    <span class="text-purple-500 text-[14px] p-1 font-bold rounded-md"> {{formatSelected}}</span>
+                    <span class="text-purple-500 text-[14px] p-1 font-bold rounded-md"> {{formatSelected.join(', ').replace('.', ' ')}}</span>
                     } 
 
                 </p>
@@ -166,7 +166,7 @@
     <!-- Results -->
     <div>
         <div class="flex flex-row flex-wrap gap-4 w-full mt-8 justify-center " >
-            @for(anime of anime.media; track $index){
+            @for(anime of anime.media; track anime.id){
                 
             <div (click)="goToAnimeDetails(anime.id)" class=" w-[185px]  p-2 flex flex-col items-center rounded-md  mb-4 cursor-pointer">
                 <img class="custom-shadow w-full h-[256px] object-cover rounded-md" [src]="anime.coverImage.large" alt="">
