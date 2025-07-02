@@ -28,7 +28,13 @@
                 <p class="font-semibold text-neutral-400 text-[14px]"> 
                     Format:
                     @if(this.formatSelected.length > 0){
-                    <span class="text-purple-500 text-[14px] p-1 font-bold rounded-md"> {{formatSelected.join(', ').replace('.', ' ')}}</span>
+                    <span class="text-purple-500 text-[14px] p-1 font-bold rounded-md">                       
+                        @if(this.formatSelected.length < 7){
+                         {{formatSelected.join(', ').replace('.', ' ').replace('_',' ')}}
+                        } @else {
+                         
+                        }
+                    </span>
                     } 
 
                 </p>

@@ -53,7 +53,7 @@ export class SearchComponent {
   page = 1;
 
   ngOnInit() {
-    
+
     this.readParams();
     this.genresService.getGenres().pipe(takeUntil(this.destroy$)
     ).subscribe({
@@ -67,24 +67,24 @@ export class SearchComponent {
       }
     });
     this.years = this.searchService.getAllYears();
-    
+
   }
 
   getAnimeByFilters(state: number) {
-     if(this.isAnimesCharged && state === 1) return;
- 
+    if (this.isAnimesCharged && state === 1) return;
+
     if (state < 1) {
-      this.isAnimesCharged = false;    
+      this.isAnimesCharged = false;
       this.page = 1;
     }
 
-    if(window.innerWidth < 768){
-      if($(".filters").is(':visible')){
+    if (window.innerWidth < 768) {
+      if ($(".filters").is(':visible')) {
         $(".filters").toggleClass("fixed");
         $(".filters").slideToggle("fast");
         $("#gray-back").toggleClass("hidden fixed");
       }
-     
+
     }
 
     this.nameAnime = $("#nameAnime").val() as string || null;
@@ -96,6 +96,8 @@ export class SearchComponent {
     if (this.yearSelected === 0 && this.seasonSelected !== null) {
       this.yearSelected = 2025;
     }
+
+    
 
     let params = {
       page: this.page,
@@ -109,31 +111,6 @@ export class SearchComponent {
       formatIn: this.formatSelected.length > 0 ? this.formatSelected.map(format => format.replace('.', '')) : this.formats
     }
 
-    if (!this.anime.media) {
-      this.anime.media = [];
-    }
-    
-    this.animeService.getAnimeByFilters(params).pipe(takeUntil(this.destroy$)).subscribe({
-      next: (data) => {
-        if (state < 1) {
-          this.anime.media = data.media;
-          this.isPaginating = true;
-          $("#loadMore").removeClass('hidden');
-        } else {
-          this.anime.media = [...this.anime.media, ...data.media];      
-          this.isPaginating = true;
-        }
-    
-        if (!data.pageInfo.hasNextPage) {
-          this.isAnimesCharged = true;
-          this.page = 0;
-        }       
-      },
-      error: (err) => {
-        console.error('Error loading anime:', err);
-      }
-    });
-    
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
@@ -145,16 +122,43 @@ export class SearchComponent {
       queryParamsHandling: 'merge'
     });
 
+    if (!this.anime.media) {
+      this.anime.media = [];
+    }
+    console.log(params)
+    this.animeService.getAnimeByFilters(params).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (data) => {
+        if (state < 1) {
+          this.anime.media = data.media;
+          this.isPaginating = true;
+          $("#loadMore").removeClass('hidden');
+        } else {
+          this.anime.media = [...this.anime.media, ...data.media];
+          this.isPaginating = true;
+        }
+
+        if (!data.pageInfo.hasNextPage) {
+          this.isAnimesCharged = true;
+          this.page = 0;
+        }
+      },
+      error: (err) => {
+        console.error('Error loading anime:', err);
+      }
+    });
+
     
+
+
 
   }
 
   readParams() {
     this.route.queryParams.subscribe(params => {
-      if(this.isPaginating){
+      if (this.isPaginating) {
         this.isPaginating = false;
         return;
-      } 
+      }
       const filters = {
         page: 1,
         perPage: params['perPage'] || 18,
@@ -165,7 +169,9 @@ export class SearchComponent {
         tagIn: params['tagIn'] ? params['tagIn'].split(',') : [],
         seasonYear: params['seasonYear'] || null,
         formatIn: params['formatIn'] ? params['formatIn'].split(',') : []
-      }
+      } 
+    
+
       this.animeService.getAnimeByFilters(filters).pipe(takeUntil(this.destroy$)).subscribe({
         next: (data) => {
           this.anime.media = data.media
@@ -177,17 +183,19 @@ export class SearchComponent {
           console.error(err);
         }
       })
+      this.page = params['page']
+      this.yearSelected = params['seasonYear'] || null;
+      this.seasonSelected = params['season'] || null;
+      this.nameAnime = params['search'] || null;
+      this.genresSelected = params['genreIn'] ? params['genreIn'].split(',') : [];  
+      this.formatSelected = params['formatIn'] ? params['formatIn'].split(',') : [];      
+
     })
-   
   }
-    
-  
 
-
-  loadMoreAnime() {
+  loadMoreAnime() {   
     this.page++;
     this.getAnimeByFilters(1);
-
   }
 
   selectedGenresItems(name: string) {
